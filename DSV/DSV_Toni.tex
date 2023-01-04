@@ -67,7 +67,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% DFT-Korrespondenzen %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Fehler mit scale
-\scalebox{0.85}{
+% \scalebox{0.85}{
     \begin{center}
     \begin{tabular}{ | c | c | c | }
 \cline{1-3}
@@ -93,7 +93,7 @@
 \cline{1-3}
     \end{tabular}
     \end{center}
-}
+% }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% z-Transformation %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   \subsection{z-Transformation}
@@ -247,7 +247,7 @@ Definition \textbf{schwache Stationarität}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Ergodizität %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Ergodizität}
 Scharmittelwert und Zeitmittelwert sind aquivalent\\
-\scalebox{0.8}{
+% \scalebox{0.8}{
     \begin{center}
     \begin{tabular}{|c|c|c|}
 \cline{1-3}
@@ -263,7 +263,7 @@ Scharmittelwert und Zeitmittelwert sind aquivalent\\
 \cline{1-3}
     \end{tabular}
     \end{center}
-}
+% }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Leistungsdichtespektrum %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Leistungsdichtespektrum LDS}
@@ -320,10 +320,22 @@ Mit konst. Mittelwerten $E[u(k-\nu)]=\mu_x$ und $E[y(k)]=\mu_y$
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Spektralschätzung %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   \section{Spektralschätzung}
   \subsection{Spektralschätzung mit FFT}
-  Umrechnung $n \rightarrow f$
+  Umrechnung $n \leftrightarrow f$
   \begin{mdframed}[style=exercise]
     \begin{align}
         f_n = n\frac{f_A}{N}
+    \end{align}
+  \end{mdframed}
+  Umrechnung $\Omega \leftrightarrow n$
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        \Omega_n = 2\pi\frac{n}{N} = \omega T_a
+    \end{align}
+  \end{mdframed}
+  Umrechnung $\omega \leftrightarrow n$
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        \omega_n = 2\pi f_A\frac{n}{N} 
     \end{align}
   \end{mdframed}
     \begin{center}
@@ -331,16 +343,26 @@ Mit konst. Mittelwerten $E[u(k-\nu)]=\mu_x$ und $E[y(k)]=\mu_y$
         Spektrum & Zeitbereich \\
         $n=0$ & Konstante $x(0)=\frac{1}{N}X(0)$\\
         $n=\tilde{n}$ & $ x_{\tilde{n}}(k)=\frac{1}{N}( X(\tilde{n})e^{-j\frac{2\pi k\tilde{n}}{N}}+X(N-\tilde{n})e^{-j\frac{2\pi k(N-\tilde{n})}{N}})$\\
-        $n=\frac{1}{N}$ & $e^{jk\pi} = (-1)^k$\\
+        $n=\frac{N}{2}$ & $e^{jk\pi} = (-1)^k$\\
     \end{tabular}
     \end{center}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Leck-Effekt %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Leck-Effekt}
-Kein Ganzzahliges Vielfaches fällt in das Beobachtungsfenster $w(k)$
+Kein Ganzzahliges Vielfaches fällt in das Beobachtungsfenster $w(k)$.\\
+Bsp: Sinus $x(t) = sin(w_0t)\cdot w(t)$ mit $w(t)=rect(\frac{t-T/2}{T})$
   \begin{mdframed}[style=exercise]
-    \begin{align}
-        x_w(k) = x(k)w(k) \laplace \  X_w(n) = X(n)*W(n) 
-    \end{align}
+    \begin{ralign}
+        x_w(k) = x(k)w(k) \laplace \  X_w(n) = X(n)*W(n) \\
+        sin(w_0t) \fourier j\pi(\delta_0(w+w_0)-\delta_0(w-w_0))\\
+        rect(\frac{t-T/2}{T}) \fourier Tsi(w\frac{T}{2})e^{-jw\frac{T}{2}}\\
+        X(jw)=\frac{2}{2\pi}[j\pi(\delta_0(w+w_0)-\delta_0(w+w_0))]*si(w\frac{T}{2})e^{-jw\frac{T}{2}}]\\
+        X(jw)=j\frac{T}{2}[si((w+w_0)\frac{T}{2})e^{-j(w+w_0)\frac{T}{2}} - si((w-w_0)\frac{T}{2})e^{-j(w-w_0)\frac{T}{2}}]
+    \end{ralign}
   \end{mdframed}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Fensterfunktionen %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Zeitfenster}
+\subsection{Zero-Padding}
+Durch Zero-Padding 
 \end{document}
