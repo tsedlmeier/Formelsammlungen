@@ -67,7 +67,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% DFT-Korrespondenzen %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Fehler mit scale
-% \scalebox{0.85}{
+\scalebox{0.85}{
     \begin{center}
     \begin{tabular}{ | c | c | c | }
 \cline{1-3}
@@ -93,7 +93,15 @@
 \cline{1-3}
     \end{tabular}
     \end{center}
-% }
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% DFT-Korrespondenzen %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  \begin{center}
+      \includegraphics[width=.35\textwidth]{./img/dtft.png}
+  \end{center}
+  \begin{center}
+      \includegraphics[width=.35\textwidth]{./img/dft.png}
+  \end{center}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% z-Transformation %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   \subsection{z-Transformation}
@@ -247,7 +255,7 @@ Definition \textbf{schwache Stationarität}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Ergodizität %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Ergodizität}
 Scharmittelwert und Zeitmittelwert sind aquivalent\\
-% \scalebox{0.8}{
+\scalebox{0.8}{
     \begin{center}
     \begin{tabular}{|c|c|c|}
 \cline{1-3}
@@ -263,7 +271,7 @@ Scharmittelwert und Zeitmittelwert sind aquivalent\\
 \cline{1-3}
     \end{tabular}
     \end{center}
-% }
+}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Leistungsdichtespektrum %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Leistungsdichtespektrum LDS}
@@ -352,17 +360,344 @@ Mit konst. Mittelwerten $E[u(k-\nu)]=\mu_x$ und $E[y(k)]=\mu_y$
 Kein Ganzzahliges Vielfaches fällt in das Beobachtungsfenster $w(k)$.\\
 Bsp: Sinus $x(t) = sin(w_0t)\cdot w(t)$ mit $w(t)=rect(\frac{t-T/2}{T})$
   \begin{mdframed}[style=exercise]
-    \begin{ralign}
-        x_w(k) = x(k)w(k) \laplace \  X_w(n) = X(n)*W(n) \\
+$        x_w(k) = x(k)w(k) \laplace \  X_w(n) = X(n)*W(n) \\
         sin(w_0t) \fourier j\pi(\delta_0(w+w_0)-\delta_0(w-w_0))\\
         rect(\frac{t-T/2}{T}) \fourier Tsi(w\frac{T}{2})e^{-jw\frac{T}{2}}\\
         X(jw)=\frac{2}{2\pi}[j\pi(\delta_0(w+w_0)-\delta_0(w+w_0))]*si(w\frac{T}{2})e^{-jw\frac{T}{2}}]\\
-        X(jw)=j\frac{T}{2}[si((w+w_0)\frac{T}{2})e^{-j(w+w_0)\frac{T}{2}} - si((w-w_0)\frac{T}{2})e^{-j(w-w_0)\frac{T}{2}}]
-    \end{ralign}
+        X(jw)=j\frac{T}{2}[si((w+w_0)\frac{T}{2})e^{-j(w+w_0)\frac{T}{2}} - si((w-w_0)\frac{T}{2})e^{-j(w-w_0)\frac{T}{2}}]$
   \end{mdframed}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Fensterfunktionen %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Zeitfenster}
+  \begin{right}
+      \includegraphics[width=.18\textwidth]{./img/rect.png}
+  \end{right}
+  \begin{right}
+      \includegraphics[width=.18\textwidth]{./img/hamming.png}
+  \end{right}
+  \begin{right}
+      \includegraphics[width=.18\textwidth]{./img/hann.png}
+  \end{right}
+  Rechteck um bei k=0 beginnend (um $\frac{N}{2}$ verschoben)
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        rect(k-\frac{N}{2}) \fourier \frac{sin(N\frac{\Omega}{2})}{sin(\frac{\Omega}{2})} e^{-j\Omega\frac{N-1}{2}}
+    \end{align}
+  \end{mdframed}
 \subsection{Zero-Padding}
-Durch Zero-Padding 
+Zero-Padding = Annäherung an die DTFT $\rightarrow$ feinere Spektrumauflösung Energiegehalt $E = E_{ZP}$ \\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Spektral Stoch. Prozesse %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Spektralschätzung Stoch. Prozesse}
+Periodogramm
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        \hat{\phi}_{Per} = \frac{1}{N}\abs{X(n)}^2
+    \end{align}
+  \end{mdframed}
+Mittlere Leistung P mittels Periodogramm
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        P = \frac{1}{N}\sum_{n=0}^{N-1} \hat{\phi}_{Per} = \frac{1}{N^2}\sum_{n=0}^{N-1} \abs{X(n)}^2
+    \end{align}
+  \end{mdframed}
+Falls nur Spektrum von $n\in [0,N/2]$ gegeben
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        P = \frac{1}{N}( \hat{\phi}_{Per}(0) + 2 sum_{n=0}^{N/2-1} \hat{\phi}_{Per} + \hat{\phi}_{Per}(\frac{N}{2})) \\
+        P = \frac{1}{N^2}( \abs{X(0)}^2 + 2 \sum_{n=0}^{N/2-1} \abs{X(n)}^2 + \abs{X(N/2)}^2) 
+    \end{align}
+  \end{mdframed}
+Falls nur best. Frequenzintervall $P\in [f_u,f_0] \rightarrow [n_1,n_2]$ 
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        P = \frac{2}{N}\sum_{n=n_1}^{n_2} \hat{\phi}_{Per} = \frac{2}{N^2}\sum_{n=n_1}^{n_2} \abs{X(n)}^2
+    \end{align}
+  \end{mdframed}
+Auch hier tritt Leck-Effekt auf $\rightarrow$ Minderung mit Fensterfunktion w(t) 
+ABER: Verlust von Energie => Modifikation d. Schätzung mit Korrekturfaktor $U$ (hängt von w(t) ab)
+Spezialfall: w(t) = rect(t) => U = 1 
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        \hat{\phi}_{Per,m} = \frac{1}{NU}\abs{X_m(n)}^2\\
+        U = \frac{1}{N}\sum_{k=0}^{N-1} \abs{w(t)}^2 
+    \end{align}
+  \end{mdframed}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Weißes Rauschen %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Weißes Rauschen}
+LDS ist Konstante $\phi_{xx,WR}(n) = \phi_{xx,WR} = const.$
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        P = \frac{1}{N} \sum_{n=0}^{N-1} \phi_{xx,WR}(n) = \phi_{xx,WR}
+    \end{align}
+  \end{mdframed}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Welch-Methode %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Welch-Methode}
+Zerlegung von x(k) der Länge N in K Sequenzen $x^{(i)}(k)$ der Länge L. 
+Die Startzeitpunkte liegen im Abstand D \\
+Es gilt $N=L+D(K-1)$
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        x^{(i)}(k) = x(k+iD) \ \ k\in[0,L-1] 
+    \end{align}
+  \end{mdframed}
+z.B Fensterung + Zero-Padding $\tilde{L} = L + L_{ZP}$
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        \hat{\phi}_{Per}^{(i)}(n) = \frac{1}{LU}\abs{X^{(i)}(n)}^2\\
+        U = \frac{1}{L}\sum_{k=0}^{N-1} \abs{w(t)}^2 
+    \end{align}
+  \end{mdframed}
+Das LDS ergiebt sich aus \textcolor{red}{Mittelung} aller K Periodogramme
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        \hat{\phi}_{W}(n) = \frac{1}{K}\sum_{i=0}^{K-1} \hat{\phi}^{(i)}(n) \\
+        P = \frac{1}{\tilde{L}}\sum_{n=0}^{\tilde{L}-1}\hat{\phi}_{W}(n)
+    \end{align}
+  \end{mdframed}
+$K\uparrow$ => Varianz d. Schätzung$\downarrow$ => Qualität $\uparrow$\\
+$L\downarrow$ => Frequenzauflösung$\downarrow$ \\
+$D\downarrow$ => Überlapp$\uparrow$ => K$\uparrow$ => Rechenaufwand$\uparrow$
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Digitale-Filter%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Digitale-Filter}
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        H(z)=\frac{Y(z)}{U(z)}= \frac{\sum_{\mu=0}^{m} b_\mu z^{-\mu}}{\sum_{\nu=0}^{n} a_\nu z^{-\nu}}
+    \end{align}
+  \end{mdframed}
+Darstellung Linearfaktoren für n=2
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        H(z)=\frac{b_0(z-z_{01})(z-z_{02})}{a_0(z-z_{\infty 1})(z-z_{\infty 2})}
+    \end{align}
+  \end{mdframed}
+Jeder Linearfaktor kann als von der Frequenz $\Omega$ abhängiger Drehzeiger
+\begin{itemize}
+    \item Pol verstärkt Amplitudengang
+    \item Nullstelle dämpft Amplitudengang
+\end{itemize}
+\begin{itemize}
+    \item $(e^{j\Omega}-z_{01}) = D_{01}e^{j\phi_{01}}$ und $(e^{j\Omega}-z_{02}) = D_{02}e^{j\phi_{02}}$\\ \item $(e^{j\Omega}-z_{\infty 1}) = D_{\infty 1}e^{j\phi_{01}}$ und $(e^{j\Omega}-z_{01}) = D_{\infty 2}e^{j\phi_{\infty 2}}$ \end{itemize}
+  \begin{center}
+      \includegraphics[width=.35\textwidth]{./img/ehk.png}
+  \end{center}
+\begin{itemize}
+    \item Amplitudengang: $\abs{H(e^{j\Omega})}=\abs{\frac{b_0}{a_0}} \abs{ \frac{D_{01}D_{02}}{D_{\infty 1}D_{\infty 2}}}$
+    \item Phasengang: $arg({H(e^{j\Omega})})=arg(\frac{b_0}{a_0}) +\phi_{01} +\phi_{02}-\phi_{\infty 1}-\phi_{\infty 2}$
+\end{itemize}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Rekursiver Glätter %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Rekursiver Glätter}
+Vergangenheitswert y(k-1) wird mit Faktor $a\in [0,1]$
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        y(k) = ay(k-1)+(1-a)u(k) \\
+        H(z) =\frac{1-a}{1-az^{-1}}=\frac{(1-a)z}{z-a}
+    \end{align}
+  \end{mdframed}
+Vom Verhalten entspricht er einem Tiefpass 1.Ordnung mit Grenzfrequenz $\Omega_g$ (a lässt sich aus $\Omega_g$ berechnen)
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        H(e^{j\Omega}) =\frac{1-a}{1-ae^{j\pi\Omega}}\\
+        \Omega_g = 2\pi\frac{f_g}{f_A}\\
+        a = 2-cos(\Omega_g)-\sqrt{(2-cos(\Omega_g)^2)-1}
+    \end{align}
+  \end{mdframed}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Mittelwert %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Arithmetischer Mittelwert Glätter}
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        y(k)=\frac{1}{N}\sum_{\nu=0}^{N-1} u(k-\nu)\\
+        H(z)=\frac{1}{N}\sum_{\nu=0}^{N-1} z^{-\nu} = \frac{1}{N}\frac{z^{-N}-1}{z^{-1}-1}
+    \end{align}
+  \end{mdframed}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Notch-Filter %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Notch-Filter}
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        H(z)=\frac{(z-e^{j\Omega 0})(z-e^{-j\Omega 0})}{(z-r_{\infty}e^{j\Omega 0})(z-r_{\infty}e^{-j\Omega 0})}
+    \end{align}
+  \end{mdframed}
+Vorgabe Kerbe bei Frequenz $f_N$ und -3dB Breite $\Delta f$ und gegebener Abtastfrequenz $f_A$
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        \Omega_0=\frac{2\pi f_N}{f_A}\\
+        \Delta\Omega=\frac{2\pi\Delta f}{f_A}
+    \end{align}
+  \end{mdframed}
+Einsetzen in Übertragungsfunktion H(z) 
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        H(z)=b\frac{1-2cos(\Omega_0)z^{-1}+z^{-2}}{1-2bcos(\Omega_0)z^{-1}+(2b-1)z^{-2}}\\
+        b=\frac{1}{1+\frac{\sqrt{1-G_B^2}}{G_B}tan(\frac{\Delta\Omega}{2})}
+    \end{align}
+  \end{mdframed}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Kammfilter %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Kammfilter}
+Zu jeder Nullstelle $z_{0n}$ einen Pol $z_{\infty n}$ im Radius $r_\infty<1$ plazieren. p = Ordnung
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        z_{\infty n} = r_\infty e^{j\frac{2\pi n}{p}} = r_\infty z_{0n} \ \ n\in[0,p-1]
+    \end{align}
+  \end{mdframed}
+Dimensionierung b, sodass zwischen Kerben 0dB(=1)
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        H(z)=b\frac{1-z^{-p}}{1-r_\infty z^{-p}}\\
+        \abs{b\frac{2}{1+r_\infty^p}}\stackrel{!}{=}1 \leftrightarrow b=\frac{1+r_\infty ^p}{2}
+    \end{align}
+  \end{mdframed}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Goertzel-Algorithmus %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Goertzel-Algorithmus}
+Bestimmung eines einzelnen DFT-Spektralwert X(n). Gleicher Rechenaufwand wie FFT aber Blocklänge N muss keine 2er Potenz sein. $\tilde{x}(k)=[x(0..N-1) \ 0]$ (N-ter Wert 0 setzen)
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        n_0 = \frac{f_0}{f_A}N\\
+        X(n_0)= y(k)=x(k)*h(k)|_{k=N}\\
+        X(n_0)=y_n(k)=\sum_{\nu=0}^{k}\tilde{x}(\nu)e^{j\frac{2\pi}{N}(k-\nu)n}
+    \end{align}
+  \end{mdframed}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% IIR-Filter %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{IIR-Filter}
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        H(z)=\frac{Y(z)}{U(z)}= \frac{\sum_{\mu=0}^{m} b_\mu z^{-\mu}}{\sum_{\nu=0}^{n} a_\nu z^{-\nu}}
+    \end{align}
+  \end{mdframed}
+Gruppenlaufzeit $\tau$ = Verzögerungszeit des Systems aufgelöst nach Frequenzen
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        \tau = \frac{d}{df}\varphi
+    \end{align}
+  \end{mdframed}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% FIR-Filter %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{FIR-Filter}
+grundsätzlich Stabil, Ordnung m $\rightarrow$ m Pole im Ursprung
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        H(z)=\frac{Y(z)}{U(z)}= \sum_{\mu=0}^{m} b_\mu z^{-\mu} \\
+        H(z)=\frac{b_0\Pi_{\mu=1}^{m}(z-z_{0\mu})}{z^m}\\
+        h(k)= b_k \ \ k\in[0,m-1] 
+    \end{align}
+  \end{mdframed}
+Gewollte Eigenschaft: \textcolor{red}{lineare Phase}
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        \tau_g = \frac{d}{d\Omega} arg(H(e^{j\Omega})) = const.
+    \end{align}
+  \end{mdframed}
+lineare Phase wenn Nullstellen von H(z)
+\begin{itemize}
+    \item auf Einheitskreis
+    \item in am Einheitskreis gespiegelten Paaren $z_{01}$ und $\frac{1}{z^*_{01}}$
+\end{itemize}
+auftreten
+  \begin{center}
+      \includegraphics[width=.1\textwidth]{./img/fir.png}
+  \end{center}
+Für linearphasige FIR-Filter der Ordnung p gilt für Impulsantwort h(k) eine der beiden Symmetrien
+\begin{itemize}
+    \item $h(k)= h(p-k)$ (gerade Symmetrie) 
+    \item $h(k)= -h(p-k)$ (ungerade Symmetrie) 
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Kanonische-Formen %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{1. Kanonische-Form (IIR)}
+Hälfte der Speicherzellen $a_0=1$
+  \begin{center}
+      \includegraphics[width=.35\textwidth]{./img/kanon1.png}
+  \end{center}
+\subsection{2. Kanonische-Form (IIR)}
+  \begin{center}
+      \includegraphics[width=.35\textwidth]{./img/kanon2.png}
+  \end{center}
+\subsection{3. Kanonische-Form (IIR)}
+  \begin{center}
+      \includegraphics[width=.35\textwidth]{./img/kanon3.png}
+  \end{center}
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        H(z)=\Pi_{\nu=0}^{N_K} H_\nu(z)\\
+        H_\nu(z)^{(1)}=\frac{b_{0\nu}+b_{1\nu}z^{-1}}{1+a_{1\nu}z^{-1}}\\
+        H_\nu(z)^{(2)}=\frac{b_{0\nu}+b_{1\nu}z^{-1}+b_{2\nu}z^{-2}}{1+a_{1\nu}z^{-1}+a_{2\nu}z^{-2}}
+    \end{align}
+  \end{mdframed}
+\subsection{4. Kanonische-Form (IIR)}
+  \begin{center}
+      \includegraphics[width=.25\textwidth]{./img/kanon4.png}
+  \end{center}
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        H(z)=b_0+\sum_{\nu=1}^{N_P}H\nu(z)
+    \end{align}
+  \end{mdframed}
+\subsection{Trasversalfilter (FIR)}
+Kann effizient durch MAC-Befehl realisiert werden. 
+Für linearphasige reelwertige FIR-Filter kann die Symmetrie der $b_k$ genutzt werden.
+  \begin{center}
+      \includegraphics[width=.35\textwidth]{./img/trans.png}
+  \end{center}
+\subsection{SOS-Faustregel (IIR)}
+Aufteilung der Pole-Nullstellen in Biquads, sodass sich Einflüsse auf Frequenzgang ausgleichen.
+Vorgehen:
+\begin{itemize}
+    \item Beginnen mit Pol der am dichtesten am EHK liegt
+\end{itemize}
+  \begin{center}
+      \includegraphics[width=.35\textwidth]{./img/biquad.png}
+  \end{center}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Abtastung %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Abtastung}
+\subsection{Dezimator Ganzzahliges M}
+Dezimator = Kompressor 
+  \begin{center}
+      \includegraphics[width=.35\textwidth]{./img/dezi.png}
+  \end{center}
+Das Spektrum $X(e^{j\tilde{\Omega}})$ des ursprünglichen Signals x(k) wird um $M$ dezimiert,
+was zum Spektrum $X_d(e^{j\Omega})$ führt.
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        x_d(k)=x_c(kMT_A)\\
+        X(e^{j\tilde{\Omega}})=\frac{1}{T_A}\sum_{\nu=-\infty}^{\infty} X_c(j\frac{\tilde{\Omega}}{T_A} -\nu\frac{2\pi}{T_A})\\
+        X_d(e^{j\Omega})=\frac{1}{MT_A}\sum_{\mu=-\infty}^{\infty} X_c(e^{j\frac{\Omega}{MT_A} -\mu\frac{2\pi}{MT_A}})\\
+        % \tilde{\Omega}=\frac{\Omega}{M}-i\frac{2\pi}{M}
+        X_d(e^{j\Omega})=\frac{1}{M}\sum_{i=0}^{M-1} X(e^{j\frac{\Omega}{M} -i\frac{2\pi}{M}})\\
+    \end{align}
+  \end{mdframed}
+  \begin{itemize}
+    \item Skalierung der Frequenzachse um $\frac{\Omega}{M}$
+    \item Verringerung der Periodisierung
+    \item Skalierung des Spektrums mit $\frac{1}{M}$
+    \item Falls Nyquist-Kriterium $\frac{f_A}{M}>2\tilde{f}_{max}$ nicht erfüllt $\rightarrow$ Hohe Frequenzanteile Tiefpass-Filtern 
+  \end{itemize}
+  \begin{center}
+      \includegraphics[width=.35\textwidth]{./img/dezi2.png}
+  \end{center}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Interpolator %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Interpolator Ganzzahliges M}
+Interpolator = Expander
+  \begin{center}
+      \includegraphics[width=.35\textwidth]{./img/interpol.png}
+  \end{center}
+Expander hängt hinter jedem Abtastwert von x(k) L-1 0er an.
+$x_e(k)= [x(k/L) \ zeros(1,L-1)]$
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        x_i(k)=x_c(k\frac{T_A}{L})\\
+        X_e(e^{j\tilde{\Omega}})=\sum_{\nu=-\infty}^{\infty} x(\nu)e^{-j\Omega\nu L}\\
+        X_e(e^{j\Omega}) =X(e^{j\Omega L})
+    \end{align}
+  \end{mdframed}
+  \begin{itemize}
+    \item Spektrum $X_e(e^{j\Omega}) =X(e^{j\Omega L})$ läuft von $-\pi/L ...\pi/L$
+    \item Keine Skalierung des Spektrums 
+  \end{itemize}
+  \begin{center}
+      \includegraphics[width=.35\textwidth]{./img/interpol2.png}
+  \end{center}
 \end{document}
