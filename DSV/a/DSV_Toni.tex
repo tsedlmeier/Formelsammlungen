@@ -21,6 +21,7 @@
 \usepackage{csquotes}
 \usepackage{trfsigns}
 \usepackage{capt-of}
+\usepackage{adjustbox}
 
 \sisetup{locale=DE}
 \sisetup{per-mode = symbol-or-fraction}
@@ -61,15 +62,15 @@
   \begin{mdframed}[style=exercise]
     \begin{align}
         X(n)&=\sum_{k=0}^{N-1} x(k)e^{-j\frac{2\pi kn}{N}} \\
-        x(k)&=\frac{1}{N}\sum_{n=0}^{N-1} X(n)e^{-j\frac{2\pi kn}{N}} 
+        x(k)&=\frac{1}{N}\sum_{n=0}^{N-1} X(n)e^{j\frac{2\pi kn}{N}} 
     \end{align}
   \end{mdframed}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% DFT-Korrespondenzen %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Fehler mit scale
-\scalebox{0.85}{
-    \begin{center}
-    \begin{tabular}{ | c | c | c | }
+\scriptsize
+\begin{center}
+\begin{tabular}{ | c | c | c | }
 \cline{1-3}
         & Zeitbereich & Spektralbereich \\
 \cline{1-3}
@@ -91,9 +92,9 @@
 \cline{1-3}
         ungerade Symmetrie & $x_u(k)=\frac{x(k)-x(-k)}{2}$ & $X_u(n)=\frac{X(n)-X(-n)}{2}$ \\
 \cline{1-3}
-    \end{tabular}
-    \end{center}
-}
+\end{tabular}
+\end{center}
+% }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% DFT-Korrespondenzen %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   \begin{center}
@@ -255,9 +256,9 @@ Definition \textbf{schwache Stationarität}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Ergodizität %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Ergodizität}
 Scharmittelwert und Zeitmittelwert sind aquivalent\\
-\scalebox{0.8}{
-    \begin{center}
-    \begin{tabular}{|c|c|c|}
+\scriptsize
+\begin{center}
+\begin{tabular}{|c|c|c|}
 \cline{1-3}
         & Zeitmittelwert(Schätzung) & Scharmittelwert \\
 \cline{1-3}
@@ -269,9 +270,8 @@ Scharmittelwert und Zeitmittelwert sind aquivalent\\
 \cline{1-3}
         Kreuzkorrelation $\varphi_{xy}(\lambda)$ & $\varphi_{xy}(\lambda)=\frac{1}{N}\sum_{k=0}^{N-1} x^*(k)y(k+\lambda) $ & $E[x^*(k)y(k+\lambda)]$ \\
 \cline{1-3}
-    \end{tabular}
-    \end{center}
-}
+\end{tabular}
+\end{center}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Leistungsdichtespektrum %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Leistungsdichtespektrum LDS}
@@ -369,15 +369,15 @@ $        x_w(k) = x(k)w(k) \laplace \  X_w(n) = X(n)*W(n) \\
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Fensterfunktionen %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Zeitfenster}
-  \begin{right}
-      \includegraphics[width=.18\textwidth]{./img/rect.png}
-  \end{right}
-  \begin{right}
-      \includegraphics[width=.18\textwidth]{./img/hamming.png}
-  \end{right}
-  \begin{right}
-      \includegraphics[width=.18\textwidth]{./img/hann.png}
-  \end{right}
+  % \begin{right}
+  %     \includegraphics[width=.18\textwidth]{./img/rect.png}
+  % \end{right}
+  % \begin{right}
+  %     \includegraphics[width=.18\textwidth]{./img/hamming.png}
+  % \end{right}
+  % \begin{right}
+  %     \includegraphics[width=.18\textwidth]{./img/hann.png}
+  % \end{right}
   Rechteck um bei k=0 beginnend (um $\frac{N}{2}$ verschoben)
   \begin{mdframed}[style=exercise]
     \begin{align}
@@ -480,7 +480,9 @@ Jeder Linearfaktor kann als von der Frequenz $\Omega$ abhängiger Drehzeiger
     \item Nullstelle dämpft Amplitudengang
 \end{itemize}
 \begin{itemize}
-    \item $(e^{j\Omega}-z_{01}) = D_{01}e^{j\phi_{01}}$ und $(e^{j\Omega}-z_{02}) = D_{02}e^{j\phi_{02}}$\\ \item $(e^{j\Omega}-z_{\infty 1}) = D_{\infty 1}e^{j\phi_{01}}$ und $(e^{j\Omega}-z_{01}) = D_{\infty 2}e^{j\phi_{\infty 2}}$ \end{itemize}
+    \item $(e^{j\Omega}-z_{01}) = D_{01}e^{j\phi_{01}}$ und $(e^{j\Omega}-z_{02}) = D_{02}e^{j\phi_{02}}$
+    \item $(e^{j\Omega}-z_{\infty 1}) = D_{\infty 1}e^{j\phi_{01}}$ und $(e^{j\Omega}-z_{01}) = D_{\infty 2}e^{j\phi_{\infty 2}}$
+\end{itemize}
   \begin{center}
       \includegraphics[width=.35\textwidth]{./img/ehk.png}
   \end{center}
@@ -701,7 +703,7 @@ $x_e(k)= [x(k/L) \ zeros(1,L-1)]$
       \includegraphics[width=.35\textwidth]{./img/interpol2.png}
   \end{center}
 \subsection{Änderung nicht Ganzzahlig}
-Zusammenfassung der Tiefpässe zu einem mit V=L und Grenzfrequenz $\Omega_{g,i&d}=min(\frac{\pi}{L}, \frac{\pi}{M})$
+Zusammenfassung der Tiefpässe zu einem mit V=L und Grenzfrequenz $\Omega_{g,i\&d}=min(\frac{\pi}{L}, \frac{\pi}{M})$
   \begin{mdframed}[style=exercise]
     \begin{align}
         \Omega_{nachher}=\Omega_{vorher}\frac{M}{L}

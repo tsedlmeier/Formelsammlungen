@@ -256,7 +256,7 @@ Bsp. Ordnung Filter N = 4, Framesize = 8\\
 \begin{itemize}
     \item Left[N|FRAMESIZE], buffer[FRAMESIZE]
     \item Left[N:FRAMESIZE+N] = buffer[0:FRAMESIZE]
-    \item buffer[0:FRAMESIZE] = Left * B (B wird drüber FRAMESIZE-mal drüber geschoben s.o)
+    \item buffer[0:FRAMESIZE] = Left * B (B wird \\drüber FRAMESIZE-mal drüber geschoben s.o)
     \item Left[0:N] = Left[FRAMESIZE:FRAMESIZE+N]
 \end{itemize}
 \begin{minted}[fontsize=\scriptsize]{c}
@@ -355,7 +355,7 @@ Die LUT ist mit $N = 2^n$ 12-bit breiten Werten gefüllt
   \end{center}
   \begin{mdframed}[style=exercise]
     \begin{align}
-        \mu =  
+        \mu = N \frac{f_d}{f_s}  
     \end{align}
   \end{mdframed}
 

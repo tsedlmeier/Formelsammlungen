@@ -14,3 +14,4 @@ $(DOK).pdf:  $(DOK).tex
 
 clean:
 	rm -f *.{pdf,aux,lof,log,lot,lol,bcf,toc,bbl,blg,run.xml,out}
+	rm -fr ./_minted-*
