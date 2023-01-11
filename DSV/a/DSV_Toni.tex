@@ -22,6 +22,7 @@
 \usepackage{trfsigns}
 \usepackage{capt-of}
 \usepackage{adjustbox}
+\usepackage{verbatim}
 
 \sisetup{locale=DE}
 \sisetup{per-mode = symbol-or-fraction}
@@ -35,7 +36,7 @@
 \begin{document}
 \twocolumn
 \pagestyle{fancy}
-\lhead{DSV Formelsammlung}
+\lhead{DSV Formelsammlung, Stand {\input{\string"| git rev-parse --short HEAD\string"}}}
 \rhead{Sedlmeier, Toni}
 \section{Elementare DSV}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Energie %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
