@@ -89,7 +89,7 @@ $\tilde{x}(k) = x([k]_{modN})$
 \cline{1-3}
         Konj.Kompl & $x^*(k)$& $X^*([-n]_{modN})$\\ 
 \cline{1-3}
-        Konj.Kompl.gespiegelt & $x^*([-k]{modN})$& $X^*(n)$\\ 
+        Konj.Kompl.gespiegelt & $x^*([-k]_{modN})$& $X^*(n)$\\ 
 \cline{1-3}
         Faltung & $x_1(k) \circledast x_2(k)$ & $X_1(n)X_2(n)$ \\  
 \cline{1-3}
@@ -136,7 +136,7 @@ $\tilde{x}(k) = x([k]_{modN})$
   $x_1(k)$ und $x_2(k)$ durch \textbf{Zero-Padding} auf $N = N_1 +N_2 -1$ 
   \begin{mdframed}[style=exercise]
     \begin{align}
-        x_1(k) \circledast x_2(k) = \sum_{\nu =k_0}^{k_0+N-1} x_1(\nu) x_2(k-\nu)
+        x_1(k) \circledast x_2(k) = \sum_{\nu =0}^{N-1} x_1(\nu) x_2([k-\nu]_{modN})= \sum_{\nu =0}^{N-1}x_1([k-\nu]_{modN}) x_2(\nu)
     \end{align}
   \end{mdframed}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
