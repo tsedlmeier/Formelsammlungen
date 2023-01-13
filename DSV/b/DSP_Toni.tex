@@ -204,9 +204,9 @@ interrupt void Codec_ISR()
     // get input data samples
   	CodecDataIn.UINT = ReadCodecData();		
   	// IN
-    buffer[fill_index][ LEFT][sample_count] = CodecDataIn.Channel[ LEFT] + CodecDataIn.Channel[RIGHT];  // because we don't know exactly where our signal is
-    buffer[fill_index][RIGHT][sample_count] = CodecDataIn.Channel[RIGHT] + CodecDataIn.Channel[ LEFT];  // save the input value for comparison
-  	// OUT
+    buffer[fill_index][ LEFT][sample_count] = LEFT + RIGHT; // cropped
+    buffer[fill_index][RIGHT][sample_count] = RIGHT + LEFT; // cropped
+    // OUT
     CodecDataOut.channel[ LEFT] = buffer[dump_index][LEFT][sample_count];
     CodecDataOut.channel[RIGHT] = buffer[dump_index][RIGHT][sample_count];
 
@@ -222,7 +222,7 @@ interrupt void Codec_ISR()
             over_run = 1;
         buffer_ready = 1;
     }
-	WriteCodecData(CodecDataOut.UINT);		// send output data to  port
+	WriteCodecData(CodecDataOut.UINT);// send output data to  port
 }
 \end{minted}
 \subsection{Blocksignalverarbeitung mit DMA}
@@ -244,12 +244,10 @@ interrupt void EDMA_ISR()
 
 \subsection{FIR mit Blocksignalverarbeitung}
 Bsp. Ordnung Filter N = 4, Framesize = 8\\
-  \begin{right}
+  \begin{center}
       \includegraphics[width=.25\textwidth]{./img/firframe1.png}
-  \end{right}
-  \begin{right}
       \includegraphics[width=.25\textwidth]{./img/firframe2.png}
-  \end{right}
+  \end{center}
 \textbf{Problem}: Bei Frame-Übergängen müssen die N-1 letzten Werte des letzten Frames berücksichtigt werden.\\
 \textbf{Lösung}: Framesize += N
 

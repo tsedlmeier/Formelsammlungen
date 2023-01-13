@@ -13,5 +13,5 @@ $(DOK).pdf:  $(DOK).tex
 	pdflatex -shell-escape $(DOK).tex 
 
 clean:
-	rm -f *.{pdf,aux,lof,log,lot,lol,bcf,toc,bbl,blg,run.xml,out}
+	rm -f *.{aux,lof,log,lot,lol,bcf,toc,bbl,blg,run.xml,out}
 	rm -fr ./_minted-*
