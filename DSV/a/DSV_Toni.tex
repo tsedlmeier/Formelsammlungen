@@ -313,6 +313,21 @@ Scharmittelwert und Zeitmittelwert sind aquivalent\\
 \cline{1-3}
 \end{tabular}
 \end{center}
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\cline{1-3}
+        & Zeitmittelwert & Scharmittelwert \\
+\cline{1-3}
+        lin. Mittelw & $\displaystyle \lim_{N \to \infty}  \frac{1}{2N+1}\sum_{k=-N}^{N}x(k)$ & $E[x(k)]$ \\
+\cline{1-3}
+        Varianz $\sigma_x^2 $ & $\displaystyle \lim_{N \to \infty}  \frac{1}{2N+1}\sum_{k=-N}^{N}\abs{x(k)-\mu_x}^2$ & $E[\abs{x(k)-\mu_x}^2]$ \\
+\cline{1-3}
+        AKorr. $\varphi_{xx}(\lambda)$ & $\displaystyle \lim_{N \to \infty}  \frac{1}{2N+1}\sum_{k=-N}^{N} x^*(k)x(k+\lambda) $ & $E[x^*(k)x(k+\lambda)]$ \\
+\cline{1-3}
+        KKorr. $\varphi_{xy}(\lambda)$ & $\displaystyle \lim_{N \to \infty}  \frac{1}{2N+1}\sum_{k=-N}^{N} x^*(k)y(k+\lambda) $ & $E[x^*(k)y(k+\lambda)]$ \\
+\cline{1-3}
+\end{tabular}
+\end{center}
 \normalsize
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Leistungsdichtespektrum %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
