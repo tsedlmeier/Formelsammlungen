@@ -855,7 +855,12 @@ $x[k] = a\cdot cos(\Omega_{0}\cdot k)$
 \subsection{Anmerkung LTI-Systeme}
 $H(z)=\frac{Y(z)}{U(z)}=\frac{\grqq{}Ausgangssignal\grqq{}}{\grqq{}Eingangssignal\grqq{}}$
 \begin{itemize}
-    \item \textbf{Allgemein: } $z^{-1}$ entspricht Verzögerung um einen Abtastwert
+    \item \textbf{Allgemein: }
+    	\begin{itemize}
+    	\item $z^{-1}$ entspricht Verzögerung um einen Abtastwert
+    	\item z-Trans. = Laplace-Trans. für abgetastete Signale
+    	\item $z = e^{j\cdot\Omega}=e^{(\delta + j \cdot \omega)\cdot T_a}$
+    	\end{itemize}
     \item \textbf{Übertragungsfunktion: } $H(z)=\frac{Y(z)}{U(z)}= \frac{\sum_{\mu=0}^{m} b_\mu z^{-\mu}}{\sum_{\nu=0}^{n} a_\nu z^{-\nu}}$	
     \item \textbf{Ordnung des Systems: } Maximum des Polynomgrades von m \& n
     \item \textbf{Stabilität: }
@@ -872,16 +877,21 @@ $H(z)=\frac{Y(z)}{U(z)}=\frac{\grqq{}Ausgangssignal\grqq{}}{\grqq{}Eingangssigna
     	(\textbf{NICHT} von \textbf{zukünftigen} Werten abhängig)
     	\item \textbf{Stabilität: } siehe oben
     	\end{itemize}
+    \item 
 \end{itemize}  
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Taschenrechner-Tricks %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \subsection{Taschenrechner-Tricks (Casio fx-991DEX)}
 \begin{itemize}
     \item Polstellen-Bestimmung:  
    	 \begin{enumerate}
     	 \item \grqq{}MENU SETUP\grqq{}
-    	 \item $({X \atop =}{Y \atop 0})$
-         \end{enumerate}
+    	 \item $({X \atop =}{Y \atop 0})$ \grqq{}A:Gleichung/Funkt\grqq{}
+    	 \item \grqq{}=\grqq{}
+    	 \item \grqq{}2:Polynom-Gleichung\grqq{}
+    	 \end{enumerate}
+	 \textbf{ACHTUNG:} Grad muss $\leq 4$ UND $\geq 1$ sein!
 \end{itemize}
 \end{document}
