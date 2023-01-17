@@ -105,37 +105,6 @@ $[n]_{modN}=n-N \lfloor \frac{n}{N} \rfloor$
 \end{tabular}
 \end{center}
 \normalsize
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% DFT-Korrespondenzen %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\scriptsize
-\begin{center}
-\begin{tabular}{ | c | c | c | }
-\cline{1-3}
-        & Zeitbereich 2 & Spektralbereich 2\\
-\cline{1-3}
-        Linearität & $a\cdot x_1(k)+ b\cdot x_2(k)$ & $a\cdot X_1(n) +b\cdot X_2(n)$ \\
-\cline{1-3}
-        Zeit-Verschiebung & $x([k\textcolor{red}{-}k_0]_{modN})$ & $e^{\textcolor{red}{-}j\frac{2\pi nk_0}{N}} X(n)$\\
-\cline{1-3}
-        Frequenz-Verschiebung & $e^{\textcolor{red}{-}j\frac{2\pi nk_0}{N}} x(k)$ & $X([n\textcolor{red}{+}k_0]_{modN})$ \\  
-\cline{1-3}
-        Spiegelung & $x([-k]_{modN})$ & $X([-n]_{modN})$ \\  
-\cline{1-3}
-        Konj.Kompl & $x^*(k)$& $X^*([-n]_{modN})$\\ 
-\cline{1-3}
-        Konj.Kompl.gespiegelt & $x^*([-k]_{modN})$& $X^*(n)$\\ 
-\cline{1-3}
-        Faltung & $x_1(k) \circledast x_2(k)$ & $X_1(n)X_2(n)$ \\  
-\cline{1-3}
-        Multiplikation & $x_1(k)x_2(k)$ & $\frac{1}{N} X_1(n) \circledast X_2(n)$ \\
-\cline{1-3}
-        gerade Symmetrie & $x_g(k)=\frac{x(k)+\tilde{x}(-k)}{2}$ & $X_g(n)=\frac{X(n)+X(-n)}{2}$ \\
-\cline{1-3}
-        ungerade Symmetrie & $x_u(k)=\frac{x(k)-\tilde{x}(-k)}{2}$ & $X_u(n)=\frac{X(n)-X(-n)}{2j}$ \\
-\cline{1-3}
-\end{tabular}
-\end{center}
-\normalsize
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% DFT-Korrespondenzen %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   \begin{center}
@@ -344,21 +313,6 @@ Scharmittelwert und Zeitmittelwert sind aquivalent\\
 \cline{1-3}
 \end{tabular}
 \end{center}
-\begin{center}
-\begin{tabular}{|c|c|c|}
-\cline{1-3}
-        & Zeitmittelwert & Scharmittelwert \\
-\cline{1-3}
-        lin. Mittelw & $\displaystyle \lim_{N \to \infty}  \frac{1}{2N+1}\sum_{k=-N}^{N}x(k)$ & $E[x(k)]$ \\
-\cline{1-3}
-        Varianz $\sigma_x^2 $ & $\displaystyle \lim_{N \to \infty}  \frac{1}{2N+1}\sum_{k=-N}^{N}\abs{x(k)-\mu_x}^2$ & $E[\abs{x(k)-\mu_x}^2]$ \\
-\cline{1-3}
-        AKorr. $\varphi_{xx}(\lambda)$ & $\displaystyle \lim_{N \to \infty}  \frac{1}{2N+1}\sum_{k=-N}^{N} x^*(k)x(k+\lambda) $ & $E[x^*(k)x(k+\lambda)]$ \\
-\cline{1-3}
-        KKorr. $\varphi_{xy}(\lambda)$ & $\displaystyle \lim_{N \to \infty}  \frac{1}{2N+1}\sum_{k=-N}^{N} x^*(k)y(k+\lambda) $ & $E[x^*(k)y(k+\lambda)]$ \\
-\cline{1-3}
-\end{tabular}
-\end{center}
 \normalsize
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Leistungsdichtespektrum %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -486,14 +440,15 @@ Mittlere Leistung P mittels Periodogramm
         P = \frac{1}{N}\sum_{n=0}^{N-1} \hat{\phi}_{Per} = \frac{1}{N^2}\sum_{n=0}^{N-1} \abs{X(n)}^2
     \end{align}
   \end{mdframed}
-Falls nur Spektrum von $n\in [0,N/2]$ gegeben
+Falls nur Spektrum von $n\in [0,N/2]$ gegeben (N ist gerade)
   \begin{mdframed}[style=exercise]
     \begin{align}
-        P = \frac{1}{N}( \hat{\phi}_{Per}(0) + 2 sum_{n=0}^{N/2-1} \hat{\phi}_{Per} + \hat{\phi}_{Per}(\frac{N}{2})) \\
+        P = \frac{1}{N}( \hat{\phi}_{Per}(0) + 2 \sum_{n=0}^{N/2-1} \hat{\phi}_{Per} + \hat{\phi}_{Per}(\frac{N}{2})) \\
         P = \frac{1}{N^2}( \abs{X(0)}^2 + 2 \sum_{n=0}^{N/2-1} \abs{X(n)}^2 + \abs{X(N/2)}^2) 
     \end{align}
   \end{mdframed}
-Falls nur best. Frequenzintervall $P\in [f_u,f_0] \rightarrow [n_1,n_2]$ 
+Falls nur best. Frequenzintervall $P\in [f_u,f_0] \rightarrow [n_1,n_2]$\\ 
+$n_{1} > 0$ und $n_{2} < N/2$ (N ist gerade)
   \begin{mdframed}[style=exercise]
     \begin{align}
         P = \frac{2}{N}\sum_{n=n_1}^{n_2} \hat{\phi}_{Per} = \frac{2}{N^2}\sum_{n=n_1}^{n_2} \abs{X(n)}^2
@@ -794,4 +749,139 @@ Zusammenfassung der Tiefpässe zu einem mit V=L und Grenzfrequenz $\Omega_{g,i\&
         \Omega_{nachher}=\Omega_{vorher}\frac{M}{L}
     \end{align}
   \end{mdframed}
+  
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Korrespondenzen %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Transformationen / Korrespondenzen}
+\textbf{Discrete-Time Fourier Transform (DTFT)}
+\begin{center}
+      \includegraphics[width=.50\textwidth]{./img/DTFT_1.png}
+      \includegraphics[width=.50\textwidth]{./img/DTFT_2.png}
+ \end{center}
+ 
+\textbf{Discrete Fourier Transform (DFT)}
+ \begin{center}
+      \includegraphics[width=.50\textwidth]{./img/DFT_1.png}
+      \includegraphics[width=.50\textwidth]{./img/DFT_2.png}
+ \end{center}
+ 
+ \textbf{z-Transformation (DFT)}
+ \begin{center}
+      \includegraphics[width=.50\textwidth]{./img/Z_trans_1.png}
+ \end{center}
+ 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Mathe-Tricks %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\subsection{Mathematische Anmerkungen}
+\begin{mdframed}[style=exercise]
+    \begin{align}
+     \textbf{Eueler Formel: } e^{i\Omega} = cos(\Omega) + i\cdot sin(\Omega)\\
+     cos(\Omega) = \frac{e^{-i\Omega}+e^{-i\Omega}}{2}\\
+     sin(\Omega) = \frac{e^{-i\Omega}-e^{-i\Omega}}{2j}\\
+     cos(\pi\cdot k) = (-1)^{k}\\
+    \textbf{Rechteck-Funktion: } rect(\frac{t-t_{0}}{T})\\
+    \textbf{Komplexer Betrag: } \abs{x} = x(k) \cdot x^{*}(k)\\
+    \textbf{lin-dB-Rechnung: }[db]=10\cdot \log_{10}[lin]\\
+    \textbf{dB-lin-Rechnung: }[lin]=10^{\frac{[dB]}{10}}
+    \end{align}
+\end{mdframed}
+
+\begin{mdframed}[style=exercise]
+    \begin{align}
+     sin(\frac{2\cdot\pi\cdot f_{sin}\cdot k}{f_{A}}) = \frac{1}{2j}\cdot (e^{\frac{j\cdot 2\cdot\pi\cdot f_{sin}\cdot k}{f_{A}}}-e^{\frac{j\cdot 2\cdot\pi\cdot f_{sin}\cdot k}{f_{A}}})
+    \end{align}
+\end{mdframed}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Rechteck als Fensterfunktion%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\subsection{Rechteck als Fensterfunktion}
+\begin{itemize}
+    \item Betragsgang variiert periodisch nach si-Funktion
+    \item Breite der Hauptkeule: $\frac{2}{T}$ bzw. $\frac{4\pi}{T}$ (auf $2\pi$ bezogen)
+    \item Breite der Nebenkeulen: $\frac{1}{T}$ bzw. $\frac{2\pi}{T}$ (auf $2\pi$ bezogen)
+    \item \textbf{T:} Breite des Rechtecks
+  \end{itemize}
+\begin{mdframed}[style=exercise]
+    \begin{align}
+\abs{F\{rect(\dfrac{t-T/2}{T})\}} = \abs{T \cdot \dfrac{sin(\Omega\cdot T/2)}{\Omega\cdot T/2}}\\
+= \abs{T \cdot si(\Omega\cdot\frac{T}{2})\cdot e^{-j\Omega\cdot T / 2}}
+    \end{align}
+\end{mdframed}
+\begin{center}
+      \includegraphics[width=.30\textwidth]{./img/si_funktion.png}
+ \end{center}
+ 
+ In der Abbildung ist eine um den Faktor 6 skalierte si-Funktion zu sehen.
+ Die hierbei gewählte Fenster-Breite T wurde auf 1 festgelegt. 
+ Somit beträgt die Breite der Hauptkeule 2 und die der Nebenkeule 1. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Pol-Nullstellen-Bewertung %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Pol-Nullstellen-Bewertung}
+Die Auswirkung der Pol- / Nullstellen-Position wird hier anhand eines Systems zweiter Ordnung gezeigt.
+\begin{center}
+      \includegraphics[width=.35\textwidth]{./img/pole_zero_3.png}
+      \includegraphics[width=.50\textwidth]{./img/pole_zero_1.png}
+      \includegraphics[width=.50\textwidth]{./img/pole_zero_2.png}
+ \end{center}
+ 
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Hinweise Diagramme %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Hinweise zur Interpretation von Diagrammen}
+\textbf{Spektrogram}
+\begin{itemize}
+    \item Spektrogram zeigt Frequenzanteile gemäß FFT/DFT
+    \item Höchste Frequenz entspricht Abtastfrequenz
+\end{itemize}
+
+\textbf{Periodogram}  
+\begin{itemize}
+    \item Periodogram zeigt Schätzung des Autoleistungsdichte-Spektrums 
+    \item Gewichtetes Betragsquadrat des Amplitudenspektrums
+    \item $\hat{\phi}_{Per} = \frac{1}{N}\abs{X(n)}^2$
+\end{itemize}  
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Bedeutung Amplituden %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Bedeutung der Diagramm-Werte im Bezug auf ein Beispiel-Signal}
+$x[k] = a\cdot cos(\Omega_{0}\cdot k)$
+\begin{itemize}
+    \item Spektrog.: $max(\abs{X[\Omega]})= a\cdot\frac{N}{2}$ 
+    \item Periodog.: $max(\hat{\phi}_{Per})= a^{2}\cdot\frac{N}{4}$ 
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Anmerkung LTI-Systeme %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Anmerkung LTI-Systeme}
+$H(z)=\frac{Y(z)}{U(z)}=\frac{\grqq{}Ausgangssignal\grqq{}}{\grqq{}Eingangssignal\grqq{}}$
+\begin{itemize}
+    \item \textbf{Allgemein: } $z^{-1}$ entspricht Verzögerung um einen Abtastwert
+    \item \textbf{Übertragungsfunktion: } $H(z)=\frac{Y(z)}{U(z)}= \frac{\sum_{\mu=0}^{m} b_\mu z^{-\mu}}{\sum_{\nu=0}^{n} a_\nu z^{-\nu}}$	
+    \item \textbf{Ordnung des Systems: } Maximum des Polynomgrades von m \& n
+    \item \textbf{Stabilität: }
+    	\begin{itemize}
+	\item \textbf{Asympthotisch:} \textbf{alle} Beträge $\abs{b_{v}}<1$
+	\item \textbf{Grenzstabil:} einfacher Pol mit $\abs{b_{v}}=1$
+	\item \textbf{Instabil:} mindestens ein Betrag $\abs{b_{v}}>1$\\
+	\textbf{ODER} doppelter Pol mit $\abs{b_{v}}=1$
+	\end{itemize}	
+    \item \textbf{Realisierbarkeit: }
+    	\begin{itemize}
+    	\item Realisierbar wenn \textbf{kausal UND stabil}
+    	\item \textbf{Kausal: Polynomgrad $n \geq m$}\\
+    	(\textbf{NICHT} von \textbf{zukünftigen} Werten abhängig)
+    	\item \textbf{Stabilität: } siehe oben
+    	\end{itemize}
+\end{itemize}  
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Taschenrechner-Tricks %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Taschenrechner-Tricks (Casio fx-991DEX)}
+\begin{itemize}
+    \item Polstellen-Bestimmung:  
+   	 \begin{enumerate}
+    	 \item \grqq{}MENU SETUP\grqq{}
+    	 \item $({X \atop =}{Y \atop 0})$
+         \end{enumerate}
+\end{itemize}
 \end{document}
