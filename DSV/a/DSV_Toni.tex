@@ -150,7 +150,7 @@ $[n]_{modN}=n-N \lfloor \frac{n}{N} \rfloor$
   $x_1(k) \in [0,N_1-1]$ und $x_2(k) \in [0,N_2-1]$ nicht kommutativ sondern an der y-Achse gespiegelt ($r_{x1x2}(\lambda)=r_{x2x1}(-\lambda)$).
   \begin{mdframed}[style=exercise]
     \begin{align}
-        r_{x1x2}(\lambda) = \sum_{k=-\infty}^{\infty}x_1^*(k) x_2(k+\lambda)
+        r_{x_1x_2}(\lambda) = \sum_{k=-\infty}^{\infty}x_1^*(k) x_2(k+\lambda)
     \end{align}
   \end{mdframed}
 \begin{itemize}
@@ -160,8 +160,8 @@ $[n]_{modN}=n-N \lfloor \frac{n}{N} \rfloor$
 \end{itemize}
   \begin{mdframed}[style=exercise]
     \begin{align}
-        \hat{\varphi}_{x1x2} = \frac{1}{N} r_{x1x2}(\lambda)\\
-        \hat{\varphi}_{x1x2}^{'} = \frac{1}{N-\abs{\lambda}} r_{x1x2}(\lambda)
+        \hat{\varphi}_{x_1x_2} &= \frac{1}{N} r_{x_1x_2}(\lambda)\\
+        \hat{\varphi}_{x_1x_2}^{'} &= \frac{1}{N-\abs{\lambda}} r_{x_1x_2}(\lambda)
     \end{align}
   \end{mdframed}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -200,11 +200,11 @@ $[n]_{modN}=n-N \lfloor \frac{n}{N} \rfloor$
   \subsection{Simultane Transformation}
   \begin{mdframed}[style=exercise]
     \begin{align}
-        x_1(k) = Re[y(k)] = \frac{1}{2}(y(k)+y^*(k))\\
-        x_2(k) = Im[y(k)] = \frac{1}{2j}(y(k)-y^*(k))\\
-        x_1(k) = x(2k)\\
-        x_2(k) = x(2k+1)\\
-        y(k) = x_1(k) +jx_2(k)
+        x_1(k) &= Re[y(k)] = \frac{1}{2}(y(k)+y^*(k))\\
+        x_2(k) &= Im[y(k)] = \frac{1}{2j}(y(k)-y^*(k))\\
+        x_1(k) &= x(2k)\\
+        x_2(k) &= x(2k+1)\\
+        y(k) &= x_1(k) +jx_2(k)
     \end{align}
   \end{mdframed}
   \begin{mdframed}[style=exercise]
@@ -244,9 +244,9 @@ Formeln gelten nur für \textbf{stationäre} Zufallsvariablen bzw stochastische 
 Für 2 Stoch. unabh. Variablen $f_x(\alpha)$ und $f_y(\beta)$ gilt
   \begin{mdframed}[style=exercise]
     \begin{align}
-        f_{xy}(\alpha,\beta) = f_x(\alpha)\cdot f_y(\beta)\\
-        \mu_{xy} = \mu_{x} + \mu_{y}\\
-        \sigma_{xy}^2 = \sigma_{x}^2 + \sigma_{y}^2
+        f_{xy}(\alpha,\beta) &= f_x(\alpha)\cdot f_y(\beta)\\
+        \mu_{xy} &= \mu_{x} + \mu_{y}\\
+        \sigma_{xy}^2 &= \sigma_{x}^2 + \sigma_{y}^2
     \end{align}
   \end{mdframed}
 % Für ein deterministisches Signal $x(k)$ gilt $\sigma_x^2=Var(x)=0$
@@ -336,12 +336,11 @@ LDS = DFT der Stochastischen Prozesse \\
 Autoleistungsdichtespektrum  $\phi_{xx}(e^{j\Omega})$ und Kreuzeistungsdichtespektrum $\phi_{xy}(e^{j\Omega})$
   \begin{mdframed}[style=exercise]
     \begin{align}
-        \phi_{xx}(e^{j\Omega}) = \mathcal{F}\{ \varphi_{xx}(\lambda)\} \\
-        \phi_{xx}(e^{j\Omega}) = \sum_{\lambda=-\infty}^{\infty} \varphi_{xx}(\lambda) e^{-j\Omega\lambda} \\
-        \varphi_{xx}(\lambda) = \frac{1}{2\pi} \displaystyle\int_{-\pi}^{\pi} \phi_{xx}(e^{j\Omega})e^{j\Omega\lambda}d\Omega \\
-        \phi_{xy}(e^{j\Omega}) = \sum_{\lambda=-\infty}^{\infty} \varphi_{xy}(\lambda) e^{-j\Omega\lambda} \\
-        \varphi_{xy}(\lambda) = \frac{1}{2\pi} \displaystyle\int_{-\pi}^{\pi} \phi_{xy}(e^{j\Omega})e^{j\Omega\lambda}d\Omega
-    \end{align}
+        \phi_{xx}(e^{j\Omega}) &= \mathcal{F}\{ \varphi_{xx}(\lambda)\} \\
+        \phi_{xx}(e^{j\Omega}) &= \sum_{\lambda=-\infty}^{\infty} \varphi_{xx}(\lambda) e^{-j\Omega\lambda} \\
+        \varphi_{xx}(\lambda) &= \frac{1}{2\pi} \displaystyle\int_{-\pi}^{\pi} \phi_{xx}(e^{j\Omega})e^{j\Omega\lambda}d\Omega \\
+        \phi_{xy}(e^{j\Omega}) &= \sum_{\lambda=-\infty}^{\infty} \varphi_{xy}(\lambda) e^{-j\Omega\lambda} \\
+        \varphi_{xy}(\lambda) &= \frac{1}{2\pi} \displaystyle\int_{-\pi}^{\pi} \phi_{xy}(e^{j\Omega})e^{j\Omega\lambda}d\Omega \end{align}
   \end{mdframed}
 Mittlere Leistung $\varphi_{xx}(0)$
   \begin{mdframed}[style=exercise]
@@ -371,10 +370,10 @@ Mit konst. Mittelwerten $E[u(k-\nu)]=\mu_x$ und $E[y(k)]=\mu_y$
   Zusätzliche Beziehungen
   \begin{mdframed}[style=exercise]
     \begin{align}
-        \varphi_{uy}(\lambda) = h(\lambda)*\varphi_{uu}(\lambda) \\
-        \varphi_{yu}(\lambda) = h(-\lambda)^**\varphi_{uu}(\lambda) \\
-        \varphi_{yy}(\lambda) = h(\lambda)*\varphi_{yu}(\lambda) = h^*(-\lambda)*\varphi_{uy}(\lambda) \\
-        \varphi_{yy}(\lambda) = h^*(-\lambda)*h(\lambda)*\varphi_{uu}(\lambda)
+        \varphi_{uy}(\lambda) &= h(\lambda)*\varphi_{uu}(\lambda) \\
+        \varphi_{yu}(\lambda) &= h(-\lambda)^**\varphi_{uu}(\lambda) \\
+        \varphi_{yy}(\lambda) &= h(\lambda)*\varphi_{yu}(\lambda) = h^*(-\lambda)*\varphi_{uy}(\lambda) \\
+        \varphi_{yy}(\lambda) &= h^*(-\lambda)*h(\lambda)*\varphi_{uu}(\lambda)
     \end{align}
   \end{mdframed}
   \begin{itemize}
@@ -556,8 +555,8 @@ Jeder Linearfaktor kann als von der Frequenz $\Omega$ abhängiger Drehzeiger
 Vergangenheitswert y(k-1) wird mit Faktor $a\in [0,1]$
   \begin{mdframed}[style=exercise]
     \begin{align}
-        y(k) = ay(k-1)+(1-a)u(k) \\
-        H(z) =\frac{1-a}{1-az^{-1}}=\frac{(1-a)z}{z-a}
+        y(k) &= ay(k-1)+(1-a)u(k) \\
+        H(z) &=\frac{1-a}{1-az^{-1}}=\frac{(1-a)z}{z-a}
     \end{align}
   \end{mdframed}
 Vom Verhalten entspricht er einem Tiefpass 1.Ordnung mit Grenzfrequenz $\Omega_g$ (a lässt sich aus $\Omega_g$ berechnen)
@@ -572,8 +571,8 @@ Vom Verhalten entspricht er einem Tiefpass 1.Ordnung mit Grenzfrequenz $\Omega_g
 \subsection{Arithmetischer Mittelwert Glätter}
   \begin{mdframed}[style=exercise]
     \begin{align}
-        y(k)=\frac{1}{N}\sum_{\nu=0}^{N-1} u(k-\nu)\\
-        H(z)=\frac{1}{N}\sum_{\nu=0}^{N-1} z^{-\nu} = \frac{1}{N}\frac{z^{-N}-1}{z^{-1}-1}
+        y(k)&=\frac{1}{N}\sum_{\nu=0}^{N-1} u(k-\nu)\\
+        H(z)&=\frac{1}{N}\sum_{\nu=0}^{N-1} z^{-\nu} = \frac{1}{N}\frac{z^{-N}-1}{z^{-1}-1}
     \end{align}
   \end{mdframed}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Notch-Filter %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -603,8 +602,10 @@ Zu jeder Nullstelle $z_{0n}$ einen Pol $z_{\infty n}$ im Radius $r_\infty<1$ pla
 p = Ordnung, (K) = Kerbenbildend, (R) = Resonanzbildend
   \begin{mdframed}[style=exercise]
     \begin{align}
-        z_{\infty n}^{(K)} = r_\infty e^{j\frac{2\pi n}{p}} = r_\infty z_{0n}^{(K)} \ \ n\in[0,p-1]\\
-        z_{\infty n}^{(R)} = r_\infty e^{j\frac{(\pi + 2\pi n)}{p}} = r_\infty z_{0n}^{(R)} \ \ n\in[0,p-1]
+        z_{\infty n}^{(K)} &= r_\infty e^{j\frac{2\pi n}{p}} \\
+        z_{0n}^{(K)} &= e^{j\frac{2\pi n}{p}} \\
+        z_{\infty n}^{(R)} &= e^{j\frac{(\pi + 2\pi n)}{p}} \\
+        z_{\infty n}^{(R)} &= r_\infty e^{j\frac{(2\pi n)}{p}}
     \end{align}
   \end{mdframed}
 \subsubsection{Kerbenbildend Kammfilter $H_{(K)}(z)$}
@@ -626,9 +627,9 @@ Dimensionierung $b$, sodass zwischen Kerben $0dB(=1)$
 Bestimmung eines einzelnen DFT-Spektralwert X(n). Gleicher Rechenaufwand wie FFT aber Blocklänge N muss keine 2er Potenz sein. $\tilde{x}(k)=[x(0..N-1) \ 0]$ (N-ter Wert 0 setzen)
   \begin{mdframed}[style=exercise]
     \begin{align}
-        n_0 = \frac{f_0}{f_A}N\\
-        X(n_0)= y(k)=x(k)*h(k)|_{k=N}\\
-        X(n_0)=y_n(k)=\sum_{\nu=0}^{k}\tilde{x}(\nu)e^{j\frac{2\pi}{N}(k-\nu)n}
+        n_0 &= \frac{f_0}{f_A}N\\
+        X(n_0)&= y(k)=x(k)*h(k)|_{k=N}\\
+        X(n_0)&=y_n(k)=\sum_{\nu=0}^{k}\tilde{x}(\nu)e^{j\frac{2\pi}{N}(k-\nu)n}
     \end{align}
   \end{mdframed}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% IIR-Filter %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -649,9 +650,9 @@ Gruppenlaufzeit $\tau$ = Verzögerungszeit des Systems aufgelöst nach Frequenze
 grundsätzlich Stabil, Ordnung m $\rightarrow$ m Pole im Ursprung
   \begin{mdframed}[style=exercise]
     \begin{align}
-        H(z)=\frac{Y(z)}{U(z)}= \sum_{\mu=0}^{m} b_\mu z^{-\mu} \\
-        H(z)=\frac{b_0\Pi_{\mu=1}^{m}(z-z_{0\mu})}{z^m}\\
-        h(k)= b_k \ \ k\in[0,m] 
+        H(z)&=\frac{Y(z)}{U(z)}= \sum_{\mu=0}^{m} b_\mu z^{-\mu} \\
+        H(z)&=\frac{b_0\Pi_{\mu=1}^{m}(z-z_{0\mu})}{z^m}\\
+        h(k)&= b_k \ \ k\in[0,m] 
     \end{align}
   \end{mdframed}
 Gewollte Eigenschaft: \textcolor{red}{lineare Phase}
@@ -691,9 +692,9 @@ Hälfte der Speicherzellen $a_0=1$
   \end{center}
   \begin{mdframed}[style=exercise]
     \begin{align}
-        H(z)=\Pi_{\nu=0}^{N_K} H_\nu(z)\\
-        H_\nu(z)^{(1)}=\frac{b_{0\nu}+b_{1\nu}z^{-1}}{1+a_{1\nu}z^{-1}}\\
-        H_\nu(z)^{(2)}=\frac{b_{0\nu}+b_{1\nu}z^{-1}+b_{2\nu}z^{-2}}{1+a_{1\nu}z^{-1}+a_{2\nu}z^{-2}}
+        H(z)&=\Pi_{\nu=0}^{N_K} H_\nu(z)\\
+        H_\nu(z)^{(1)}&=\frac{b_{0\nu}+b_{1\nu}z^{-1}}{1+a_{1\nu}z^{-1}}\\
+        H_\nu(z)^{(2)}&=\frac{b_{0\nu}+b_{1\nu}z^{-1}+b_{2\nu}z^{-2}}{1+a_{1\nu}z^{-1}+a_{2\nu}z^{-2}}
     \end{align}
   \end{mdframed}
 \subsection{4. Kanonische-Form (IIR)}
@@ -732,11 +733,11 @@ Das Spektrum $X(e^{j\tilde{\Omega}})$ des ursprünglichen Signals x(k) wird um $
 was zum Spektrum $X_d(e^{j\Omega})$ führt.
   \begin{mdframed}[style=exercise]
     \begin{align}
-        x_d(k)=x_c(kMT_A)\\
-        X(e^{j\tilde{\Omega}})=\frac{1}{T_A}\sum_{\nu=-\infty}^{\infty} X_c(j\frac{\tilde{\Omega}}{T_A} -\nu\frac{2\pi}{T_A})\\
-        X_d(e^{j\Omega})=\frac{1}{MT_A}\sum_{\mu=-\infty}^{\infty} X_c(e^{j\frac{\Omega}{MT_A} -\mu\frac{2\pi}{MT_A}})\\
-        % \tilde{\Omega}=\frac{\Omega}{M}-i\frac{2\pi}{M}
-        X_d(e^{j\Omega})=\frac{1}{M}\sum_{i=0}^{M-1} X(e^{j\frac{\Omega}{M} -i\frac{2\pi}{M}})\\
+        x_d(k)&=x_c(kMT_A)\\
+        X(e^{j\tilde{\Omega}})&=\frac{1}{T_A}\sum_{\nu=-\infty}^{\infty} X_c(j\frac{\tilde{\Omega}}{T_A} -\nu\frac{2\pi}{T_A})\\
+        X_d(e^{j\Omega})&=\frac{1}{MT_A}\sum_{\mu=-\infty}^{\infty} X_c(e^{j\frac{\Omega}{MT_A} -\mu\frac{2\pi}{MT_A}})\\
+        % \tilde{\Omega}&=\frac{\Omega}{M}-i\frac{2\pi}{M}
+        X_d(e^{j\Omega})&=\frac{1}{M}\sum_{i=0}^{M-1} X(e^{j\frac{\Omega}{M} -i\frac{2\pi}{M}})\\
     \end{align}
   \end{mdframed}
   \begin{itemize}
@@ -759,9 +760,9 @@ Expander hängt hinter jedem Abtastwert von x(k) L-1 0er an.
 $x_e(k)= [x(k/L) \ zeros(1,L-1)]$
   \begin{mdframed}[style=exercise]
     \begin{align}
-        x_i(k)=x_c(k\frac{T_A}{L})\\
-        X_e(e^{j\tilde{\Omega}})=\sum_{\nu=-\infty}^{\infty} x(\nu)e^{-j\Omega\nu L}\\
-        X_e(e^{j\Omega}) =X(e^{j\Omega L})
+        x_i(k)&=x_c(k\frac{T_A}{L})\\
+        X_e(e^{j\tilde{\Omega}})&=\sum_{\nu=-\infty}^{\infty} x(\nu)e^{-j\Omega\nu L}\\
+        X_e(e^{j\Omega}) &=X(e^{j\Omega L})
     \end{align}
   \end{mdframed}
   \begin{itemize}
