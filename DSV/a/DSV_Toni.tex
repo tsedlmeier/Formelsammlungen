@@ -622,7 +622,7 @@ grundsätzlich Stabil, Ordnung m $\rightarrow$ m Pole im Ursprung
     \begin{align}
         H(z)=\frac{Y(z)}{U(z)}= \sum_{\mu=0}^{m} b_\mu z^{-\mu} \\
         H(z)=\frac{b_0\Pi_{\mu=1}^{m}(z-z_{0\mu})}{z^m}\\
-        h(k)= b_k \ \ k\in[0,m-1] 
+        h(k)= b_k \ \ k\in[0,m] 
     \end{align}
   \end{mdframed}
 Gewollte Eigenschaft: \textcolor{red}{lineare Phase}
@@ -777,15 +777,39 @@ Zusammenfassung der Tiefpässe zu einem mit V=L und Grenzfrequenz $\Omega_{g,i\&
 \begin{mdframed}[style=exercise]
     \begin{align}
      \textbf{Eueler Formel: } e^{i\Omega} = cos(\Omega) + i\cdot sin(\Omega)\\
-     cos(\Omega) = \frac{e^{-i\Omega}+e^{-i\Omega}}{2}\\
+     cos(\Omega) = \frac{e^{-i\Omega}+e^{+i\Omega}}{2}\\
      sin(\Omega) = \frac{e^{-i\Omega}-e^{-i\Omega}}{2j}\\
      cos(\pi\cdot k) = (-1)^{k}\\
+     cos^{2}(k)+sin^{2}(k)=1\\
     \textbf{Rechteck-Funktion: } rect(\frac{t-t_{0}}{T})\\
-    \textbf{Komplexer Betrag: } \abs{x} = x(k) \cdot x^{*}(k)\\
-    \textbf{lin-dB-Rechnung: }[db]=10\cdot \log_{10}[lin]\\
-    \textbf{dB-lin-Rechnung: }[lin]=10^{\frac{[dB]}{10}}
     \end{align}
 \end{mdframed}
+
+\subsection{Dezibel-Umrechnung}
+\begin{itemize}
+	\item \textbf{lin-dB-Rechnung: }$[db]=a\cdot 10\cdot \log_{10}[lin]$
+    	\item \textbf{dB-lin-Rechnung: }$[lin]=10^{\frac{[dB]}{a}}$
+    	\item \textbf{Vorfaktor: } Feldgröße: $a=20$ Energiegröße: $a=10$
+\end{itemize}
+
+\subsection{Komplexe Zahlen}
+\begin{mdframed}[style=exercise]
+    \begin{align}
+    \textbf{Komplexer Betrag: } \abs{x} = \sqrt{Re^{2}+Im^{2}}\\
+    \textbf{Phase: } \varphi = arctan(\frac{\grqq{}Imag.\grqq{}}{\grqq{}Real.\grqq{}})=arctan(\frac{sin(\varphi)}{cos(\varphi)})\\
+    arg(\frac{a(j\Omega)\cdot b(j\Omega)}{c(j\Omega)})=arg(a)+arg(b)-arg(c)
+    \end{align}
+\end{mdframed}
+
+\textbf{Phasenkorrektur bei $\varphi=arg(x+\cdot y)$: }
+\begin{itemize}
+	\item $arctan(\frac{y}{x})$ für $x > 0$ 
+	\item $arctan(\frac{y}{x}) + \pi$ für $x < 0$ $y \geq 0$ 
+	\item $arctan(\frac{y}{x}) - \pi$ für $x < 0$ $y < 0$ 
+	\item $\frac{\pi}{2}$ für $x = 0$ $y > 0$
+	\item $\frac{-\pi}{2}$ für $x = 0$ $y < 0$
+	\item unbestimmt für $x = 0$ $y = 0$
+\end{itemize}
 
 \begin{mdframed}[style=exercise]
     \begin{align}
@@ -824,6 +848,20 @@ Die Auswirkung der Pol- / Nullstellen-Position wird hier anhand eines Systems zw
       \includegraphics[width=.50\textwidth]{./img/pole_zero_1.png}
       \includegraphics[width=.50\textwidth]{./img/pole_zero_2.png}
  \end{center}
+
+\textbf{Besonderheiten: }
+\begin{itemize}
+    \item \textbf{Linearphasigkeit: }
+    	\begin{itemize}
+    	\item \textbf{Bedeutung:} linearer Zusammenhang zw. Frequenz und Phasenverschiebung\\
+    	=> Gruppenlaufzeit / zeitliche Verzögerung durch Filter IMMER gleich
+    	\item \textbf{Voraussetzung:} NST paarweise am Einheitskreis \grqq{}gespiegelt\grqq{} ($z_{01} -> \frac{1}{{z_{01}}^{*}}$)\\
+    	ODER NST alle auf Einheitskreis \\(ACHTUNG: Phasensprünge)
+    	\end{itemize}
+    \item \textbf{Umrechnung Frequenz in Winkel:} $\varphi = \frac{2\cdot\pi\cdot f_{n}}{f_{Abtast}}$
+    \item Auf Einheitskreis wird gegen den \textbf{Urzeigersinn}\\
+    von 0 Hz (0°) bis $f_{Abtast}$ (360° bzw. $2\pi$) gelaufen 
+\end{itemize}
  
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Hinweise Diagramme %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -861,6 +899,11 @@ $H(z)=\frac{Y(z)}{U(z)}=\frac{\grqq{}Ausgangssignal\grqq{}}{\grqq{}Eingangssigna
     	\item z-Trans. = Laplace-Trans. für abgetastete Signale
     	\item $z = e^{j\cdot\Omega}=e^{(\delta + j \cdot \omega)\cdot T_a}$
     	\end{itemize}
+    \item \textbf{Besonderheiten: }
+    	\begin{itemize}
+    	\item Bandbreite ist bei TP $\Delta \Omega = 2\cdot\Omega_{3dB}$ 
+    	\item \textbf{Minimalphasigkeit: } NST \textbf{ausschließlich} mit negativem Realwert
+    	\end{itemize}
     \item \textbf{Übertragungsfunktion: } $H(z)=\frac{Y(z)}{U(z)}= \frac{\sum_{\mu=0}^{m} b_\mu z^{-\mu}}{\sum_{\nu=0}^{n} a_\nu z^{-\nu}}$	
     \item \textbf{Ordnung des Systems: } Maximum des Polynomgrades von m \& n
     \item \textbf{Stabilität: }
@@ -885,7 +928,7 @@ $H(z)=\frac{Y(z)}{U(z)}=\frac{\grqq{}Ausgangssignal\grqq{}}{\grqq{}Eingangssigna
 
 \subsection{Taschenrechner-Tricks (Casio fx-991DEX)}
 \begin{itemize}
-    \item Polstellen-Bestimmung:  
+    \item \textbf{Polstellen-Bestimmung:}  
    	 \begin{enumerate}
     	 \item \grqq{}MENU SETUP\grqq{}
     	 \item $({X \atop =}{Y \atop 0})$ \grqq{}A:Gleichung/Funkt\grqq{}
@@ -893,5 +936,116 @@ $H(z)=\frac{Y(z)}{U(z)}=\frac{\grqq{}Ausgangssignal\grqq{}}{\grqq{}Eingangssigna
     	 \item \grqq{}2:Polynom-Gleichung\grqq{}
     	 \end{enumerate}
 	 \textbf{ACHTUNG:} Grad muss $\leq 4$ UND $\geq 1$ sein!
+     \item \textbf{Leckeffekt-Erkennung \& Behebung:}
+     	 \begin{enumerate}
+     	 \item $\frac{f_{Abtast}}{f_{Signal}}(=N_{Signal})$ in Taschenrechner eingeben\\
+     	 $N_{Signal}$: Anzahl der Abtastwerte in einzelner Periode des Signales
+     	 \item Ergebnis \textbf{ganzzahlig} -> kein Leckeffekt
+     	 \item Ergebnis in \textbf{Bruch-Form} -> Leckeffekt
+     	 \item WENN Bruch: $\frac{N_{Abtast}}{n_{Ganzzahl}}=N_{Signal}$\\
+     	 \textbf{$N_{Abtast}$: } kleinste Anzahl an Abtastwerten ohne Leckeffekt\\
+     	 \textbf{$n_{Ganzzahl}$: } Ganzzahliges Vielfaches
+         \end{enumerate}	 	 
 \end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% FIR-FIlter %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{FIR-Filter}
+\begin{itemize}
+    \item \textbf{Besonderheiten: }
+         \begin{itemize}
+         \item \textbf{nichtrekursiver} Filter mit \textbf{Grad m}
+         \item $H(z)=\frac{Y(z)}{U(z)}= \sum_{\mu=0}^{m} b_\mu z^{-\mu}$
+         \item m-facher Pol im Ursprung 
+         \item Einsatz in adaptiven Systemen
+         \item Impulsantwort: gerade \textbf{($h(k)=h(p-k)$)}\\
+         oder ungerade \textbf{($h(k)=-h(p-k)$)} Symmetrie
+         \item Gruppenlaufzeit:  $\tau_{Gruppe} = -\frac{d}{d\Omega}arg(H(\Omega)) = \frac{p}{2}$ ($p$: Ordnung) 
+         \end{itemize}
+    \item \textbf{Vorteile: }
+   	 \begin{itemize}
+    	 \item linearphasig / konstante Gruppenlaufzeit\\
+    	 \textbf{WENN} nur gespiegelte NST-Paare: $z_{01}$ und $\frac{1}{z^*_{01}}$
+    	 \textbf{ODER} NST auf Einheitskreis
+    	 \item \textbf{IMMER} stabil
+    	 \item endlich Ein- \& Ausschwingzeiten
+    	 \end{itemize}
+    \item \textbf{Nachteile: }
+    	\begin{itemize}
+    	\item große Filterordnung wenn hohe Sperrdämpfung / \\
+    	steile Filterflanken gefordert sind
+    	\item kann mit analogen Bauteilen \\
+    	NICHT realisiert werden
+    	\end{itemize}
+\end{itemize}
+
+\textbf{Grundtypen von FIR-Filtern}\\ (mit entsprechenden Eigenschaften):
+\begin{center}
+      \includegraphics[width=.50\textwidth]{./img/Grundtypen_FIR.png}
+      \includegraphics[width=0.25\textwidth]{./img/Grundtypen_FIR_NST.png}
+\end{center}
+\textbf{Eigenschaften der Typen:}
+\begin{itemize}
+	\item Typ 1: HP, TP, BP, BSP
+	\item Typ 2: kein Hoch- \& Tiefpass
+	\item Typ 3: kein Hochpass
+	\item Typ 4: kein Tiefpass
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% IIR-FIlter %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{IIR-Filter}
+\begin{itemize}
+    \item \textbf{Besonderheiten: }
+         \begin{itemize}
+         \item 
+         \end{itemize}
+    \item \textbf{Vorteile: }
+   	 \begin{itemize}
+    	 \item geringere Filterordnung bei vergleichbarem FIR-Filter
+    	 \item Entwurfswerkzeuge aus analoger Welt können genutzt werden
+    	 \end{itemize}
+    \item \textbf{Nachteile: }
+    	\begin{itemize}
+    	\item NICHT linearphasig
+    	\item Anfälligkeit gegen Wortlängeneffekte 
+    	\item Instabilität möglich
+    	\end{itemize}
+\end{itemize}
+
+\textbf{Grundtypen von IIR-Filtern:}
+\begin{center}
+      \includegraphics[width=0.50\textwidth]{./img/IIR_Filtertypen_Amplitudengang.png}
+      \includegraphics[width=0.50\textwidth]{./img/IIR_Filtertypen_Phasengang.png}
+      \includegraphics[width=0.50\textwidth]{./img/IIR_Filtertypen_Pol_NST.png}
+\end{center}
+\textbf{Eigenschaften der Typen:}
+\begin{itemize}
+	\item \textbf{Butterworth:}
+		\begin{itemize}
+		\item monoton fallender Verlauf
+		\item maximal flacher Verlauf im Sperrbereich
+		\end{itemize}
+	\item \textbf{Tschebyscheff Typ I:}
+		\begin{itemize}
+		\item oszilliert im Durchlassb. mit p Extrema \\
+		(p = Filterordnung)
+		\item monoton fallend im Übergangs‐ \& Sperrbereich
+		\end{itemize}
+	\item \textbf{Tschebyscheff Typ II:}
+		\begin{itemize}
+		\item oszilliert im Sperrb. („equiripple“‐Verhalten)
+		\item monoton fallend im Durchlassbereich
+		\item NST im Sperrbereich
+		\end{itemize}
+	\item \textbf{Cauer:}
+		\begin{itemize}
+		\item oszilliert im Durchl. \& Sperrb. („equiripple“‐Verhalten)
+		\item monoton fallend im Übergangsbereich
+		\item hohe Sperrdämpfung
+		\end{itemize}
+\end{itemize}
+
 \end{document}
