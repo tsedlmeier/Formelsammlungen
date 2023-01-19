@@ -153,6 +153,15 @@ $[n]_{modN}=n-N \lfloor \frac{n}{N} \rfloor$
         r_{x_1x_2}(\lambda) = \sum_{k=-\infty}^{\infty}x_1^*(k) x_2(k+\lambda)
     \end{align}
   \end{mdframed}
+Korrelation durch schnelle Faltung:\\
+1. Beide Signale Zero-Padding auf $N = N_1+N_2-1$\\
+2. $x_1$ Spiegeln\\
+3. Faltung ausführen
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        r_{x_1x_2}(\lambda) = x_1^*(-\lambda)*x_2(\lambda)
+    \end{align}
+  \end{mdframed}
 \begin{itemize}
     \item Nicht-Erwartungstreue Schätzung $\hat{\varphi}_{x1x2}$
     \item Erwartungstreue Schätzung $\hat{\varphi}_{x1x2}^{'}$
@@ -645,6 +654,10 @@ Gruppenlaufzeit $\tau$ = Verzögerungszeit des Systems aufgelöst nach Frequenze
         \tau = -\frac{d}{df}\varphi
     \end{align}
   \end{mdframed}
+\subsubsection{IIR-Entwurfsmethoden}
+  \begin{center}
+      \includegraphics[width=.45\textwidth]{./img/entwurf.png}
+  \end{center}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% FIR-Filter %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{FIR-Filter}
 grundsätzlich Stabil, Ordnung m $\rightarrow$ m Pole im Ursprung
