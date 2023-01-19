@@ -36,7 +36,8 @@
 \begin{document}
 \twocolumn
 \pagestyle{fancy}
-\lhead{DSV Formelsammlung, Stand {\input{\string"| git rev-parse --short HEAD\string"}}}
+% \lhead{DSV Formelsammlung, Stand {\input{\string"| date + " %Y-%d-%m" \string"}}}
+\lhead{DSV Formelsammlung, \today}
 \rhead{Sedlmeier, Toni}
 \section{Elementare DSV}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Energie %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -173,6 +174,10 @@ Korrelation durch schnelle Faltung:\\
         \hat{\varphi}_{x_1x_2}^{'} &= \frac{1}{N-\abs{\lambda}} r_{x_1x_2}(\lambda)
     \end{align}
   \end{mdframed}
+Korrelationskoeffizient:
+  \begin{center}
+      \includegraphics[width=.35\textwidth]{./img/korkoeff.png}
+  \end{center}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Blocksignalverarbeitung %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   \subsection{Blocksignalverarbeitung}
