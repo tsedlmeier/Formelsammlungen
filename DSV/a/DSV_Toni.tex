@@ -249,14 +249,14 @@ Für 2 Stoch. unabh. Variablen $f_x(\alpha)$ und $f_y(\beta)$ gilt
         \sigma_{xy}^2 = \sigma_{x}^2 + \sigma_{y}^2
     \end{align}
   \end{mdframed}
-Für ein deterministisches Signal $x(k)$ gilt $\sigma_x^2=Var(x)=0$
-Falls $y(k) = x_1(k)x_2(k)$, dann gilt
-
-  \begin{mdframed}[style=exercise]
-    \begin{align}
-        \sigma_y^2 = (\sigma_{x_1}^2+\mu_{x_1}^2)(\sigma_{x_2}^2+\mu_{x_2}^2) 
-    \end{align}
-  \end{mdframed}
+% Für ein deterministisches Signal $x(k)$ gilt $\sigma_x^2=Var(x)=0$
+% Falls $y(k) = x_1(k)x_2(k)$, dann gilt
+%
+%   \begin{mdframed}[style=exercise]
+%     \begin{align}
+%         \sigma_y^2 = (\sigma_{x_1}^2+\mu_{x_1}^2)(\sigma_{x_2}^2+\mu_{x_2}^2) 
+%     \end{align}
+%   \end{mdframed}
 \subsection{Stationärer Stochastischer Prozess}
 P. stationär, wenn seine \textcolor{red}{statistischen} Eigenschaften \textcolor{red}{zeitinvariant} sind \\
 Einzelner stationärer Stochastischer Prozess:
@@ -438,6 +438,11 @@ Bsp: Sinus $x(t) = sin(w_0t)\cdot w(t)$ mit $w(t)=rect(\frac{t-T/2}{T})$
         rect(k-\frac{N}{2}) \fourier \frac{sin(N\frac{\Omega}{2})}{sin(\frac{\Omega}{2})} e^{-j\Omega\frac{N-1}{2}}
     \end{align}
   \end{mdframed}
+  \begin{itemize}
+    \item Breite der Hauptkeule $\Omega_B = \frac{4\pi}{N}$
+    \item Höhe der Hauptkeule $A_B = N$
+    \item Nullstellen $\Omega_{0\nu} = \frac{2\pi}{N}\nu \ \ \nu \in\mathbb{Z} \textbackslash\{0\}$
+  \end{itemize}
 \subsection{Zero-Padding}
 Zero-Padding = Annäherung an die DTFT $\rightarrow$ feinere Spektrumauflösung Energiegehalt $E = E_{ZP}$ \\
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -530,8 +535,9 @@ Darstellung Linearfaktoren für n=2
   \end{mdframed}
 Jeder Linearfaktor kann als von der Frequenz $\Omega$ abhängiger Drehzeiger
 \begin{itemize}
-    \item Pol verstärkt Amplitudengang
+    \item Pole verstärkt Amplitudengang
     \item Nullstelle dämpft Amplitudengang
+    \item Pole und Nullstellen treten immer \textbf{konj. komplex} auf
 \end{itemize}
 \begin{itemize}
     \item $(e^{j\Omega}-z_{01}) = D_{01}e^{j\phi_{01}}$ und $(e^{j\Omega}-z_{02}) = D_{02}e^{j\phi_{02}}$
@@ -557,9 +563,9 @@ Vergangenheitswert y(k-1) wird mit Faktor $a\in [0,1]$
 Vom Verhalten entspricht er einem Tiefpass 1.Ordnung mit Grenzfrequenz $\Omega_g$ (a lässt sich aus $\Omega_g$ berechnen)
   \begin{mdframed}[style=exercise]
     \begin{align}
-        H(e^{j\Omega}) =\frac{1-a}{1-ae^{j\pi\Omega}}\\
+        H(e^{j\Omega}) =\frac{1-a}{1-ae^{-j\Omega}}\\
         \Omega_g = 2\pi\frac{f_g}{f_A}\\
-        a = 2-cos(\Omega_g)-\sqrt{(2-cos(\Omega_g)^2)-1}
+        a = 2-cos(\Omega_g)-\sqrt{(2-cos(\Omega_g))^2-1}
     \end{align}
   \end{mdframed}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Mittelwert %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -574,7 +580,7 @@ Vom Verhalten entspricht er einem Tiefpass 1.Ordnung mit Grenzfrequenz $\Omega_g
 \subsection{Notch-Filter}
   \begin{mdframed}[style=exercise]
     \begin{align}
-        H(z)=\frac{(z-e^{j\Omega 0})(z-e^{-j\Omega 0})}{(z-r_{\infty}e^{j\Omega 0})(z-r_{\infty}e^{-j\Omega 0})}
+        H(z)=\frac{(z-e^{j\Omega_0})(z-e^{-j\Omega_0})}{(z-r_{\infty}e^{j\Omega_0})(z-r_{\infty}e^{-j\Omega_0})}
     \end{align}
   \end{mdframed}
 Vorgabe Kerbe bei Frequenz $f_N$ und -3dB Breite $\Delta f$ und gegebener Abtastfrequenz $f_A$
@@ -584,26 +590,35 @@ Vorgabe Kerbe bei Frequenz $f_N$ und -3dB Breite $\Delta f$ und gegebener Abtast
         \Delta\Omega=\frac{2\pi\Delta f}{f_A}
     \end{align}
   \end{mdframed}
-Einsetzen in Übertragungsfunktion H(z) 
+Einsetzen in Übertragungsfunktion H(z), Kerbentiefe $+A_B[dB]$
   \begin{mdframed}[style=exercise]
     \begin{align}
         H(z)=b\frac{1-2cos(\Omega_0)z^{-1}+z^{-2}}{1-2bcos(\Omega_0)z^{-1}+(2b-1)z^{-2}}\\
-        b=\frac{1}{1+\frac{\sqrt{1-G_B^2}}{G_B}tan(\frac{\Delta\Omega}{2})}
+        b=\frac{1}{1+\frac{\sqrt{1-G_B^2}}{G_B}tan(\frac{\Delta\Omega}{2})} \ mit \ G_B=10^{\frac{-A_B}{20}}
     \end{align}
   \end{mdframed}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Kammfilter %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Kammfilter}
-Zu jeder Nullstelle $z_{0n}$ einen Pol $z_{\infty n}$ im Radius $r_\infty<1$ plazieren. p = Ordnung
+Zu jeder Nullstelle $z_{0n}$ einen Pol $z_{\infty n}$ im Radius $r_\infty<1$ plazieren.\\ 
+p = Ordnung, (K) = Kerbenbildend, (R) = Resonanzbildend
   \begin{mdframed}[style=exercise]
     \begin{align}
-        z_{\infty n} = r_\infty e^{j\frac{2\pi n}{p}} = r_\infty z_{0n} \ \ n\in[0,p-1]
+        z_{\infty n}^{(K)} = r_\infty e^{j\frac{2\pi n}{p}} = r_\infty z_{0n}^{(K)} \ \ n\in[0,p-1]\\
+        z_{\infty n}^{(R)} = r_\infty e^{j\frac{2\pi n}{p}} = r_\infty z_{0n}^{(R)} \ \ n\in[0,p-1]
     \end{align}
   \end{mdframed}
-Dimensionierung b, sodass zwischen Kerben 0dB(=1)
+\subsubsection{Kerbenbildend Kammfilter $H_{(K)}(z)$}
+Dimensionierung $b$, sodass zwischen Kerben $0dB(=1)$
   \begin{mdframed}[style=exercise]
     \begin{align}
-        H(z)=b\frac{1-z^{-p}}{1-r_\infty z^{-p}}\\
-        \abs{b\frac{2}{1+r_\infty^p}}\stackrel{!}{=}1 \leftrightarrow b=\frac{1+r_\infty ^p}{2}
+        H_{(K)}(z)=\frac{1+r_\infty ^p}{2}\cdot \frac{1-z^{-p}}{1-r_\infty^p z^{-p}}
+    \end{align}
+  \end{mdframed}
+\subsubsection{Resonanzbildender Kammfilter $H_{(R)}(z)$}
+Dimensionierung $b$, sodass zwischen Kerben $0dB(=1)$
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        H_{(R)}(z)= \frac{1-r_\infty ^p}{2}\cdot \frac{1+z^{-p}}{1-r_\infty^p z^{-p}}
     \end{align}
   \end{mdframed}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Goertzel-Algorithmus %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -626,7 +641,7 @@ Bestimmung eines einzelnen DFT-Spektralwert X(n). Gleicher Rechenaufwand wie FFT
 Gruppenlaufzeit $\tau$ = Verzögerungszeit des Systems aufgelöst nach Frequenzen
   \begin{mdframed}[style=exercise]
     \begin{align}
-        \tau = \frac{d}{df}\varphi
+        \tau = -\frac{d}{df}\varphi
     \end{align}
   \end{mdframed}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% FIR-Filter %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -636,13 +651,13 @@ grundsätzlich Stabil, Ordnung m $\rightarrow$ m Pole im Ursprung
     \begin{align}
         H(z)=\frac{Y(z)}{U(z)}= \sum_{\mu=0}^{m} b_\mu z^{-\mu} \\
         H(z)=\frac{b_0\Pi_{\mu=1}^{m}(z-z_{0\mu})}{z^m}\\
-        h(k)= b_k \ \ k\in[0,m-1] 
+        h(k)= b_k \ \ k\in[0,m] 
     \end{align}
   \end{mdframed}
 Gewollte Eigenschaft: \textcolor{red}{lineare Phase}
   \begin{mdframed}[style=exercise]
     \begin{align}
-        \tau_g = \frac{d}{d\Omega} arg(H(e^{j\Omega})) = const.
+        \tau_g = -\frac{d}{d\Omega} arg(H(e^{j\Omega})) = const.
     \end{align}
   \end{mdframed}
 lineare Phase wenn Nullstellen von H(z)
