@@ -684,6 +684,19 @@ Für linearphasige FIR-Filter der Ordnung p gilt für Impulsantwort h(k) eine de
     \item $h(k)= -h(p-k)$ (ungerade Symmetrie) 
 \end{itemize}
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Kanonische-Formen %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Toleranzschema}
+  \begin{center}
+      \includegraphics[width=.2\textwidth]{./img/toleranzschema1.png}
+      \includegraphics[width=.25\textwidth]{./img/toleranzschema.png}
+  \end{center}
+\begin{itemize}
+    \item $A_{pass}=20~log\left(\textstyle{\frac{1+\delta_{D}}{1-\delta_{D}}}\right)$
+    \item $A_{Stop}=\abs{20\,log(\delta_{S})}$
+    \item $F_{pass}=\frac{\Omega_{D}}{2\pi}f_{A}$
+    \item $F_{stop}=\frac{\Omega_{S}}{2\pi}f_{A}$
+\end{itemize}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Kanonische-Formen %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{1. Kanonische-Form (IIR)}
 Hälfte der Speicherzellen $a_0=1$
