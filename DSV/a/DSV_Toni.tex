@@ -537,6 +537,7 @@ Vergangenheitswert y(k-1) wird mit Faktor $a\in [0,1]$
   \begin{mdframed}[style=exercise]
     \begin{align}
         y(k) = ay(k-1)+(1-a)u(k) \\
+        h(k) = (1-a)\cdot a^{k} \cdot \sigma(k)\\
         H(z) =\frac{1-a}{1-az^{-1}}=\frac{(1-a)z}{z-a}
     \end{align}
   \end{mdframed}
@@ -544,8 +545,9 @@ Vom Verhalten entspricht er einem Tiefpass 1.Ordnung mit Grenzfrequenz $\Omega_g
   \begin{mdframed}[style=exercise]
     \begin{align}
         H(e^{j\Omega}) =\frac{1-a}{1-ae^{j\pi\Omega}}\\
-        \Omega_g = 2\pi\frac{f_g}{f_A}\\
-        a = 2-cos(\Omega_g)-\sqrt{(2-cos(\Omega_g)^2)-1}
+        \Omega_g = 2\pi\frac{f_g}{f_A}= arccos(\frac{a^{2}-4\cdot a+1}{-2\cdot a})\\
+        a = 2-cos(\Omega_g)-\sqrt{(2-cos(\Omega_g)^2)-1}\\
+        \abs{H(\Omega)}= \frac{1-a}{\sqrt{1-2\cdot a\cdot cos(\Omega)+a^{2}}}
     \end{align}
   \end{mdframed}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Mittelwert %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -801,7 +803,7 @@ Zusammenfassung der Tiefpässe zu einem mit V=L und Grenzfrequenz $\Omega_{g,i\&
     \end{align}
 \end{mdframed}
 
-\textbf{Phasenkorrektur bei $\varphi=arg(x+\cdot y)$: }
+\textbf{Phasenkorrektur bei $\varphi=arg(x+j\cdot y)$: }
 \begin{itemize}
 	\item $arctan(\frac{y}{x})$ für $x > 0$ 
 	\item $arctan(\frac{y}{x}) + \pi$ für $x < 0$ $y \geq 0$ 
