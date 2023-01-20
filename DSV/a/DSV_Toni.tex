@@ -601,12 +601,12 @@ Einsetzen in Übertragungsfunktion H(z), Kerbentiefe $+A_B[dB]$
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Kammfilter %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Kammfilter}
 Zu jeder Nullstelle $z_{0n}$ einen Pol $z_{\infty n}$ im Radius $r_\infty<1$ plazieren.\\ 
-p = Ordnung, (K) = Kerbenbildend, (R) = Resonanzbildend
+p = Ordnung, (K) = Kerbenbildend, (R) = Resonanzbildend, n = 0..(p-1)
   \begin{mdframed}[style=exercise]
     \begin{align}
-        z_{\infty n}^{(K)} &= r_\infty e^{j\frac{2\pi n}{p}} \\
         z_{0n}^{(K)} &= e^{j\frac{2\pi n}{p}} \\
-        z_{\infty n}^{(R)} &= e^{j\frac{(\pi + 2\pi n)}{p}} \\
+        z_{\infty n}^{(K)} &= r_\infty e^{j\frac{2\pi n}{p}}\\
+        z_{0n}^{(R)} &= e^{j\frac{(\pi + 2\pi n)}{p}}\\
         z_{\infty n}^{(R)} &= r_\infty e^{j\frac{(2\pi n)}{p}}
     \end{align}
   \end{mdframed}
@@ -629,12 +629,14 @@ Dimensionierung $b$, sodass zwischen Kerben $0dB(=1)$
 Bestimmung eines einzelnen DFT-Spektralwert X(n). Gleicher Rechenaufwand wie FFT aber Blocklänge N muss keine 2er Potenz sein. $\tilde{x}(k)=[x(0..N-1) \ 0]$ (N-ter Wert 0 setzen)
   \begin{mdframed}[style=exercise]
     \begin{align}
-        n_0 &= \frac{f_0}{f_A}N\\
-        X(n_0)&= y(k)=x(k)*h(k)|_{k=N}\\
-        X(n_0)&=y_n(k)=\sum_{\nu=0}^{k}\tilde{x}(\nu)e^{j\frac{2\pi}{N}(k-\nu)n}
+        n_0 = \frac{f_0}{f_A}N\\
+        X(n_0)= y(k)=x(k)*h(k)|_{k=N}\\
+        X(n_0)=y_n(k)=\sum_{\nu=0}^{k}\tilde{x}(\nu)e^{j\frac{2\pi}{N}(k-\nu)n}\\
+        h(k)=(e^{\frac{j\cdot 2\cdot\pi\cdot n}{N}})^{k}\cdot\sigma(k)\\
+        n = -j\cdot\frac{N}{2\cdot\pi}\cdot ln(h(1)) -> f_{Goertzel}=\frac{f_{Abtast}}{N}\cdot n
     \end{align}
   \end{mdframed}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% IIR-Filter %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% IIR-Filter %%%%%%%%%%%%%%%%%%%%%%%%%%%%%(%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{IIR-Filter}
   \begin{mdframed}[style=exercise]
     \begin{align}
@@ -896,7 +898,10 @@ Die Auswirkung der Pol- / Nullstellen-Position wird hier anhand eines Systems zw
     	\end{itemize}
     \item \textbf{Umrechnung Frequenz in Winkel:} $\varphi = \frac{2\cdot\pi\cdot f_{n}}{f_{Abtast}}$
     \item Auf Einheitskreis wird gegen den \textbf{Urzeigersinn}\\
-    von 0 Hz (0°) bis $f_{Abtast}$ (360° bzw. $2\pi$) gelaufen 
+    von 0 Hz (0°) bis $f_{Abtast}$ (360° bzw. $2\pi$) gelaufen
+    \item \textbf{Skalierung der Pol- / Nullstellen: } \\
+    Substitution von $N(z)$ durch $N(\frac{z}{c})$\\
+    $N(z)=\sum_{\mu=0}^{m} b_\mu z^{-\mu}$ -> $N(\frac{z}{c})=\sum_{\mu=0}^{m} b_\mu (\frac{z}{c})^{-\mu}$
 \end{itemize}
  
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
