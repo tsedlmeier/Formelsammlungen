@@ -35,7 +35,7 @@
 \begin{document}
 \twocolumn
 \pagestyle{fancy}
-\lhead{DSP Formelsammlung}
+\lhead{DSP Formelsammlung, \today}
 \rhead{Sedlmeier, Toni}
 \section{Zahlenformate}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Zahlenformate %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -319,29 +319,57 @@ void ProcessBuffer()
   \end{itemize}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  FFT %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{FFT}
+Die FFT basiert auf dem \textbf{Devide-and-Conquer} Prinzip,
+sodass schon berechnete Zwischenergebnisse wiederverwendet werden.
+Mögliche Realisierungsformen:
+\begin{itemize}
+    \item Decimation in Frequency
+    \item Decimation in Time 
+\end{itemize}
   \begin{mdframed}[style=exercise]
     \begin{align}
-        w_N^{nk}=e^{-j\frac{2\pi nk}{N}}\\
-        w_N^{2nk}=e^{-j\frac{4\pi nk}{N}}=w_{\frac{N}{2}}^{nk}
+        w_N^{nk}&=e^{-j\frac{2\pi nk}{N}}\\
+        w_N^{2nk}&=e^{-j\frac{4\pi nk}{N}}=w_{\frac{N}{2}}^{nk}
     \end{align}
   \end{mdframed}
-  1. Aufteilung in $Y(n) = Y_{even}(n)+Y_{odd}(n)$
+\subsection{Decimation in Time (DIT)}
+1. Aufteilung in $Y(n) = Y_{even}(n)+Y_{odd}(n)$
   \begin{mdframed}[style=exercise,font=\scriptsize]
     \begin{align}
-        Y(n)=\sum_{k=0}^{N/2-1} y(2k)w_N^{2nk}+\sum_{k=0}^{N/2-1} y(2k+1)w_N^{(2k+1)n}\\
-        Y(n)=\sum_{k=0}^{N/2-1} y(2k)w_N^{2nk}+w_N^{n}\sum_{k=0}^{N/2-1} y(2k+1)w_N^{2kn}\\
-        Y(n)=\sum_{k=0}^{N/2-1} y(2k)w_{\frac{N}{2}}^{nk}+w_N^{n}\sum_{k=0}^{N/2-1} y(2k+1)w_{\frac{N}{2}}^{nk}\\
-        Y(n+\frac{N}{2})=\sum_{k=0}^{N/2-1} y(2k)w_{\frac{N}{2}}^{(n+\frac{N}{2})k}+w_N^{n+\frac{N}{2}}\sum_{k=0}^{N/2-1} y(2k+1)w_{\frac{N}{2}}^{(n+\frac{N}{2})k}
+        Y(n)&=\sum_{k=0}^{N/2-1} y(2k)w_N^{2nk}+\sum_{k=0}^{N/2-1} y(2k+1)w_N^{(2k+1)n}\\
+        Y(n)&=\sum_{k=0}^{N/2-1} y(2k)w_N^{2nk}+w_N^{n}\sum_{k=0}^{N/2-1} y(2k+1)w_N^{2kn}\\
+        Y(n)&=\sum_{k=0}^{N/2-1} y(2k)w_{\frac{N}{2}}^{nk}+w_N^{n}\sum_{k=0}^{N/2-1} y(2k+1)w_{\frac{N}{2}}^{nk}\\
     \end{align}
   \end{mdframed}
-  2. Aufteilung in $Y(n) = Y_{even}(n)+Y_{odd}(n)$
+2. Aufteilung in $Y(n) = Y_{left}(n)+Y_{right}(n)$
+  \begin{mdframed}[style=exercise,font=\scriptsize]
+    \begin{align}
+        Y(n)&=\sum_{k=0}^{N/2-1} y(2k)w_{\frac{N}{2}}^{nk}+w_N^{n}\sum_{k=0}^{N/2-1} y(2k+1)w_{\frac{N}{2}}^{nk}\\
+        Y(n+\frac{N}{2})&=\sum_{k=0}^{N/2-1} y(2k)w_{\frac{N}{2}}^{(n+\frac{N}{2})k}+w_N^{n+\frac{N}{2}}\sum_{k=0}^{N/2-1} y(2k+1)w_{\frac{N}{2}}^{(n+\frac{N}{2})k}
+    \end{align}
+  \end{mdframed}
+mit 
   \begin{mdframed}[style=exercise]
     \begin{align}
-        Y(n)=\sum_{k=0}^{N/2-1} y(2k)w_N^{2nk}+\sum_{k=0}^{N/2-1} y(2k+1)w_N^{(2k+1)n}\\
-        Y(n)=\sum_{k=0}^{N/2-1} y(2k)w_N^{2nk}+w_N^{n}\sum_{k=0}^{N/2-1} y(2k+1)w_N^{2kn}\\
-        Y(n)=\sum_{k=0}^{N/2-1} y(2k)w_{\frac{N}{2}}^{nk}+w_N^{n}\sum_{k=0}^{N/2-1} y(2k+1)w_{\frac{N}{2}}^{nk}
+        w_{\frac{N}{2}}^{(n+\frac{N}{2})k} &= w_{\frac{N}{2}}^{nk} \cdot \underbrace{w_{\frac{N}{2}}^{k\frac{N}{2}}}_{=1} = w_{\frac{N}{2}}^{nk}\\
+        w_N^{n+\frac{N}{2}} &= w_N^n \cdot \underbrace{w^{\frac{N}{2}}_N}_{=-1} = -w_N^n
     \end{align}
   \end{mdframed}
+folgt 
+  \begin{mdframed}[style=exercise,font=\scriptsize]
+    \begin{align}
+        Y(n)&=\sum_{k=0}^{N/2-1} y(2k) w_{\frac{N}{2}}^{nk} + w_{\frac{N}{2}}^{n} \sum_{k=0}^{N/2-1} y(2k+1)w_{\frac{N}{2}}^{kn}\\
+        Y(n+\frac{N}{2})&=\sum_{k=0}^{N/2-1} y(2k) w_{\frac{N}{2}}^{nk} - w_{\frac{N}{2}}^{n} \sum_{k=0}^{N/2-1} y(2k+1)w_{\frac{N}{2}}^{kn}
+    \end{align}
+  \end{mdframed}
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        Y_{left}(n) &= Y_{even}(n) + w_{\frac{N}{2}}^{n} Y_{odd}(n)\\ 
+        Y_{right}(n) &= Y_{even}(n) - w_{\frac{N}{2}}^{n} Y_{odd}(n)
+    \end{align}
+  \end{mdframed}
+Die Komplexität ist $O(N\log_2(N))$:\\ 
+Es gibt 2 $log_2(N)$ Splitting-Steps mit je $O(n)$
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  NCO %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{NCO}
