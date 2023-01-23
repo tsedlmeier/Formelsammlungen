@@ -16,7 +16,7 @@
 \usepackage{mathtools}
 \usepackage{graphicx}
 \usepackage{float}
-\usepackage{xcolor}
+\usepackage[table]{xcolor}
 \usepackage{mdframed}
 \usepackage{csquotes}
 \usepackage{trfsigns}
@@ -60,73 +60,6 @@
         E &=\sum_{k=0}^{N-1} \abs{x(k)}^2 =\frac{1}{N}\sum_{n=0}^{N-1} \abs{X(n)}^2 
     \end{align}
   \end{mdframed}
-  \subsection{DFT/IDFT}
-  \begin{mdframed}[style=exercise]
-    \begin{align}
-        X(n)&=\sum_{k=0}^{N-1} x(k)e^{-j\frac{2\pi kn}{N}} \\
-        x(k)&=\frac{1}{N}\sum_{n=0}^{N-1} X(n)e^{j\frac{2\pi kn}{N}} \\
-    \end{align}
-  \end{mdframed}
-Die DFT bewirkt eine implizite Periodisierung. \\ 
-Math. Modulo:
-$\tilde{x}(k) = x([k]_{modN})$ 
-$[n]_{modN}=n-N \lfloor \frac{n}{N} \rfloor$
-  \begin{center}
-      \includegraphics[width=.2\textwidth]{./img/x_k.png}
-      \includegraphics[width=.2\textwidth]{./img/x_mk.png}
-  \end{center}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% DFT-Korrespondenzen %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\scriptsize
-\begin{center}
-\begin{tabular}{ | c | c | c | }
-\cline{1-3}
-        & Zeitbereich & Spektralbereich \\
-\cline{1-3}
-        Linearität & $a\cdot x_1(k)+ b\cdot x_2(k)$ & $a\cdot X_1(n) +b\cdot X_2(n)$ \\
-\cline{1-3}
-        Zeit-Verschiebung & $x([k\textcolor{red}{-}k_0]_{modN})$ & $e^{\textcolor{red}{-}j\frac{2\pi nk_0}{N}} X(n)$\\
-\cline{1-3}
-        Frequenz-Verschiebung & $e^{\textcolor{red}{-}j\frac{2\pi nk_0}{N}} x(k)$ & $X([n\textcolor{red}{+}k_0]_{modN})$ \\  
-\cline{1-3}
-        Spiegelung & $x([-k]_{modN})$ & $X([-n]_{modN})$ \\  
-\cline{1-3}
-        Konj.Kompl & $x^*(k)$& $X^*([-n]_{modN})$\\ 
-\cline{1-3}
-        Konj.Kompl.gespiegelt & $x^*([-k]_{modN})$& $X^*(n)$\\ 
-\cline{1-3}
-        Faltung & $x_1(k) \circledast x_2(k)$ & $X_1(n)X_2(n)$ \\  
-\cline{1-3}
-        Multiplikation & $x_1(k)x_2(k)$ & $\frac{1}{N} X_1(n) \circledast X_2(n)$ \\
-\cline{1-3}
-        gerade Symmetrie & $x_g(k)=\frac{x(k)+\tilde{x}(-k)}{2}$ & $X_g(n)=\frac{X(n)+X(-n)}{2}$ \\
-\cline{1-3}
-        ungerade Symmetrie & $x_u(k)=\frac{x(k)-\tilde{x}(-k)}{2}$ & $X_u(n)=\frac{X(n)-X(-n)}{2j}$ \\
-\cline{1-3}
-\end{tabular}
-\end{center}
-\normalsize
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% DFT-Korrespondenzen %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-  \begin{center}
-      \includegraphics[width=.35\textwidth]{./img/dtft.png}
-  \end{center}
-  \begin{center}
-      \includegraphics[width=.35\textwidth]{./img/dft.png}
-  \end{center}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% z-Transformation %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-  \subsection{z-Transformation}
-  \begin{mdframed}[style=exercise]
-    \begin{align}
-        X(z) &=\sum_{k=-\infty}^{\infty} x(k)z^{-k} \ \ z=e^{s T_a}
-    \end{align}
-  \end{mdframed}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% z-Korrespondenzen %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-  \begin{center}
-      \includegraphics[width=.35\textwidth]{./img/z.png}
-  \end{center}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Faltung %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   \subsection{Faltung}
@@ -810,4 +743,315 @@ Zusammenfassung der Tiefpässe zu einem mit V=L und Grenzfrequenz $\Omega_{g,i\&
         \Omega_{nachher}=\Omega_{vorher}\frac{M}{L}
     \end{align}
   \end{mdframed}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Korrespondenztabellen %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Korrespondenztabellen}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Fouriertransformation %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\subsection{Fouriertransformation}
+%%%% Rechenregeln
+%%%% Quelle: Angepasst nach SDS-Skript
+%\begin{center}
+%  \bgroup
+%  \def\arraystretch{1.5}
+%  \begin{tabular}{ | c | c | }
+%  \cline{1-2}
+%          \rowcolor{black!15}
+%          Zeitbereich & Spektralbereich \\
+%
+%  % Transformation
+%  \cline{1-2}
+%          $x(t) = \frac{1}{2\pi}\displaystyle\int\limits_{-\infty}^{\infty}X(j\omega)\cdot e^{j\omega{}t}d\omega$ & $X(j\omega) = \displaystyle\int\limits_{-\infty}^{\infty}x(t)\cdot e^{-j\omega{}t}dt$ \\
+%
+%  % Linearität
+%  \cline{1-2}
+%          $a\cdot x_1(t)+ b\cdot x_2(t)$ & $a\cdot X_1(j\omega) +b\cdot X_2(j\omega)$ \\
+%
+%  % Verschiebung
+%  \cline{1-2}
+%          $x(t-T)$ & $e^{-j\omega{}t} X(j\omega)$\\
+%
+%  % Dämpfung
+%  \cline{1-2}
+%          $x(t)\cdot e^{j\omega_{0}t}$ & $X(j\omega-j\omega_0)$\\
+%
+%  % Differentiation
+%  \cline{1-2}
+%          $\frac{dx(t)}{dt}$ & $j\omega\cdot X(j\omega)$\\
+%
+%  % Differentiation (Freq. Bereich)
+%  \cline{1-2}
+%          $(-jt)^n\cdot x(t)$ & $\frac{d^n}{d\omega^n}X(j\omega)$\\
+%          
+%  \cline{1-2}
+%  \end{tabular}
+%  \egroup
+%\end{center}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Zeitdiskrete Fouriertransformation %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Zeitdiskrete Fouriertransformation}
+%%% Rechenregeln
+%%% Quelle: DSV-Skript, Kapitel Elementare DSV
+Zeitdiskrete Fouriertransformation ist Grenzwert der DFT für $N\to\infty$ und kann aus der Z-Trafo über $z:=e^{j\Omega}$ gewonnen werden.
+\begin{mdframed}[style=exercise]
+  \begin{align}
+    \Omega=\omega{}T_A=\frac{\omega}{f_A}=2\pi\frac{f}{f_A}
+  \end{align}
+\end{mdframed}
+\begin{center}
+  \bgroup
+  \def\arraystretch{1.5}
+  \begin{tabular}{ | c | c | }
+  \cline{1-2}
+          \rowcolor{black!15}
+          Zeitbereich & Frequenzbereich \\
+  
+  % Definition
+  \cline{1-2}
+          \shortstack{$x(k)=$\\ $\frac{1}{2\pi}\displaystyle\int_{-\pi}^{\pi}X(e^{j\Omega})e^{j\Omega{}k}d\Omega$} & $X(e^{j\Omega})=\displaystyle\sum\limits_{k=-\infty}^{\infty}x(k)e^{-j\Omega{}k}$ \\
+
+  % Linearität (angepasst für Klarheit)
+  \cline{1-2}
+          $a\cdot{}x_1(k)+b\cdot{}x_2(k)$ & $a\cdot{}X_1(e^{j\Omega})+b\cdot{}X_2(e^{j\Omega})$\\
+
+  % Zeitverschiebung
+  \cline{1-2}
+          $x(k-k_d)$ & $e^{-j\Omega{}k_d}X(e^{j\Omega})$ \\  
+
+  % Frequenzverschiebung
+  \cline{1-2}
+          $e^{j\Omega_{0}k}x(k)$ & $X(e^{j(\Omega-\Omega_0)})$ \\  
+
+  % Spiegelung 
+  \cline{1-2}
+          $x(-k)$ & \shortstack{$X(e^{-j\Omega})$\\ $(= X^*(e^{j\Omega}) \text{ für } x(k) \in \mathbb{R})$}\\ 
+
+  % Faltung
+  \cline{1-2}
+          $x_1(k) * x_2(k)$& $X_1(e^{j\Omega})X_2(e^{j\Omega})$\\ 
+  
+  % Multiplikation
+  \cline{1-2}
+          $x_1(k)x_2(k)$ & $\frac{1}{2\pi}\displaystyle\int_{-\pi}^{\pi}X_1(e^{j\Theta})X_2(e^{j(\Omega-\Theta)})d\Theta$ \\  
+  \cline{1-2}
+  \end{tabular}
+  \egroup
+\end{center}
+
+%%% Korrespondenzen
+\begin{center}
+  \bgroup
+  \def\arraystretch{1.5}
+  \begin{tabular}{ | c | c | }
+  \cline{1-2}
+          \rowcolor{black!15}
+          Zeitbereich & Frequenzbereich \\
+  
+  % Dirac
+  \cline{1-2}
+          $\gamma_0(k) \text{ (Dirac)}$ & $1$ \\
+
+  % Sprung
+  \cline{1-2}
+          $\gamma_{-1}(k) \text{ (Sprung)}$ & $\frac{1}{1-e^{-j\Omega}}+\displaystyle\sum\limits_{\nu=-\infty}^{\infty}\pi\gamma_0(\Omega+2\pi\nu)$\\
+
+  % 1
+  \cline{1-2}
+          $1$ & $\displaystyle\sum\limits_{\nu=-\infty}^{\infty}2\pi\gamma_0(\Omega+2\pi\nu)$ \\  
+
+  % Verschobener Dirac
+  \cline{1-2}
+          $\gamma_0(k-k_0)$ & $e^{-j\Omega{}k_0}$ \\  
+
+  % Exponentialfunktion 
+  \cline{1-2}
+          $a^{k}\gamma_{-1}(k)\:(|a|<1)$ & $\frac{1}{1-ae^{-j\Omega}}$\\ 
+
+  % si-Like
+  \cline{1-2}
+          $\frac{\sin(\Omega_{c}k)}{\pi{}k}$& $X(e^{j\Omega}) =
+          \begin{cases}
+              1,\:|\Omega|<\Omega_c \\
+              0,\:\Omega_c < |\Omega| \leq \pi
+          \end{cases}
+          $\\ 
+  
+  % rect (Verschoben)
+  \cline{1-2}
+          $x(k)=
+          \begin{cases}
+            1,\:0\leq{}k\leq{}M \\
+            0,\:sonst
+          \end{cases}$ & $\frac{\sin(\Omega(M+1)/2)}{\sin(\Omega/2)}e^{-j\Omega{}\frac{M}{2}}$ \\  
+  
+  % cos
+  \cline{1-2}
+          $\cos(\Omega_{0}k+\varphi)$ & \shortstack{$\displaystyle\sum\limits_{\nu=-\infty}^{\infty} [\pi{}e^{j\varphi}\gamma_0(\Omega-\Omega_0+2\pi\nu)$ \\ $+\pi{}e^{-j\varphi}\gamma_0(\Omega+\Omega_0+2\pi\nu)]$} \\
+  \cline{1-2}
+  \end{tabular}
+  \egroup
+\end{center}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Diskrete Fouriertransformation %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{DFT}
+DFT nimmt implizit unendlich periodische Fortsetzung des Signals an. Zu beachten: $-1_{modN}=-1 + N$, $-2_{modN}=-2+N$, ... (solange Addition von N bis positiv!).
+Math. Modulo:
+$\tilde{x}(k) = x([k]_{modN})$ 
+$[n]_{modN}=n-N \lfloor \frac{n}{N} \rfloor$
+  \begin{center}
+      \includegraphics[width=.2\textwidth]{./img/x_k.png}
+      \includegraphics[width=.2\textwidth]{./img/x_mk.png}
+  \end{center}
+
+%%% Rechenregeln
+%%% Quelle: DSV-Skript, Kapitel Elementare DSV
+\begin{center}
+  \bgroup
+  \def\arraystretch{1.5}
+  \begin{tabular}{ | c | c | }
+  \cline{1-2}
+          \rowcolor{black!15}
+          Zeitbereich & Frequenzbereich \\
+  
+  % Definition
+  \cline{1-2}
+          \shortstack{$x(k)=\text{IDFT}_N\{X(n)\}$ \\ $=\frac{1}{N}\displaystyle\sum\limits_{n=0}^{N-1}X(n)e^{j\frac{2\pi}{N}kn}$} &
+          \shortstack{$X(n)=\text{DFT}_N\{x(k)\}$ \\ $=\displaystyle\sum\limits_{k=0}^{N-1}x(k)e^{-j\frac{2\pi}{N}kn}$} \\
+
+  \cline{1-2}
+          $a\cdot x_1(k)+ b\cdot x_2(k)$ & $a\cdot X_1(n) +b\cdot X_2(n)$ \\
+  \cline{1-2}
+          $x([k\textcolor{red}{-}k_0]_{modN})$ & $e^{\textcolor{red}{-}j\frac{2\pi nk_0}{N}} X(n)$\\
+  \cline{1-2}
+          $e^{\textcolor{red}{-}j\frac{2\pi nk_0}{N}} x(k)$ & $X([n\textcolor{red}{+}k_0]_{modN})$ \\  
+  \cline{1-2}
+          $x([-k]_{modN})$ & $X([-n]_{modN})$ \\  
+  \cline{1-2}
+          $x^*(k)$& $X^*([-n]_{modN})$\\ 
+  \cline{1-2}
+          $x^*([-k]_{modN})$& $X^*(n)$\\ 
+  \cline{1-2}
+          $x_1(k) \circledast x_2(k)$ & $X_1(n)X_2(n)$ \\  
+  \cline{1-2}
+          $x_1(k)x_2(k)$ & $\frac{1}{N} X_1(n) \circledast X_2(n)$ \\
+  \cline{1-2}
+          $x_g(k)=\frac{x(k)+\tilde{x}(-k)}{2}$ & $X_g(n)=\frac{X(n)+X(-n)}{2}$ \\
+  \cline{1-2}
+          $x_u(k)=\frac{x(k)-\tilde{x}(-k)}{2}$ & $X_u(n)=\frac{X(n)-X(-n)}{2j}$ \\
+  \cline{1-2}
+  \end{tabular}
+  \egroup
+\end{center}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Z-Transformation (einseitig) %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Z-Transformation (einseitig)}
+%%% Regeln
+%%% Quelle: DSV-Skript, Kapitel Elementare DSV
+\begin{mdframed}[style=exercise]
+  \begin{align}
+    x(0) &= \lim_{z\to\infty}X(z) \\
+    \lim_{k\to\infty}x(k) &= \lim_{z\to1+}(z-1)X(z)
+  \end{align}
+\end{mdframed}
+\begin{center}
+  \bgroup
+  \def\arraystretch{1.5}
+  \begin{tabular}{ | c | c | }
+  \cline{1-2}
+          \rowcolor{black!15}
+          Zeitbereich & Z-Bereich \\
+  
+  % Definition
+  \cline{1-2}
+          $x(k)=\frac{1}{2\pi{}j}\displaystyle\oint_{C}X(z)z^{k-1}dz$ &
+          $X(z)=\displaystyle\sum\limits_{k=0}^{\infty}x(k)z^{-k}$ \\
+
+  % Linearität
+  \cline{1-2}
+          $a\cdot x_1(k)+ b\cdot x_2(k)$ & $a\cdot X_1(z) +b\cdot X_2(z)$ \\
+
+  % Verschiebung (negativ)
+  \cline{1-2}
+          $x(k-i)$ & $z^{-i}\cdot{}X(z)$\\
+
+  % Verschiebung (positiv)
+  \cline{1-2}
+        $x(k+i)$ & \shortstack{$z^i\cdot{}X(z)-\displaystyle\sum\limits_{\mu=0}^{i-i}z^{i-\mu}x(\mu)$ \\ 
+        \text{(meistens $z^i\cdot{}X(z)$)}}\\
+
+  % Faltung
+  \cline{1-2}
+          $x_1(k) * x_2(k)$ & $X_1(z)X_2(z)$ \\ 
+  
+  % Summation
+  \cline{1-2}
+          $\displaystyle\sum\limits_{\mu=0}^{k}x(\mu)$ & $\frac{z}{z-1}X(z)$ \\  
+  
+  % Modulation
+  \cline{1-2}
+          $z_0^{k}x(k)$ & $X(\frac{z}{z_0})$ \\ 
+
+  % Multiplikation
+  \cline{1-2}
+          $x_1(k)x_2(k)$ & $\frac{1}{2\pi}\displaystyle\oint_{C}X_1(w)X_2(\frac{z}{w})w^{-1}dw$\\ 
+
+  % Multiplikation (Spezialfall 1)
+  \cline{1-2}
+          $kx(k)$ & $-z\frac{d}{dz}X(z)$ \\  
+
+  % Multiplikation (Spezialfall 2)
+  \cline{1-2}
+          $k^{2}x(k)$ & $z^{2}\frac{d^2}{dz^2}X(z)+z\frac{d}{dz}X(z)$ \\
+  
+  % Konjugiert komplex
+  \cline{1-2}
+          $x^*(k)$ & $X^*(z^*)$ \\
+  \cline{1-2}
+  \end{tabular}
+  \egroup
+\end{center}
+
+%%% Korrespondenzen
+Alle $x(k)=0$ für $k < 0$.
+\begin{center}
+  \bgroup
+  \def\arraystretch{1.5}
+  \begin{tabular}{ | c | c | }
+  \cline{1-2}
+          \rowcolor{black!15}
+          Zeitbereich & Z-Bereich \\
+  
+  \cline{1-2}
+          $\gamma_0(k)$ &
+          $1$ \\
+
+  \cline{1-2}
+          $z_0^k$ & $\frac{z}{z-z_0}$ \\
+
+  \cline{1-2}
+          $\gamma_{-1}(k)$ & $\frac{z}{z-1}$\\
+
+  \cline{1-2}
+        $\cos(\Omega_0k+\varphi)$ & $\frac{z(z\cos(\varphi)-cos(\Omega_0+\varphi))}{z^2-2z\cos(\Omega_0)+1}$ \\ 
+
+  \cline{1-2}
+          $\cos(\Omega_0k)$ & $\frac{z(z-\cos(\Omega_0))}{z^2-2z\cos(\Omega_0)+1}$ \\ 
+  
+  \cline{1-2}
+          $\sin(\Omega_0k)$ & $\frac{z\sin(\Omega_0)}{z^2-2z\cos(\Omega_0)+1}$ \\  
+  
+  \cline{1-2}
+          $k$ & $\frac{z}{(z-1)^2}$ \\ 
+
+  \cline{1-2}
+          $kz_0^k$ & $\frac{zz_0}{(z-z_0)^2}$\\ 
+
+  \cline{1-2}
+          $k^2z_0^k$ & $\frac{zz_0(z+z_0)}{(z-z_0)^3}$ \\  
+
+  \cline{1-2}
+          \shortstack{$\binom{k}{n}=\frac{k!}{(k-n)!n!}$ \\ $(=0, \forall{}k<n)$} & $\frac{z}{(z-1)^{n+1}}$ \\
+  
+  \cline{1-2}
+  \end{tabular}
+  \egroup
+\end{center}
 \end{document}
