@@ -292,7 +292,7 @@ Autoleistungsdichtespektrum  $\phi_{xx}(e^{j\Omega})$ und Kreuzeistungsdichtespe
 Mittlere Leistung $\varphi_{xx}(0)$
   \begin{mdframed}[style=exercise]
     \begin{align}
-        \varphi_{xx}(0) = \frac{1}{2\pi} \displaystyle\int_{-\pi}^{\pi} \phi_{xx}(e^{j\Omega})d\Omega  = \frac{\phi_{xx}(e^{j\Omega})}{2\pi}
+        \varphi_{xx}(0) = \frac{1}{2\pi} \displaystyle\int_{-\pi}^{\pi} \phi_{xx}(e^{j\Omega})d\Omega
     \end{align}
   \end{mdframed}
 Weißes Rauschen (Mittelwertfrei) 
@@ -390,14 +390,14 @@ Bsp: Sinus $x(t) = sin(w_0t)\cdot w(t)$ mit $w(t)=rect(\frac{t-T/2}{T})$
     \item Nullstellen $\Omega_{0\nu} = \frac{2\pi}{N}\nu \ \ \nu \in\mathbb{Z} \textbackslash\{0\}$
   \end{itemize}
 \subsection{Zero-Padding}
-Zero-Padding = Annäherung an die DTFT $\rightarrow$ feinere Spektrumauflösung Energiegehalt $E = E_{ZP}$ \\
+Zero-Padding = Annäherung an die ZDFT $\rightarrow$ feinere Spektrumauflösung Energiegehalt $E = E_{ZP}$ \\
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Spektral Stoch. Prozesse %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Spektralschätzung Stoch. Prozesse}
 Periodogramm
   \begin{mdframed}[style=exercise]
     \begin{align}
-        \hat{\phi}_{Per} = \frac{1}{N}\abs{X(n)}^2
+        \hat{\phi}_{Per}(n) = \frac{1}{N}\abs{X(n)}^2
     \end{align}
   \end{mdframed}
 Mittlere Leistung P mittels Periodogramm
@@ -409,7 +409,7 @@ Mittlere Leistung P mittels Periodogramm
 Falls nur Spektrum von $n\in [0,N/2]$ gegeben
   \begin{mdframed}[style=exercise]
     \begin{align}
-        P = \frac{1}{N}( \hat{\phi}_{Per}(0) + 2 sum_{n=0}^{N/2-1} \hat{\phi}_{Per} + \hat{\phi}_{Per}(\frac{N}{2})) \\
+        P = \frac{1}{N}( \hat{\phi}_{Per}(0) + 2 \sum_{n=0}^{N/2-1} \hat{\phi}_{Per} + \hat{\phi}_{Per}(\frac{N}{2})) \\
         P = \frac{1}{N^2}( \abs{X(0)}^2 + 2 \sum_{n=0}^{N/2-1} \abs{X(n)}^2 + \abs{X(N/2)}^2) 
     \end{align}
   \end{mdframed}
