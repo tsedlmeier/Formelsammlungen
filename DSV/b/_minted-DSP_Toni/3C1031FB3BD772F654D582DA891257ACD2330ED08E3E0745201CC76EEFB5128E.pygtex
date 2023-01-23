@@ -1,0 +1,50 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k+kt}{void}\PYG{+w}{ }\PYG{n+nf}{ProcessBuffer}\PYG{p}{()}
+\PYG{p}{\PYGZob{}}
+\PYG{+w}{    }\PYG{k+kt}{short}\PYG{+w}{ }\PYG{o}{*}\PYG{n}{pBuf}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{buffer}\PYG{p}{[}\PYG{n}{ready\PYGZus{}index}\PYG{p}{];}
+\PYG{+w}{    }\PYG{c+c1}{// extra buffer room for convolution \PYGZdq{}edge effects\PYGZdq{}}
+\PYG{+w}{    }\PYG{c+c1}{// N is filter order from coeff.h}
+\PYG{+w}{    }\PYG{k}{static}\PYG{+w}{ }\PYG{k+kt}{float}\PYG{+w}{ }\PYG{n}{Left}\PYG{p}{[}\PYG{n}{BUFFER\PYGZus{}COUNT}\PYG{o}{+}\PYG{n}{N}\PYG{p}{]}\PYG{o}{=}\PYG{p}{\PYGZob{}}\PYG{l+m+mi}{0}\PYG{p}{\PYGZcb{},}\PYG{+w}{ }\PYG{n}{Right}\PYG{p}{[}\PYG{n}{BUFFER\PYGZus{}COUNT}\PYG{o}{+}\PYG{n}{N}\PYG{p}{]}\PYG{o}{=}\PYG{p}{\PYGZob{}}\PYG{l+m+mi}{0}\PYG{p}{\PYGZcb{};}
+\PYG{+w}{    }\PYG{k+kt}{float}\PYG{+w}{ }\PYG{o}{*}\PYG{n}{pL}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{Left}\PYG{p}{,}\PYG{+w}{ }\PYG{o}{*}\PYG{n}{pR}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{Right}\PYG{p}{;}
+\PYG{+w}{    }\PYG{k+kt}{float}\PYG{+w}{ }\PYG{n}{yLeft}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{yRight}\PYG{p}{;}
+\PYG{+w}{    }\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{i}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{j}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{k}\PYG{p}{;}
+\PYG{+w}{    }\PYG{c+c1}{// offset pointers to start filling after N elements}
+
+\PYG{+w}{    }\PYG{n}{pR}\PYG{+w}{ }\PYG{o}{+=}\PYG{+w}{ }\PYG{n}{N}\PYG{p}{;}
+\PYG{+w}{    }\PYG{n}{pL}\PYG{+w}{ }\PYG{o}{+=}\PYG{+w}{ }\PYG{n}{N}\PYG{p}{;}
+
+\PYG{+w}{    }\PYG{c+c1}{// extract data to float buffers}
+\PYG{+w}{    }\PYG{k}{for}\PYG{p}{(}\PYG{n}{i}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{p}{;}\PYG{+w}{ }\PYG{n}{i}\PYG{+w}{ }\PYG{o}{\PYGZlt{}}\PYG{+w}{ }\PYG{n}{BUFFER\PYGZus{}COUNT}\PYG{p}{;}\PYG{+w}{ }\PYG{n}{i}\PYG{o}{++}\PYG{p}{)}
+\PYG{+w}{    }\PYG{p}{\PYGZob{}}
+\PYG{+w}{        }\PYG{o}{*}\PYG{n}{pR}\PYG{o}{++}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{o}{*}\PYG{n}{pBuf}\PYG{o}{++}\PYG{p}{;}
+\PYG{+w}{        }\PYG{o}{*}\PYG{n}{pL}\PYG{o}{++}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{o}{*}\PYG{n}{pBuf}\PYG{o}{++}\PYG{p}{;}
+\PYG{+w}{    }\PYG{p}{\PYGZcb{}}
+\PYG{+w}{    }\PYG{c+c1}{// reinitialize pointer before FOR loop}
+\PYG{+w}{    }\PYG{n}{pBuf}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{buffer}\PYG{p}{[}\PYG{n}{ready\PYGZus{}index}\PYG{p}{];}
+
+\PYG{+w}{    }\PYG{c+c1}{// Implement FIR filter}
+\PYG{+w}{    }\PYG{k}{for}\PYG{p}{(}\PYG{n}{i}\PYG{o}{=}\PYG{l+m+mi}{0}\PYG{p}{;}\PYG{+w}{ }\PYG{n}{i}\PYG{+w}{ }\PYG{o}{\PYGZlt{}}\PYG{+w}{ }\PYG{n}{BUFFER\PYGZus{}COUNT}\PYG{p}{;}\PYG{+w}{ }\PYG{n}{i}\PYG{o}{++}\PYG{p}{)}
+\PYG{+w}{    }\PYG{p}{\PYGZob{}}
+\PYG{+w}{        }\PYG{n}{yLeft}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{p}{;}\PYG{+w}{ }\PYG{c+c1}{// initialize the LEFT output value}
+\PYG{+w}{        }\PYG{n}{yRight}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{p}{;}\PYG{+w}{ }\PYG{c+c1}{// initialize the RIGHT output value}
+
+\PYG{+w}{        }\PYG{k}{for}\PYG{p}{(}\PYG{n}{j}\PYG{o}{=}\PYG{l+m+mi}{0}\PYG{p}{,}\PYG{n}{k}\PYG{o}{=}\PYG{n}{i}\PYG{o}{+}\PYG{n}{N}\PYG{p}{;}\PYG{+w}{ }\PYG{n}{j}\PYG{+w}{ }\PYG{o}{\PYGZlt{}=}\PYG{+w}{ }\PYG{n}{N}\PYG{p}{;}\PYG{+w}{ }\PYG{n}{j}\PYG{o}{++}\PYG{p}{,}\PYG{n}{k}\PYG{o}{\PYGZhy{}\PYGZhy{}}\PYG{p}{)}
+\PYG{+w}{        }\PYG{p}{\PYGZob{}}
+\PYG{+w}{            }\PYG{n}{yLeft}\PYG{+w}{ }\PYG{o}{+=}\PYG{+w}{ }\PYG{n}{Left}\PYG{p}{[}\PYG{n}{k}\PYG{p}{]}\PYG{+w}{ }\PYG{o}{*}\PYG{+w}{ }\PYG{n}{B}\PYG{p}{[}\PYG{n}{j}\PYG{p}{];}\PYG{+w}{ }\PYG{c+c1}{// perform the LEFT dot\PYGZhy{}product}
+\PYG{+w}{            }\PYG{n}{yRight}\PYG{+w}{ }\PYG{o}{+=}\PYG{+w}{ }\PYG{n}{Right}\PYG{p}{[}\PYG{n}{k}\PYG{p}{]}\PYG{+w}{ }\PYG{o}{*}\PYG{+w}{ }\PYG{n}{B}\PYG{p}{[}\PYG{n}{j}\PYG{p}{];}\PYG{+w}{ }\PYG{c+c1}{// perform the RIGHT dot\PYGZhy{}product}
+\PYG{+w}{        }\PYG{p}{\PYGZcb{}}
+\PYG{+w}{        }\PYG{c+c1}{// pack into buffer after bounding (must be right then left)}
+\PYG{+w}{        }\PYG{o}{*}\PYG{n}{pBuf}\PYG{o}{++}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{\PYGZus{}spint}\PYG{p}{(}\PYG{n}{yRight}\PYG{+w}{ }\PYG{o}{*}\PYG{+w}{ }\PYG{l+m+mi}{65536}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{\PYGZgt{}\PYGZgt{}}\PYG{+w}{ }\PYG{l+m+mi}{16}\PYG{p}{;}
+\PYG{+w}{        }\PYG{o}{*}\PYG{n}{pBuf}\PYG{o}{++}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{\PYGZus{}spint}\PYG{p}{(}\PYG{n}{yLeft}\PYG{+w}{ }\PYG{o}{*}\PYG{+w}{ }\PYG{l+m+mi}{65536}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{\PYGZgt{}\PYGZgt{}}\PYG{+w}{ }\PYG{l+m+mi}{16}\PYG{p}{;}
+\PYG{+w}{    }\PYG{p}{\PYGZcb{}}
+
+\PYG{+w}{    }\PYG{c+c1}{// save end values at end of buffer array for next pass}
+\PYG{+w}{    }\PYG{c+c1}{// by placing at beginning of buffer array}
+\PYG{+w}{    }\PYG{k}{for}\PYG{p}{(}\PYG{n}{i}\PYG{o}{=}\PYG{n}{BUFFER\PYGZus{}COUNT}\PYG{p}{,}\PYG{n}{j}\PYG{o}{=}\PYG{l+m+mi}{0}\PYG{p}{;}\PYG{+w}{ }\PYG{n}{i}\PYG{+w}{ }\PYG{o}{\PYGZlt{}}\PYG{+w}{ }\PYG{n}{BUFFER\PYGZus{}COUNT}\PYG{o}{+}\PYG{n}{N}\PYG{p}{;}\PYG{+w}{ }\PYG{n}{i}\PYG{o}{++}\PYG{p}{,}\PYG{n}{j}\PYG{o}{++}\PYG{p}{)}
+\PYG{+w}{    }\PYG{p}{\PYGZob{}}
+\PYG{+w}{        }\PYG{n}{Left}\PYG{p}{[}\PYG{n}{j}\PYG{p}{]}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{Left}\PYG{p}{[}\PYG{n}{i}\PYG{p}{];}
+\PYG{+w}{        }\PYG{n}{Right}\PYG{p}{[}\PYG{n}{j}\PYG{p}{]}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{Right}\PYG{p}{[}\PYG{n}{i}\PYG{p}{];}
+\PYG{+w}{    }\PYG{p}{\PYGZcb{}}
+\PYG{+w}{    }\PYG{n}{buffer\PYGZus{}ready}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{p}{;}\PYG{+w}{ }\PYG{c+c1}{// signal we are done}
+\PYG{p}{\PYGZcb{}}
+\end{Verbatim}
