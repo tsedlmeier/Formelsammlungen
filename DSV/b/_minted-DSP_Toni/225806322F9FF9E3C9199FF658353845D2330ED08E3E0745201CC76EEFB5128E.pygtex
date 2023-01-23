@@ -1,0 +1,16 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k+kt}{void}\PYG{+w}{ }\PYG{n+nf}{fir}\PYG{p}{()}
+\PYG{p}{\PYGZob{}}
+\PYG{+w}{    }\PYG{n}{CodecDataIn}\PYG{p}{.}\PYG{n}{UINT}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{ReadCodecData}\PYG{p}{();}\PYG{+w}{     }\PYG{c+c1}{// get input data samples}
+\PYG{+w}{    }\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{i}\PYG{p}{;}
+\PYG{+w}{    }\PYG{n}{xLeft}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{CodecDataIn}\PYG{p}{.}\PYG{n}{Channel}\PYG{p}{[}\PYG{n}{LEFT}\PYG{p}{];}\PYG{+w}{   }\PYG{c+c1}{// current input value}
+\PYG{+w}{    }\PYG{n}{yLeft}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{+w}{ }\PYG{p}{;}\PYG{+w}{                             }\PYG{c+c1}{// initialize the output}
+\PYG{+w}{    }\PYG{k}{for}\PYG{+w}{ }\PYG{p}{(}\PYG{+w}{ }\PYG{n}{i}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{+w}{ }\PYG{p}{;}\PYG{+w}{ }\PYG{n}{i}\PYG{+w}{ }\PYG{o}{\PYGZlt{}=}\PYG{+w}{ }\PYG{n}{N}\PYG{+w}{ }\PYG{p}{;}\PYG{+w}{ }\PYG{n}{i}\PYG{o}{++}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{\PYGZob{}}\PYG{+w}{           }\PYG{c+c1}{// x is length N+1}
+\PYG{+w}{        }\PYG{n}{yLeft}\PYG{+w}{ }\PYG{o}{+=}\PYG{+w}{ }\PYG{n}{xLeft}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]}\PYG{+w}{ }\PYG{o}{*}\PYG{+w}{ }\PYG{n}{B}\PYG{p}{[}\PYG{n}{i}\PYG{p}{];}\PYG{+w}{           }\PYG{c+c1}{// perform the dot\PYGZhy{}product}
+\PYG{+w}{    }\PYG{p}{\PYGZcb{}}
+\PYG{+w}{    }\PYG{k}{for}\PYG{+w}{ }\PYG{p}{(}\PYG{+w}{ }\PYG{n}{i}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{N}\PYG{+w}{ }\PYG{p}{;}\PYG{+w}{ }\PYG{n}{i}\PYG{+w}{ }\PYG{o}{\PYGZgt{}}\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{+w}{ }\PYG{p}{;}\PYG{+w}{ }\PYG{n}{i}\PYG{o}{\PYGZhy{}\PYGZhy{}}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{        }\PYG{n}{xLeft}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{xLeft}\PYG{p}{[}\PYG{n}{i}\PYG{l+m+mi}{\PYGZhy{}1}\PYG{p}{];}\PYG{+w}{              }\PYG{c+c1}{// shift for the next input}
+\PYG{+w}{    }\PYG{p}{\PYGZcb{}}
+\PYG{+w}{    }\PYG{n}{CodecDataOut}\PYG{p}{.}\PYG{n}{Channel}\PYG{p}{[}\PYG{n}{LEFT}\PYG{p}{]}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{yLeft}\PYG{p}{;}\PYG{+w}{     }\PYG{c+c1}{// output the value}
+\PYG{p}{\PYGZcb{}}
+\end{Verbatim}
