@@ -65,7 +65,7 @@ Bsp. Q3.3 $(100.001)_2$
   \end{itemize} 
 
   \begin{center}
-      \includegraphics[width=.35\textwidth]{./img/dynamic.png}
+      \includegraphics[width=.45\textwidth]{./img/dynamic.png}
   \end{center}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Filter in c %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -77,6 +77,7 @@ Bsp. Q3.3 $(100.001)_2$
         A(0)y(k)=\sum_{i=0}^{N} B(i) x(k-i) 
     \end{align}
   \end{mdframed}
+\subsubsection{FIR Brute-Force}
 \begin{minted}[fontsize=\scriptsize]{c}
 void fir()
 {
@@ -93,6 +94,31 @@ void fir()
     CodecDataOut.Channel[LEFT] = yLeft;     // output the value
 }
 \end{minted}
+\begin{itemize}
+    \item nach jedem dot-product ineffizientes Shiften von xLeft
+    \item Problem kann mit Ringbuffer behoben werden
+\end{itemize}
+
+\subsubsection{FIR Ringbuffer}
+
+% \begin{minted}[fontsize=\scriptsize]{c}
+% void firRing()
+% {
+%     float xLeft[N+1];
+%     float pLeft = xLeft;
+%     *pLeft = CodecDataIn.Channel[LEFT]; // store input value
+%     output = 0 ;                        // set up for channel
+%     p = pLeft ;                         // save current sample pointer
+%     if(++pLeft > &xLeft[N])             // update pointer
+%     pLeft = xLeft;                      // and store
+%     for(i = 0 ; i <= N ; i++) {         // do LEFT channel FIR
+%         output+=(*p−−) * B[i];          // multiply and accumulate
+%         if(p < &xLeft[0])               // check for pointer wrap around
+%         p = &xLeft[N];
+%     }
+%     CodecDataOut.Channel[LEFT]=output; // store filtered value
+% }
+% \end{minted}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  IIR %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{IIR}
   \begin{mdframed}[style=exercise]
@@ -155,6 +181,13 @@ $f_0$ = Kerbfrequenz, $f_s$ = Abtastfrequenz $B_{3dB}$ = Kerbbreite
     \end{align}
   \end{mdframed}
 \subsection{DDS-Oszillator}
+z.B NCO
+\begin{itemize}
+    \item Frequenzauflösung abhängig von Wortbreite des Phasenakkumulators $\frac{f_{clk}}{2^{N_{Bits}}}$
+    \item keine Einschwingzeit $\rightarrow$ stabil
+    \item hoher Speicherbedarf (LUT)
+    \item robuster Phasen/Frequenzwechsel mit sofortiger Wirkung 
+\end{itemize}
   \begin{mdframed}[style=exercise]
     \begin{align}
         \varphi_{inc} = 2\pi\frac{f_0}{f_s}\\
@@ -166,12 +199,12 @@ $f_0$ = Kerbfrequenz, $f_s$ = Abtastfrequenz $B_{3dB}$ = Kerbbreite
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  Blocksignalverarbeitung %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Blocksignalverarbeitung}
   \begin{center}
-      \includegraphics[width=.25\textwidth]{./img/frame.png}
+      \includegraphics[width=.35\textwidth]{./img/frame.png}
   \end{center}
 ISR schreibt N samples nach buffer[fill\_index] und setzt ready\_index = fill\_index (buffer[fill\_index] ist jetzt dran mit ProcessBuffer).
 Jeder Sample generiert einen Interrupt
   \begin{center}
-      \includegraphics[width=.25\textwidth]{./img/buffers.png}
+      \includegraphics[width=.35\textwidth]{./img/buffers.png}
   \end{center}
 
 \begin{itemize}
@@ -249,7 +282,8 @@ Bsp. Ordnung Filter N = 4, Framesize = 8\\
       \includegraphics[width=.25\textwidth]{./img/firframe2.png}
   \end{center}
 \textbf{Problem}: Bei Frame-Übergängen müssen die N-1 letzten Werte des letzten Frames berücksichtigt werden.\\
-\textbf{Lösung}: Framesize += N
+\textbf{Lösung}: Framesize += N\\
+\textbf{Latenz}: $\frac{2N}{f_clk}$ 2N: Eingangs-und Verarbeitungsbuffer
 
 \begin{itemize}
     \item Left[N|FRAMESIZE], buffer[FRAMESIZE]
@@ -268,7 +302,7 @@ void ProcessBuffer()
     float yLeft, yRight;
     int i, j, k;
     // offset pointers to start filling after N elements
-
+\\
     pR += N;
     pL += N;
 
@@ -372,6 +406,46 @@ Die Komplexität ist $O(N\log_2(N))$:\\
 Es gibt 2 $log_2(N)$ Splitting-Steps mit je $O(n)$
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  NCO %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{FIR in FPGA}
+  \begin{center}
+      \includegraphics[width=.35\textwidth]{./img/firfpga.png}
+  \end{center}
+
+\subsection{FIR - Pipelined} 
+Massive Erhöhung der Taktfrequenz
+  \begin{center}
+      \includegraphics[width=.35\textwidth]{./img/firpipeline.png}
+  \end{center}
+\subsection{FIR - transposed (DF1)}
+  \begin{center}
+      \includegraphics[width=.35\textwidth]{./img/firtransposed.png}
+  \end{center}
+Max. Sampling Frequency $f_{sampling}$
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        f_{sampling}=\frac{1}{T_{mult}+4T_{add}}
+    \end{align}
+  \end{mdframed}
+
+\subsection{FIR - lineare Phase}
+  \begin{center}
+      \includegraphics[width=.35\textwidth]{./img/firlinear.png}
+  \end{center}
+
+\subsection{FIR - seriell}
+  \begin{center}
+      \includegraphics[width=.35\textwidth]{./img/firseriell.png}
+  \end{center}
+
+\subsection{FIR - semi-parallel}
+  \begin{center}
+      \includegraphics[width=.35\textwidth]{./img/firsemi.png}
+  \end{center}
+
+
+
+
+
 \section{NCO}
 NCO = Counter, der Jeden Takt um ein Phaseninkrement $\mu$ (hier 32) erhöht wird.
 Der Ausgang des Counters wird mit LUT in Signalform (sin,cos,sägezahn) umgewandelt. 
