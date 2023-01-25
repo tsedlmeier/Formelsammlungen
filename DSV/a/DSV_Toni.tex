@@ -406,6 +406,9 @@ Mittlere Leistung P mittels Periodogramm
         P = \frac{1}{N}\sum_{n=0}^{N-1} \hat{\phi}_{Per} = \frac{1}{N^2}\sum_{n=0}^{N-1} \abs{X(n)}^2
     \end{align}
   \end{mdframed}
+\begin{itemize}
+    \item Falls Sinus: $P_{sin}=\frac{A^2}{2}$
+\end{itemize}
 Falls nur Spektrum von $n\in [0,N/2]$ gegeben
   \begin{mdframed}[style=exercise]
     \begin{align}
@@ -551,8 +554,8 @@ p = Ordnung, (K) = Kerbenbildend, (R) = Resonanzbildend
     \begin{align}
         z_{\infty n}^{(K)} &= r_\infty e^{j\frac{2\pi n}{p}} \\
         z_{0n}^{(K)} &= e^{j\frac{2\pi n}{p}} \\
-        z_{\infty n}^{(R)} &= e^{j\frac{(\pi + 2\pi n)}{p}} \\
-        z_{\infty n}^{(R)} &= r_\infty e^{j\frac{(2\pi n)}{p}}
+        z_{\infty n}^{(R)} &= r_\infty e^{j\frac{(2\pi n)}{p}}\\
+        z_{0n}^{(R)} &= e^{j\frac{(\pi + 2\pi n)}{p}} 
     \end{align}
   \end{mdframed}
 \subsubsection{Kerbenbildend Kammfilter $H_{(K)}(z)$}
@@ -569,6 +572,10 @@ Dimensionierung $b$, sodass zwischen Kerben $0dB(=1)$
         H_{(R)}(z)= \frac{1-r_\infty ^p}{2}\cdot \frac{1+z^{-p}}{1-r_\infty^p z^{-p}}
     \end{align}
   \end{mdframed}
+Die Summe aus beiden: $H_{(R)}(z) + H_{(K)}(z) = 1$
+
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Goertzel-Algorithmus %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Goertzel-Algorithmus}
 Bestimmung eines einzelnen DFT-Spektralwert X(n). Gleicher Rechenaufwand wie FFT aber Blocklänge N muss keine 2er Potenz sein. $\tilde{x}(k)=[x(0..N-1) \ 0]$ (N-ter Wert 0 setzen)
@@ -576,7 +583,8 @@ Bestimmung eines einzelnen DFT-Spektralwert X(n). Gleicher Rechenaufwand wie FFT
     \begin{align}
         n_0 &= \frac{f_0}{f_A}N\\
         X(n_0)&= y(k)=x(k)*h(k)|_{k=N}\\
-        X(n_0)&=y_n(k)=\sum_{\nu=0}^{k}\tilde{x}(\nu)e^{j\frac{2\pi}{N}(k-\nu)n}
+        X(n_0)&=y_n(k)=\sum_{\nu=0}^{k}\tilde{x}(\nu)e^{j\frac{2\pi}{N}(k-\nu)n}\\
+        h(k) &= (e^{j\frac{2\pi}{N}n})^k \gamma_{-1}(k)
     \end{align}
   \end{mdframed}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% IIR-Filter %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -598,18 +606,19 @@ Gruppenlaufzeit $\tau$ = Verzögerungszeit des Systems aufgelöst nach Frequenze
   \end{center}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% FIR-Filter %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{FIR-Filter}
-grundsätzlich Stabil, Ordnung m $\rightarrow$ m Pole im Ursprung
+grundsätzlich Stabil, Ordnung p $\rightarrow$ p Pole im Ursprung
   \begin{mdframed}[style=exercise]
     \begin{align}
-        H(z)&=\frac{Y(z)}{U(z)}= \sum_{\mu=0}^{m} b_\mu z^{-\mu} \\
-        H(z)&=\frac{b_0\Pi_{\mu=1}^{m}(z-z_{0\mu})}{z^m}\\
+        H(z)&=\frac{Y(z)}{U(z)}= \sum_{\mu=0}^{p} b_\mu z^{-\mu} \\
+        H(z)&=\frac{b_0\Pi_{\mu=1}^{p+1}(z-z_{0\mu})}{z^m}\\
         h(k)&= b_k \ \ k\in[0,m] 
     \end{align}
   \end{mdframed}
 Gewollte Eigenschaft: \textcolor{red}{lineare Phase}
   \begin{mdframed}[style=exercise]
     \begin{align}
-        \tau_g = -\frac{d}{d\Omega} arg(H(e^{j\Omega})) = const.
+        \tau_g &= -\frac{d}{d\Omega} arg(H(e^{j\Omega})) = const.\\
+        \tau_g &= \frac{p}{2}
     \end{align}
   \end{mdframed}
 lineare Phase wenn Nullstellen von H(z)
@@ -627,15 +636,31 @@ Für linearphasige FIR-Filter der Ordnung p gilt für Impulsantwort h(k) eine de
     \item $h(k)= -h(p-k)$ (ungerade Symmetrie) 
 \end{itemize}
 
+\begin{center}
+    \includegraphics[width=.35\textwidth]{./img/firtyp1.png}
+    \includegraphics[width=.115\textwidth]{./img/firtyp2.png}
+\end{center}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Kanonische-Formen %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Toleranzschema}
+\subsection{FIR-Toleranzschema}
   \begin{center}
       \includegraphics[width=.2\textwidth]{./img/toleranzschema1.png}
       \includegraphics[width=.25\textwidth]{./img/toleranzschema.png}
   \end{center}
 \begin{itemize}
     \item $A_{pass}=20~log\left(\textstyle{\frac{1+\delta_{D}}{1-\delta_{D}}}\right)$
+    \item $A_{Stop}=\abs{20\,log(\delta_{S})}$
+    \item $F_{pass}=\frac{\Omega_{D}}{2\pi}f_{A}$
+    \item $F_{stop}=\frac{\Omega_{S}}{2\pi}f_{A}$
+\end{itemize}
+
+\subsection{IIR-Toleranzschema}
+  \begin{center}
+      \includegraphics[width=.2\textwidth]{./img/iirtyp2.png}
+      \includegraphics[width=.2\textwidth]{./img/iirtyp1.png}
+  \end{center}
+\begin{itemize}
+    \item $A_{pass}=\abs{ 20~log(1-\delta_{D}) }$
     \item $A_{Stop}=\abs{20\,log(\delta_{S})}$
     \item $F_{pass}=\frac{\Omega_{D}}{2\pi}f_{A}$
     \item $F_{stop}=\frac{\Omega_{S}}{2\pi}f_{A}$
@@ -685,6 +710,12 @@ Vorgehen:
   \begin{center}
       \includegraphics[width=.35\textwidth]{./img/biquad.png}
   \end{center}
+Abkürzung beim Ausmultiplizieren der SOS-Paare
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        (z-z_0)(z-z_0^*) = z^2 - 2zRe(z_0)+\abs{z_0}^2
+    \end{align}
+  \end{mdframed}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Abtastung %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Abtastung}
@@ -940,6 +971,29 @@ $[n]_{modN}=n-N \lfloor \frac{n}{N} \rfloor$
   \cline{1-2}
   \end{tabular}
   \egroup
+\end{center}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Z-Transformation (einseitig) %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{DFT-Korrespondenzen}
+\begin{center}
+  \bgroup
+  \def\arraystretch{1.5}
+  \begin{tabular}{ | c | c | }
+  \cline{1-2}
+          \rowcolor{black!15}
+          Zeitbereich & Frequenzbereich \\
+  
+  % Definition
+  \cline{1-2}
+      $cos(\frac{2\pi}{N}mk)$ & $\frac{N}{2}(\gamma_0(n-m) + \gamma_0(n-N+m))$\\
+  \cline{1-2}
+      $sin(\frac{2\pi}{N}mk)$ & $\frac{N}{2j}(\gamma_0(n-m) - \gamma_0(n-N+m))$\\
+  \cline{1-2}
+        $\gamma_0$ & $1$ \\
+  \cline{1-2}
+        $1$ & $N\gamma_0(n)$ \\
+  \cline{1-2}
+\end{tabular}
+\egroup
 \end{center}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Z-Transformation (einseitig) %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Z-Transformation (einseitig)}
