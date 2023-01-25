@@ -1,0 +1,21 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{+w}{    }\PYG{k}{enum}\PYG{+w}{ }\PYG{n}{lrtype}\PYG{+w}{ }\PYG{p}{\PYGZob{}}\PYG{n}{LEFT}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{RIGHT}\PYG{p}{\PYGZcb{};}
+\PYG{+w}{    }\PYG{k}{volatile}\PYG{+w}{ }\PYG{k}{union}\PYG{+w}{ }\PYG{p}{\PYGZob{}}\PYG{k+kt}{unsigned}\PYG{+w}{ }\PYG{n}{UINT}\PYG{p}{;}\PYG{+w}{ }\PYG{k+kt}{short}\PYG{+w}{ }\PYG{n}{Channel}\PYG{p}{[}\PYG{l+m+mi}{2}\PYG{p}{];\PYGZcb{}}
+\PYG{+w}{    }\PYG{n}{CodecDataIn}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{CodecDataOut}\PYG{p}{;}
+\PYG{+w}{    }\PYG{k+kt}{float}\PYG{+w}{ }\PYG{n}{fDesired}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{1000}\PYG{p}{;}\PYG{+w}{ }\PYG{c+c1}{// your desired signal frequency}
+\PYG{+w}{    }\PYG{k+kt}{float}\PYG{+w}{ }\PYG{n}{A}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{32000}\PYG{p}{;}\PYG{+w}{ }\PYG{c+c1}{// your desired signal amplitude}
+\PYG{+w}{    }\PYG{k+kt}{float}\PYG{+w}{ }\PYG{n}{pi}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mf}{3.1415927}\PYG{p}{;}\PYG{+w}{ }\PYG{c+c1}{// value of pi}
+\PYG{+w}{    }\PYG{k+kt}{float}\PYG{+w}{ }\PYG{n}{theta}\PYG{p}{;}\PYG{c+c1}{// digital frequency (omega0 in textbook)}
+\PYG{+w}{    }\PYG{k+kt}{float}\PYG{+w}{ }\PYG{n}{y}\PYG{p}{[}\PYG{l+m+mi}{3}\PYG{p}{]}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{p}{\PYGZob{}}\PYG{l+m+mi}{0}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{p}{\PYGZcb{};}\PYG{+w}{ }\PYG{c+c1}{// the last 3 output values.}
+\PYG{+w}{    }\PYG{k+kt}{unsigned}\PYG{+w}{ }\PYG{n}{fs}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{48000}\PYG{p}{;}\PYG{+w}{ }\PYG{c+c1}{// sample frequency}
+\PYG{+w}{    }\PYG{k+kt}{void}\PYG{+w}{ }\PYG{n+nf}{isr\PYGZus{}resonator}\PYG{p}{()}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{      }\PYG{n}{CodecDataIn}\PYG{p}{.}\PYG{n}{UINT}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{ReadCodecData}\PYG{p}{();}\PYG{+w}{ }\PYG{c+c1}{// get input data samples (?!)}
+\PYG{+w}{      }\PYG{n}{theta}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{2}\PYG{+w}{ }\PYG{o}{*}\PYG{+w}{ }\PYG{n}{pi}\PYG{+w}{ }\PYG{o}{*}\PYG{+w}{ }\PYG{n}{fDesired}\PYG{+w}{ }\PYG{o}{/}\PYG{+w}{ }\PYG{n}{fs}\PYG{p}{;}\PYG{+w}{ }\PYG{c+c1}{// calc. the digital frequency (?)}
+\PYG{+w}{      }\PYG{n}{y}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{2}\PYG{+w}{ }\PYG{o}{*}\PYG{+w}{ }\PYG{n}{cosf}\PYG{p}{(}\PYG{n}{theta}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{*}\PYG{+w}{ }\PYG{n}{y}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{]}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{+w}{ }\PYG{n}{y}\PYG{p}{[}\PYG{l+m+mi}{2}\PYG{p}{];}\PYG{+w}{ }\PYG{c+c1}{// calculate the output}
+\PYG{+w}{      }\PYG{n}{y}\PYG{p}{[}\PYG{l+m+mi}{2}\PYG{p}{]}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{y}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{];}\PYG{+w}{ }\PYG{c+c1}{// prepare for the next ISR}
+\PYG{+w}{      }\PYG{n}{y}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{]}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{y}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{];}\PYG{+w}{ }\PYG{c+c1}{// prepare for the next ISR}
+\PYG{+w}{      }\PYG{n}{CodecDataOut}\PYG{p}{.}\PYG{n}{Channel}\PYG{p}{[}\PYG{+w}{ }\PYG{n}{LEFT}\PYG{p}{]}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{A}\PYG{+w}{ }\PYG{o}{*}\PYG{+w}{ }\PYG{n}{sinf}\PYG{p}{(}\PYG{n}{theta}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{*}\PYG{+w}{ }\PYG{n}{y}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{];}\PYG{+w}{ }\PYG{c+c1}{// just scale}
+\PYG{+w}{      }\PYG{n}{CodecDataOut}\PYG{p}{.}\PYG{n}{Channel}\PYG{p}{[}\PYG{n}{RIGHT}\PYG{p}{]}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{CodecDataOut}\PYG{p}{.}\PYG{n}{Channel}\PYG{p}{[}\PYG{n}{LEFT}\PYG{p}{];}
+\PYG{+w}{    }\PYG{p}{\PYGZcb{}}
+\PYG{+w}{      }\PYG{n}{WriteCodecData}\PYG{p}{(}\PYG{n}{CodecDataOut}\PYG{p}{.}\PYG{n}{UINT}\PYG{p}{);}
+\end{Verbatim}

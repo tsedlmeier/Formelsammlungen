@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2023.1.14)  24 JAN 2023 10:00
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2023.1.14)  25 JAN 2023 13:19
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -646,458 +646,473 @@ LaTeX Font Info:    Trying to load font information for U+msb on input line 45.
  (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-Overfull \hbox (10.29416pt too wide) detected at line 78
-[]
- []
+<./img/x_k.png, id=1, 373.395pt x 192.72pt>
+File: ./img/x_k.png Graphic file (type png)
+<use ./img/x_k.png>
+Package pdftex.def Info: ./img/x_k.png  used on input line 75.
+(pdftex.def)             Requested size: 108.11882pt x 55.80208pt.
+<./img/x_mk.png, id=2, 402.75468pt x 212.29312pt>
+File: ./img/x_mk.png Graphic file (type png)
+<use ./img/x_mk.png>
+Package pdftex.def Info: ./img/x_mk.png  used on input line 76.
+(pdftex.def)             Requested size: 108.11882pt x 56.98949pt.
 
-<./img/Faltung_Matrixschreibweise.png, id=1, 1003.75pt x 378.41376pt>
-File: ./img/Faltung_Matrixschreibweise.png Graphic file (type png)
-<use ./img/Faltung_Matrixschreibweise.png>
-Package pdftex.def Info: ./img/Faltung_Matrixschreibweise.png  used on input line 83.
-(pdftex.def)             Requested size: 270.3012pt x 101.90169pt.
-
-Overfull \hbox (5.0pt too wide) in paragraph at lines 83--84
+Overfull \hbox (0.5488pt too wide) in paragraph at lines 82--107
  [] 
  []
 
-LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 105.
-(/usr/share/texmf/tex/latex/lm/ts1lmr.fd
-File: ts1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
-)
-<./img/korkoeff.png, id=3, 473.51906pt x 359.09157pt>
-File: ./img/korkoeff.png Graphic file (type png)
-<use ./img/korkoeff.png>
-Package pdftex.def Info: ./img/korkoeff.png  used on input line 117.
-(pdftex.def)             Requested size: 189.21413pt x 143.48613pt.
+<./img/dtft.png, id=3, 414.79968pt x 377.91188pt>
+File: ./img/dtft.png Graphic file (type png)
+<use ./img/dtft.png>
+Package pdftex.def Info: ./img/dtft.png  used on input line 112.
+(pdftex.def)             Requested size: 189.21413pt x 172.38264pt.
+<./img/dft.png, id=4, 490.83376pt x 205.5178pt>
+File: ./img/dft.png Graphic file (type png)
+<use ./img/dft.png>
+Package pdftex.def Info: ./img/dft.png  used on input line 115.
+(pdftex.def)             Requested size: 189.21413pt x 79.22652pt.
+<./img/z.png, id=5, 740.7675pt x 444.91219pt>
+File: ./img/z.png Graphic file (type png)
+<use ./img/z.png>
+Package pdftex.def Info: ./img/z.png  used on input line 128.
+(pdftex.def)             Requested size: 189.21413pt x 113.63779pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 143--145
+Overfull \hbox (10.29416pt too wide) detected at line 145
+[]
+ []
 
+<./img/Faltung_Matrixschreibweise.png, id=6, 1003.75pt x 378.41376pt>
+File: ./img/Faltung_Matrixschreibweise.png Graphic file (type png)
+<use ./img/Faltung_Matrixschreibweise.png>
+Package pdftex.def Info: ./img/Faltung_Matrixschreibweise.png  used on input line 150.
+(pdftex.def)             Requested size: 270.3012pt x 101.90169pt.
+
+Overfull \hbox (5.0pt too wide) in paragraph at lines 150--151
+ [] 
  []
 
 [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
 
 
- <./img/Faltung_Matrixschreibweise.png> <./img/korkoeff.png (PNG copy)>]
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <12> on input line 188.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 188.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 188.
+ <./img/x_k.png (PNG copy)> <./img/x_mk.png (PNG copy)> <./img/dtft.png (PNG copy)> <./img/dft.png (PNG copy)> <./img/z.png (PNG copy)> <./img/Faltung_Matrixschreibweise.png>]
+LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 172.
+ (/usr/share/texmf/tex/latex/lm/ts1lmr.fd
+File: ts1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
+<./img/korkoeff.png, id=30, 473.51906pt x 359.09157pt>
+File: ./img/korkoeff.png Graphic file (type png)
+<use ./img/korkoeff.png>
+Package pdftex.def Info: ./img/korkoeff.png  used on input line 184.
+(pdftex.def)             Requested size: 189.21413pt x 143.48613pt.
 
-Overfull \hbox (8.69383pt too wide) detected at line 194
+Underfull \hbox (badness 10000) in paragraph at lines 210--212
+
+ []
+
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <12> on input line 255.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <8> on input line 255.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <6> on input line 255.
+
+Overfull \hbox (8.69383pt too wide) detected at line 261
 []
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 196--198
+Underfull \hbox (badness 10000) in paragraph at lines 263--265
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 205--206
+Underfull \hbox (badness 10000) in paragraph at lines 272--273
 
  []
 
 
-Overfull \hbox (5.0pt too wide) in paragraph at lines 204--221
+Overfull \hbox (5.0pt too wide) in paragraph at lines 271--288
 $[]$ 
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 260--262
+[2 <./img/korkoeff.png (PNG copy)>]
+Underfull \hbox (badness 10000) in paragraph at lines 327--329
 
  []
 
 
-Overfull \hbox (6.32672pt too wide) in paragraph at lines 263--276
+Overfull \hbox (6.32672pt too wide) in paragraph at lines 330--343
  [] 
  []
 
 
-Overfull \hbox (5.41658pt too wide) in paragraph at lines 281--283
+Overfull \hbox (5.41658pt too wide) in paragraph at lines 348--350
 \T1/lmr/m/n/10 Autoleistungsdichtespektrum $\OML/lmm/m/it/10 ^^^[]\OT1/lmr/m/n/10 (\OML/lmm/m/it/10 e[]\OT1/lmr/m/n/10 )$ \T1/lmr/m/n/10 und Kreu-zeis-tungs-dich-
  []
 
-[2]
-<./img/lti.png, id=33, 206.27063pt x 79.79813pt>
+<./img/lti.png, id=38, 206.27063pt x 79.79813pt>
 File: ./img/lti.png Graphic file (type png)
 <use ./img/lti.png>
-Package pdftex.def Info: ./img/lti.png  used on input line 308.
+Package pdftex.def Info: ./img/lti.png  used on input line 375.
 (pdftex.def)             Requested size: 270.3012pt x 104.5789pt.
 
-Overfull \hbox (5.0pt too wide) in paragraph at lines 308--309
+Overfull \hbox (5.0pt too wide) in paragraph at lines 375--376
  [] 
  []
 
 
-Overfull \hbox (5.5291pt too wide) detected at line 331
+Overfull \hbox (5.5291pt too wide) detected at line 398
 []
  []
 
-
-Overfull \hbox (19.65092pt too wide) in paragraph at lines 358--364
+[3 <./img/lti.png (PNG copy)>]
+Overfull \hbox (19.65092pt too wide) in paragraph at lines 425--431
  [] 
  []
 
 
-Overfull \hbox (42.06175pt too wide) in paragraph at lines 371--376
+Overfull \hbox (42.06175pt too wide) in paragraph at lines 438--443
 \OML/lmm/m/it/10 X\OT1/lmr/m/n/10 (\OML/lmm/m/it/10 jw\OT1/lmr/m/n/10 ) = \OML/lmm/m/it/10 j[]\OT1/lmr/m/n/10 [\OML/lmm/m/it/10 si\OT1/lmr/m/n/10 ((\OML/lmm/m/it/10 w \OT1/lmr/m/n/10 + \OML/lmm/m/it/10 w[]\OT1/lmr/m/n/10 )[])\OML/lmm/m/it/10 e[] \OMS/lmsy/m/n/10 ^^@ \OML/lmm/m/it/10 si\OT1/lmr/m/n/10 ((\OML/lmm/m/it/10 w \OMS/lmsy/m/n/10 ^^@ \OML/lmm/m/it/10 w[]\OT1/lmr/m/n/10 )[])\OML/lmm/m/it/10 e[]\OT1/lmr/m/n/10 ]$ 
  []
 
-<./img/rect.png, id=34, 421.575pt x 316.18124pt>
+<./img/rect.png, id=42, 421.575pt x 316.18124pt>
 File: ./img/rect.png Graphic file (type png)
 <use ./img/rect.png>
-Package pdftex.def Info: ./img/rect.png  used on input line 381.
+Package pdftex.def Info: ./img/rect.png  used on input line 448.
 (pdftex.def)             Requested size: 86.49835pt x 64.87064pt.
-<./img/hamming.png, id=35, 421.575pt x 316.18124pt>
+<./img/hamming.png, id=43, 421.575pt x 316.18124pt>
 File: ./img/hamming.png Graphic file (type png)
 <use ./img/hamming.png>
-Package pdftex.def Info: ./img/hamming.png  used on input line 382.
+Package pdftex.def Info: ./img/hamming.png  used on input line 449.
 (pdftex.def)             Requested size: 81.08705pt x 60.8132pt.
-<./img/hann.png, id=36, 421.575pt x 316.18124pt>
+<./img/hann.png, id=44, 421.575pt x 316.18124pt>
 File: ./img/hann.png Graphic file (type png)
 <use ./img/hann.png>
-Package pdftex.def Info: ./img/hann.png  used on input line 383.
+Package pdftex.def Info: ./img/hann.png  used on input line 450.
 (pdftex.def)             Requested size: 86.49835pt x 64.87064pt.
 
-LaTeX Warning: Command \textbackslash invalid in math mode on input line 394.
+LaTeX Warning: Command \textbackslash invalid in math mode on input line 461.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 397--398
+Underfull \hbox (badness 10000) in paragraph at lines 464--467
 
  []
 
-[3 <./img/lti.png (PNG copy)> <./img/rect.png (PNG copy)> <./img/hamming.png (PNG copy)> <./img/hann.png (PNG copy)>]
+[4 <./img/rect.png (PNG copy)> <./img/hamming.png (PNG copy)> <./img/hann.png (PNG copy)>]
 
-LaTeX Warning: Command \grqq invalid in math mode on input line 482.
-
-
-LaTeX Warning: Command \grqq invalid in math mode on input line 482.
+LaTeX Warning: Command \grqq invalid in math mode on input line 548.
 
 
-LaTeX Warning: Command \grqq invalid in math mode on input line 482.
+LaTeX Warning: Command \grqq invalid in math mode on input line 548.
 
 
-LaTeX Warning: Command \grqq invalid in math mode on input line 482.
+LaTeX Warning: Command \grqq invalid in math mode on input line 548.
 
 
-LaTeX Warning: Command \grqq invalid in math mode on input line 482.
+LaTeX Warning: Command \grqq invalid in math mode on input line 548.
 
 
-LaTeX Warning: Command \grqq invalid in math mode on input line 482.
+LaTeX Warning: Command \grqq invalid in math mode on input line 548.
 
 
-LaTeX Warning: Command \grqq invalid in math mode on input line 482.
+LaTeX Warning: Command \grqq invalid in math mode on input line 548.
 
 
-LaTeX Warning: Command \grqq invalid in math mode on input line 482.
+LaTeX Warning: Command \grqq invalid in math mode on input line 548.
 
-[4]
-<./img/ehk.png, id=45, 389.95688pt x 350.81062pt>
+
+LaTeX Warning: Command \grqq invalid in math mode on input line 548.
+
+<./img/ehk.png, id=50, 389.95688pt x 350.81062pt>
 File: ./img/ehk.png Graphic file (type png)
 <use ./img/ehk.png>
-Package pdftex.def Info: ./img/ehk.png  used on input line 532.
+Package pdftex.def Info: ./img/ehk.png  used on input line 598.
 (pdftex.def)             Requested size: 189.21413pt x 170.21788pt.
-
-Overfull \hbox (6.09221pt too wide) in paragraph at lines 594--595
+[5 <./img/ehk.png (PNG copy)>]
+Overfull \hbox (6.09221pt too wide) in paragraph at lines 660--661
 \T1/lmr/m/n/10 Einsetzen in Über-tra-gungs-funk-ti-on H(z), Ker-ben-tie-fe $\OT1/lmr/m/n/10 +\OML/lmm/m/it/10 A[]\OT1/lmr/m/n/10 [\OML/lmm/m/it/10 dB\OT1/lmr/m/n/10 ]$
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 594--595
+Underfull \hbox (badness 10000) in paragraph at lines 660--661
 
  []
 
-[5 <./img/ehk.png (PNG copy)>]
-<./img/entwurf.png, id=49, 808.52063pt x 295.1025pt>
+<./img/entwurf.png, id=54, 808.52063pt x 295.1025pt>
 File: ./img/entwurf.png Graphic file (type png)
 <use ./img/entwurf.png>
-Package pdftex.def Info: ./img/entwurf.png  used on input line 668.
+Package pdftex.def Info: ./img/entwurf.png  used on input line 734.
 (pdftex.def)             Requested size: 270.3012pt x 98.65843pt.
 
-Overfull \hbox (5.0pt too wide) in paragraph at lines 668--669
+Overfull \hbox (5.0pt too wide) in paragraph at lines 734--735
  [] 
  []
 
-<./img/IIR_Filtertypen_Amplitudengang.png, id=50, 772.8875pt x 627.34375pt>
+<./img/IIR_Filtertypen_Amplitudengang.png, id=55, 772.8875pt x 627.34375pt>
 File: ./img/IIR_Filtertypen_Amplitudengang.png Graphic file (type png)
 <use ./img/IIR_Filtertypen_Amplitudengang.png>
-Package pdftex.def Info: ./img/IIR_Filtertypen_Amplitudengang.png  used on input line 674.
+Package pdftex.def Info: ./img/IIR_Filtertypen_Amplitudengang.png  used on input line 740.
 (pdftex.def)             Requested size: 270.3012pt x 219.40129pt.
-<./img/IIR_Filtertypen_Phasengang.png, id=51, 827.09pt x 619.31375pt>
+<./img/IIR_Filtertypen_Phasengang.png, id=56, 827.09pt x 619.31375pt>
 File: ./img/IIR_Filtertypen_Phasengang.png Graphic file (type png)
 <use ./img/IIR_Filtertypen_Phasengang.png>
-Package pdftex.def Info: ./img/IIR_Filtertypen_Phasengang.png  used on input line 675.
+Package pdftex.def Info: ./img/IIR_Filtertypen_Phasengang.png  used on input line 741.
 (pdftex.def)             Requested size: 270.3012pt x 202.39912pt.
-<./img/IIR_Filtertypen_Pol_NST.png, id=52, 743.77875pt x 601.24625pt>
+<./img/IIR_Filtertypen_Pol_NST.png, id=57, 743.77875pt x 601.24625pt>
 File: ./img/IIR_Filtertypen_Pol_NST.png Graphic file (type png)
 <use ./img/IIR_Filtertypen_Pol_NST.png>
-Package pdftex.def Info: ./img/IIR_Filtertypen_Pol_NST.png  used on input line 676.
+Package pdftex.def Info: ./img/IIR_Filtertypen_Pol_NST.png  used on input line 742.
 (pdftex.def)             Requested size: 270.3012pt x 218.50351pt.
 
-Overfull \hbox (5.0pt too wide) in paragraph at lines 674--677
+Overfull \hbox (5.0pt too wide) in paragraph at lines 740--743
  [] 
  []
 
 
-Overfull \hbox (5.0pt too wide) in paragraph at lines 674--677
+Overfull \hbox (5.0pt too wide) in paragraph at lines 740--743
  [] 
  []
 
 
-Overfull \hbox (5.0pt too wide) in paragraph at lines 674--677
+Overfull \hbox (5.0pt too wide) in paragraph at lines 740--743
  [] 
  []
 
-[6 <./img/entwurf.png (PNG copy)> <./img/IIR_Filtertypen_Amplitudengang.png> <./img/IIR_Filtertypen_Phasengang.png>]
-<./img/fir.png, id=58, 169.38281pt x 173.89969pt>
+[6 <./img/entwurf.png (PNG copy)>]
+<./img/fir.png, id=61, 169.38281pt x 173.89969pt>
 File: ./img/fir.png Graphic file (type png)
 <use ./img/fir.png>
-Package pdftex.def Info: ./img/fir.png  used on input line 728.
+Package pdftex.def Info: ./img/fir.png  used on input line 794.
 (pdftex.def)             Requested size: 216.24178pt x 222.01765pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 734--735
+Underfull \hbox (badness 10000) in paragraph at lines 800--801
 
  []
 
-<./img/Grundtypen_FIR.png, id=59, 1457.445pt x 323.2075pt>
+<./img/Grundtypen_FIR.png, id=62, 1457.445pt x 323.2075pt>
 File: ./img/Grundtypen_FIR.png Graphic file (type png)
 <use ./img/Grundtypen_FIR.png>
-Package pdftex.def Info: ./img/Grundtypen_FIR.png  used on input line 741.
+Package pdftex.def Info: ./img/Grundtypen_FIR.png  used on input line 807.
 (pdftex.def)             Requested size: 270.3012pt x 59.9404pt.
-<./img/Grundtypen_FIR_NST.png, id=60, 690.58pt x 321.2pt>
+<./img/Grundtypen_FIR_NST.png, id=63, 690.58pt x 321.2pt>
 File: ./img/Grundtypen_FIR_NST.png Graphic file (type png)
 <use ./img/Grundtypen_FIR_NST.png>
-Package pdftex.def Info: ./img/Grundtypen_FIR_NST.png  used on input line 742.
+Package pdftex.def Info: ./img/Grundtypen_FIR_NST.png  used on input line 808.
 (pdftex.def)             Requested size: 135.15059pt x 62.85674pt.
 
-Overfull \hbox (5.0pt too wide) in paragraph at lines 679--752
+Overfull \hbox (5.0pt too wide) in paragraph at lines 745--818
 $[]$
  []
 
 
-Overfull \hbox (5.0pt too wide) in paragraph at lines 679--752
+Overfull \hbox (5.0pt too wide) in paragraph at lines 745--818
 []$
  []
 
 
-Overfull \hbox (5.0pt too wide) in paragraph at lines 679--752
+Overfull \hbox (5.0pt too wide) in paragraph at lines 745--818
 []$ 
  []
 
-[7 <./img/IIR_Filtertypen_Pol_NST.png> <./img/fir.png (PNG copy)> <./img/Grundtypen_FIR.png> <./img/Grundtypen_FIR_NST.png>]
-<./img/toleranzschema1.png, id=68, 497.60907pt x 222.07968pt>
+[7 <./img/IIR_Filtertypen_Amplitudengang.png> <./img/IIR_Filtertypen_Phasengang.png> <./img/IIR_Filtertypen_Pol_NST.png>]
+<./img/toleranzschema1.png, id=71, 497.60907pt x 222.07968pt>
 File: ./img/toleranzschema1.png Graphic file (type png)
 <use ./img/toleranzschema1.png>
-Package pdftex.def Info: ./img/toleranzschema1.png  used on input line 758.
+Package pdftex.def Info: ./img/toleranzschema1.png  used on input line 824.
 (pdftex.def)             Requested size: 270.3012pt x 120.63625pt.
 
-Overfull \hbox (5.0pt too wide) in paragraph at lines 758--759
+Overfull \hbox (5.0pt too wide) in paragraph at lines 824--825
  [] 
  []
 
-<./img/toleranzschema.png, id=69, 624.08156pt x 240.14719pt>
+<./img/toleranzschema.png, id=72, 624.08156pt x 240.14719pt>
 File: ./img/toleranzschema.png Graphic file (type png)
 <use ./img/toleranzschema.png>
-Package pdftex.def Info: ./img/toleranzschema.png  used on input line 763.
+Package pdftex.def Info: ./img/toleranzschema.png  used on input line 829.
 (pdftex.def)             Requested size: 270.3012pt x 104.01245pt.
-
-Overfull \hbox (5.0pt too wide) in paragraph at lines 763--764
- [] 
- []
-
-<./img/kanon1.png, id=70, 548.0475pt x 305.64188pt>
-File: ./img/kanon1.png Graphic file (type png)
-<use ./img/kanon1.png>
-Package pdftex.def Info: ./img/kanon1.png  used on input line 783.
-(pdftex.def)             Requested size: 270.3012pt x 150.7452pt.
-
-Overfull \hbox (5.0pt too wide) in paragraph at lines 783--784
- [] 
- []
-
-<./img/kanon2.png, id=71, 537.50812pt x 314.67563pt>
-File: ./img/kanon2.png Graphic file (type png)
-<use ./img/kanon2.png>
-Package pdftex.def Info: ./img/kanon2.png  used on input line 787.
-(pdftex.def)             Requested size: 270.3012pt x 158.24492pt.
-
-Overfull \hbox (5.0pt too wide) in paragraph at lines 787--788
- [] 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 790--794
-
- []
-
-<./img/kanon3.png, id=72, 494.59781pt x 55.70813pt>
-File: ./img/kanon3.png Graphic file (type png)
-<use ./img/kanon3.png>
-Package pdftex.def Info: ./img/kanon3.png  used on input line 795.
-(pdftex.def)             Requested size: 189.21413pt x 21.31125pt.
-<./img/biquad.png, id=73, 483.30562pt x 386.94562pt>
-File: ./img/biquad.png Graphic file (type png)
-<use ./img/biquad.png>
-Package pdftex.def Info: ./img/biquad.png  used on input line 811.
-(pdftex.def)             Requested size: 270.3012pt x 216.41646pt.
-
-Overfull \hbox (5.0pt too wide) in paragraph at lines 811--812
- [] 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 815--816
-
- []
-
-<./img/kanon4.png, id=74, 278.54062pt x 282.30469pt>
-File: ./img/kanon4.png Graphic file (type png)
-<use ./img/kanon4.png>
-Package pdftex.def Info: ./img/kanon4.png  used on input line 817.
-(pdftex.def)             Requested size: 135.15059pt x 136.9779pt.
-
-Overfull \hbox (5.0pt too wide) in paragraph at lines 813--825
-$[]$ 
- []
-
-[8 <./img/toleranzschema1.png (PNG copy)> <./img/toleranzschema.png (PNG copy)> <./img/kanon1.png (PNG copy)> <./img/kanon2.png (PNG copy)> <./img/kanon3.png (PNG copy)> <./img/biquad.png (PNG copy)>]
-<./img/trans.png, id=78, 518.6878pt x 193.47281pt>
-File: ./img/trans.png Graphic file (type png)
-<use ./img/trans.png>
-Package pdftex.def Info: ./img/trans.png  used on input line 829.
-(pdftex.def)             Requested size: 270.3012pt x 100.82785pt.
 
 Overfull \hbox (5.0pt too wide) in paragraph at lines 829--830
  [] 
  []
 
-<./img/dezi.png, id=79, 381.67593pt x 106.89937pt>
-File: ./img/dezi.png Graphic file (type png)
-<use ./img/dezi.png>
-Package pdftex.def Info: ./img/dezi.png  used on input line 837.
-(pdftex.def)             Requested size: 189.21413pt x 52.99445pt.
-<./img/dezi2.png, id=80, 529.98pt x 296.60812pt>
-File: ./img/dezi2.png Graphic file (type png)
-<use ./img/dezi2.png>
-Package pdftex.def Info: ./img/dezi2.png  used on input line 857.
-(pdftex.def)             Requested size: 270.3012pt x 151.27719pt.
+<./img/kanon1.png, id=73, 548.0475pt x 305.64188pt>
+File: ./img/kanon1.png Graphic file (type png)
+<use ./img/kanon1.png>
+Package pdftex.def Info: ./img/kanon1.png  used on input line 849.
+(pdftex.def)             Requested size: 270.3012pt x 150.7452pt.
 
-Overfull \hbox (5.0pt too wide) in paragraph at lines 857--858
+Overfull \hbox (5.0pt too wide) in paragraph at lines 849--850
  [] 
  []
 
-<./img/interpol.png, id=81, 371.13657pt x 109.91063pt>
+<./img/kanon2.png, id=74, 537.50812pt x 314.67563pt>
+File: ./img/kanon2.png Graphic file (type png)
+<use ./img/kanon2.png>
+Package pdftex.def Info: ./img/kanon2.png  used on input line 853.
+(pdftex.def)             Requested size: 270.3012pt x 158.24492pt.
+
+Overfull \hbox (5.0pt too wide) in paragraph at lines 853--854
+ [] 
+ []
+
+[8 <./img/fir.png (PNG copy)> <./img/Grundtypen_FIR.png> <./img/Grundtypen_FIR_NST.png> <./img/toleranzschema1.png (PNG copy)> <./img/toleranzschema.png (PNG copy)> <./img/kanon1.png (PNG copy)>]
+Underfull \hbox (badness 10000) in paragraph at lines 856--860
+
+ []
+
+<./img/kanon3.png, id=80, 494.59781pt x 55.70813pt>
+File: ./img/kanon3.png Graphic file (type png)
+<use ./img/kanon3.png>
+Package pdftex.def Info: ./img/kanon3.png  used on input line 861.
+(pdftex.def)             Requested size: 189.21413pt x 21.31125pt.
+<./img/biquad.png, id=81, 483.30562pt x 386.94562pt>
+File: ./img/biquad.png Graphic file (type png)
+<use ./img/biquad.png>
+Package pdftex.def Info: ./img/biquad.png  used on input line 877.
+(pdftex.def)             Requested size: 270.3012pt x 216.41646pt.
+
+Overfull \hbox (5.0pt too wide) in paragraph at lines 877--878
+ [] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 881--882
+
+ []
+
+<./img/kanon4.png, id=82, 278.54062pt x 282.30469pt>
+File: ./img/kanon4.png Graphic file (type png)
+<use ./img/kanon4.png>
+Package pdftex.def Info: ./img/kanon4.png  used on input line 883.
+(pdftex.def)             Requested size: 135.15059pt x 136.9779pt.
+
+Overfull \hbox (5.0pt too wide) in paragraph at lines 879--891
+$[]$ 
+ []
+
+<./img/trans.png, id=83, 518.6878pt x 193.47281pt>
+File: ./img/trans.png Graphic file (type png)
+<use ./img/trans.png>
+Package pdftex.def Info: ./img/trans.png  used on input line 895.
+(pdftex.def)             Requested size: 270.3012pt x 100.82785pt.
+
+Overfull \hbox (5.0pt too wide) in paragraph at lines 895--896
+ [] 
+ []
+
+<./img/dezi.png, id=84, 381.67593pt x 106.89937pt>
+File: ./img/dezi.png Graphic file (type png)
+<use ./img/dezi.png>
+Package pdftex.def Info: ./img/dezi.png  used on input line 903.
+(pdftex.def)             Requested size: 189.21413pt x 52.99445pt.
+[9 <./img/kanon2.png (PNG copy)> <./img/kanon3.png (PNG copy)> <./img/biquad.png (PNG copy)> <./img/kanon4.png (PNG copy)> <./img/trans.png (PNG copy)> <./img/dezi.png (PNG copy)>]
+<./img/dezi2.png, id=88, 529.98pt x 296.60812pt>
+File: ./img/dezi2.png Graphic file (type png)
+<use ./img/dezi2.png>
+Package pdftex.def Info: ./img/dezi2.png  used on input line 923.
+(pdftex.def)             Requested size: 270.3012pt x 151.27719pt.
+
+Overfull \hbox (5.0pt too wide) in paragraph at lines 923--924
+ [] 
+ []
+
+<./img/interpol.png, id=89, 371.13657pt x 109.91063pt>
 File: ./img/interpol.png Graphic file (type png)
 <use ./img/interpol.png>
-Package pdftex.def Info: ./img/interpol.png  used on input line 864.
+Package pdftex.def Info: ./img/interpol.png  used on input line 930.
 (pdftex.def)             Requested size: 216.23764pt x 64.03833pt.
-<./img/interpol2.png, id=82, 504.38437pt x 310.15875pt>
+<./img/interpol2.png, id=90, 504.38437pt x 310.15875pt>
 File: ./img/interpol2.png Graphic file (type png)
 <use ./img/interpol2.png>
-Package pdftex.def Info: ./img/interpol2.png  used on input line 880.
+Package pdftex.def Info: ./img/interpol2.png  used on input line 946.
 (pdftex.def)             Requested size: 189.21413pt x 116.35184pt.
 
-Overfull \hbox (4.40424pt too wide) in paragraph at lines 883--884
+Overfull \hbox (4.40424pt too wide) in paragraph at lines 949--950
 \T1/lmr/m/n/10 Zusammenfassung der Tief-päs-se zu ei-nem mit V=L und Grenz-
  []
 
-[9 <./img/kanon4.png (PNG copy)> <./img/trans.png (PNG copy)> <./img/dezi.png (PNG copy)> <./img/dezi2.png (PNG copy)> <./img/interpol.png (PNG copy)> <./img/interpol2.png (PNG copy)>]
-Overfull \hbox (3.62756pt too wide) in paragraph at lines 988--1036
+
+Overfull \hbox (3.62756pt too wide) in paragraph at lines 1054--1102
  [] 
  []
 
-<./img/x_k.png, id=86, 373.395pt x 192.72pt>
 File: ./img/x_k.png Graphic file (type png)
 <use ./img/x_k.png>
-Package pdftex.def Info: ./img/x_k.png  used on input line 1045.
+Package pdftex.def Info: ./img/x_k.png  used on input line 1111.
 (pdftex.def)             Requested size: 270.3012pt x 139.51697pt.
-<./img/x_mk.png, id=87, 402.75468pt x 212.29312pt>
 File: ./img/x_mk.png Graphic file (type png)
 <use ./img/x_mk.png>
-Package pdftex.def Info: ./img/x_mk.png  used on input line 1046.
+Package pdftex.def Info: ./img/x_mk.png  used on input line 1112.
 (pdftex.def)             Requested size: 270.3012pt x 142.47536pt.
 
-Overfull \hbox (5.0pt too wide) in paragraph at lines 1038--1158
+Overfull \hbox (5.0pt too wide) in paragraph at lines 1104--1224
 $[]$
  []
 
 
-Overfull \hbox (5.0pt too wide) in paragraph at lines 1038--1158
+Overfull \hbox (5.0pt too wide) in paragraph at lines 1104--1224
 []$ 
  []
 
-[10 <./img/x_k.png (PNG copy)> <./img/x_mk.png (PNG copy)>]
+[10 <./img/dezi2.png (PNG copy)> <./img/interpol.png (PNG copy)> <./img/interpol2.png (PNG copy)>] [11]
 
-LaTeX Warning: Command \grqq invalid in math mode on input line 1232.
-
-
-LaTeX Warning: Command \grqq invalid in math mode on input line 1232.
+LaTeX Warning: Command \grqq invalid in math mode on input line 1298.
 
 
-LaTeX Warning: Command \grqq invalid in math mode on input line 1232.
+LaTeX Warning: Command \grqq invalid in math mode on input line 1298.
 
 
-LaTeX Warning: Command \grqq invalid in math mode on input line 1232.
+LaTeX Warning: Command \grqq invalid in math mode on input line 1298.
 
 
-LaTeX Warning: Command \grqq invalid in math mode on input line 1232.
+LaTeX Warning: Command \grqq invalid in math mode on input line 1298.
 
 
-LaTeX Warning: Command \grqq invalid in math mode on input line 1232.
+LaTeX Warning: Command \grqq invalid in math mode on input line 1298.
 
 
-LaTeX Warning: Command \grqq invalid in math mode on input line 1232.
+LaTeX Warning: Command \grqq invalid in math mode on input line 1298.
 
 
-LaTeX Warning: Command \grqq invalid in math mode on input line 1232.
+LaTeX Warning: Command \grqq invalid in math mode on input line 1298.
 
-[11]
-<./img/si_funktion.png, id=95, 489.83pt x 399.4925pt>
+
+LaTeX Warning: Command \grqq invalid in math mode on input line 1298.
+
+<./img/si_funktion.png, id=98, 489.83pt x 399.4925pt>
 File: ./img/si_funktion.png Graphic file (type png)
 <use ./img/si_funktion.png>
-Package pdftex.def Info: ./img/si_funktion.png  used on input line 1268.
+Package pdftex.def Info: ./img/si_funktion.png  used on input line 1334.
 (pdftex.def)             Requested size: 216.23764pt x 176.35634pt.
-
-/home/christoph/Documents/1_Studium/1_MSY_2/Formelsammlungen/DSV/a/DSV_Toni.tex:1270: Undefined control sequence.
-l.1270  \newpageS
-                 
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-
-Overfull \hbox (5.0pt too wide) in paragraph at lines 1273--1295
-$[]$ 
+[12 <./img/si_funktion.png>]
+Overfull \hbox (20.0pt too wide) in paragraph at lines 1339--1361
+[]$[]$ 
  []
 
 
-Overfull \hbox (10.8958pt too wide) in paragraph at lines 1299--1299
+Overfull \hbox (10.8958pt too wide) in paragraph at lines 1365--1365
 []\T1/lmr/bx/n/14.4 Taschenrechner-Tricks (fx-991DEX) 
  []
 
 
 Package amsmath Warning: Foreign command \atop;
 (amsmath)                \frac or \genfrac should be used instead
-(amsmath)                 on input line 1304.
+(amsmath)                 on input line 1370.
 
-[12 <./img/si_funktion.png>] (./DSV_Toni.aux) ) 
+[13] (./DSV_Toni.aux) ) 
 Here is how much of TeX's memory you used:
- 14602 strings out of 480121
- 294162 string characters out of 5892160
- 644896 words of memory out of 5000000
- 32289 multiletter control sequences out of 15000+600000
+ 14622 strings out of 480121
+ 294500 string characters out of 5892160
+ 646898 words of memory out of 5000000
+ 32307 multiletter control sequences out of 15000+600000
  524609 words of font info for 71 fonts, out of 8000000 for 9000
  59 hyphenation exceptions out of 8191
  73i,17n,77p,538b,513s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf/fonts/enc/dvips/lm/lm-rm.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-ts1.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-ec.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathex.enc}</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/latxfont/lcircle1.pfb></usr/share/texmf/fonts/type1/public/lm/lmbx10.pfb></usr/share/texmf/fonts/type1/public/lm/lmbx12.pfb></usr/share/texmf/fonts/type1/public/lm/lmbx7.pfb></usr/share/texmf/fonts/type1/public/lm/lmex10.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi10.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi12.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi5.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi7.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi8.pfb></usr/share/texmf/fonts/type1/public/lm/lmr10.pfb></usr/share/texmf/fonts/type1/public/lm/lmr5.pfb></usr/share/texmf/fonts/type1/public/lm/lmr7.pfb></usr/share/texmf/fonts/type1/public/lm/lmr8.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy10.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy5.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msam7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on DSV_Toni.pdf (12 pages, 1793386 bytes).
+Output written on DSV_Toni.pdf (13 pages, 2075772 bytes).
 PDF statistics:
- 196 PDF objects out of 1000 (max. 8388607)
- 101 compressed objects within 2 object streams
+ 203 PDF objects out of 1000 (max. 8388607)
+ 104 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
- 146 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 161 words of extra memory for PDF output out of 10000 (max. 10000000)
 
