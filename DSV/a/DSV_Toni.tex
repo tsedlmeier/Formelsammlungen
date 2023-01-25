@@ -441,6 +441,17 @@ Bsp: Sinus $x(t) = sin(w_0t)\cdot w(t)$ mit $w(t)=rect(\frac{t-T/2}{T})$
         X(jw)=\frac{2}{2\pi}[j\pi(\delta_0(w+w_0)-\delta_0(w+w_0))]*si(w\frac{T}{2})e^{-jw\frac{T}{2}}]\\
         X(jw)=j\frac{T}{2}[si((w+w_0)\frac{T}{2})e^{-j(w+w_0)\frac{T}{2}} - si((w-w_0)\frac{T}{2})e^{-j(w-w_0)\frac{T}{2}}]$
   \end{mdframed}
+
+\textbf{Leckeffekt-Erkennung \& Behebung:}
+  \begin{enumerate}
+  \item $\frac{f_{Abtast}}{f_{Signal}}(=N_{Signal})$ in Taschenrechner eingeben\\
+  $N_{Signal}$: Anzahl der Abtastwerte in einzelner Periode des Signales
+  \item Ergebnis \textbf{ganzzahlig} -> kein Leckeffekt
+  \item Ergebnis in \textbf{Bruch-Form} -> Leckeffekt
+  \item WENN Bruch: $\frac{N_{Abtast}}{n_{Ganzzahl}}=N_{Signal}$\\
+  \textbf{$N_{Abtast}$: } kleinste Anzahl an Abtastwerten ohne Leckeffekt\\
+  \textbf{$n_{Ganzzahl}$: } Ganzzahliges Vielfaches
+   \end{enumerate}	 	 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Fensterfunktionen %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Zeitfenster}
@@ -559,7 +570,7 @@ $D\downarrow$ => Überlapp$\uparrow$ => K$\uparrow$ => Rechenaufwand$\uparrow$
     \item \textbf{Besonderheiten: }
     	\begin{itemize}
     	\item Bandbreite ist bei TP $\Delta \Omega = 2\cdot\Omega_{3dB}$ 
-    	\item \textbf{Minimalphasigkeit: } NST \textbf{ausschließlich} mit negativem Realwert
+    	\item \textbf{Minimalphasigkeit: } NST \textbf{ausschließlich} im Einheitskreis
     	\end{itemize}
     \item \textbf{Ordnung des Systems: } Maximum des Polynomgrades von m \& n
     \item \textbf{Stabilität: }
@@ -742,7 +753,6 @@ Gruppenlaufzeit $\tau$ = Verzögerungszeit des Systems aufgelöst nach Frequenze
       \includegraphics[width=0.50\textwidth]{./img/IIR_Filtertypen_Pol_NST.png}
 \end{center}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% FIR-Filter %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{minipage}{0.5\textwidth}  
 \subsection{FIR-Filter}
 \begin{itemize}
   \item \textbf{Besonderheiten: }
@@ -774,8 +784,7 @@ Gruppenlaufzeit $\tau$ = Verzögerungszeit des Systems aufgelöst nach Frequenze
         H(z)&=\frac{b_0\Pi_{\mu=1}^{m}(z-z_{0\mu})}{z^m}\\
         h(k)&= b_k \ \ k\in[0,m] 
     \end{align}
-  \end{mdframed}
-\end{minipage}  
+  \end{mdframed} 
 \begin{minipage}{0.5\textwidth} 
 Gewollte Eigenschaft: \textbf{\textcolor{red}{lineare Phase}}
   \begin{mdframed}[style=exercise]
@@ -815,9 +824,9 @@ für Impulsantwort h(k):
 	\item Typ 4: kein Tiefpass \& BSP
 \end{itemize}
 \end{minipage}
-\newpage
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Toleranschema %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Toleranzschema %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Toleranzschema:}
+\subsubsection{FIR-Toleranzschema:}
 
 \textbf{Toleranzschema in der log. Notation des \\ \grqq{}filterDesigner\grqq{}: }
   \begin{center}
@@ -837,6 +846,25 @@ für Impulsantwort h(k):
       F_{stop}=\frac{\Omega_{S}}{2\pi}f_{A}\\
     \end{align}
   \end{mdframed}
+
+\subsubsection{IIR-Toleranzschema}
+\textbf{Toleranzschema in der log. Notation des \\ \grqq{}filterDesigner\grqq{}: }
+\begin{center}
+    \includegraphics[width=.5\textwidth]{./img/iirtyp2.png}
+  \end{center}
+
+\textbf{Toleranzschema in der lin. Notation: }
+\begin{center}
+    \includegraphics[width=.5\textwidth]{./img/iirtyp1.png}
+\end{center}
+\begin{mdframed}[style=exercise]
+  \begin{align}
+  A_{pass}=\abs{ 20~log(1-\delta_{D}) }\\
+  A_{Stop}=\abs{20\,log(\delta_{S})}\\
+  F_{pass}=\frac{\Omega_{D}}{2\pi}f_{A}\\
+  F_{stop}=\frac{\Omega_{S}}{2\pi}f_{A}
+  \end{align}
+\end{mdframed}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Kanonische-Formen %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Kanonische Strukturen: }
 \begin{itemize}
@@ -1101,15 +1129,14 @@ Zeitdiskrete Fouriertransformation ist Grenzwert der DFT für $N\to\infty$ und k
   \egroup
 \end{center}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Diskrete Fouriertransformation %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{minipage}{0.5\textwidth}  
 \subsection{DFT}
 DFT nimmt implizit unendlich periodische Fortsetzung des Signals an. Zu beachten: $-1_{modN}=-1 + N$, $-2_{modN}=-2+N$, ... (solange Addition von N bis positiv!).\\
 \textbf{Math. Modulo:}
 $\tilde{x}(k) = x([k]_{modN})$ 
 $[n]_{modN}=n-N \lfloor \frac{n}{N} \rfloor$
   \begin{center}
-      \includegraphics[width=1\textwidth]{./img/x_k.png}
-      \includegraphics[width=1\textwidth]{./img/x_mk.png}
+      \includegraphics[width=0.35\textwidth]{./img/x_k.png}
+      \includegraphics[width=0.35\textwidth]{./img/x_mk.png}
   \end{center}
 
 %%% Rechenregeln
@@ -1151,7 +1178,30 @@ $[n]_{modN}=n-N \lfloor \frac{n}{N} \rfloor$
   \end{tabular}
   \egroup
 \end{center}
-\end{minipage}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Z-Transformation (einseitig) %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{DFT-Korrespondenzen}
+\begin{center}
+  \bgroup
+  \def\arraystretch{1.5}
+  \begin{tabular}{ | c | c | }
+  \cline{1-2}
+          \rowcolor{black!15}
+          Zeitbereich & Frequenzbereich \\
+  
+  % Definition
+  \cline{1-2}
+      $cos(\frac{2\pi}{N}mk)$ & $\frac{N}{2}(\gamma_0(n-m) + \gamma_0(n-N+m))$\\
+  \cline{1-2}
+      $sin(\frac{2\pi}{N}mk)$ & $\frac{N}{2j}(\gamma_0(n-m) - \gamma_0(n-N+m))$\\
+  \cline{1-2}
+        $\gamma_0$ & $1$ \\
+  \cline{1-2}
+        $1$ & $N\gamma_0(n)$ \\
+  \cline{1-2}
+\end{tabular}
+\egroup
+\end{center}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Z-Transformation (einseitig) %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{minipage}{0.5\textwidth}  
 \subsection{Z-Transformation (einseitig)}
@@ -1267,7 +1317,7 @@ $[n]_{modN}=n-N \lfloor \frac{n}{N} \rfloor$
   \end{tabular}
   \egroup
 \end{center}
- \newpage
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Mathe-Tricks %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 \section{Mathematische Anmerkungen}
@@ -1313,7 +1363,6 @@ $[n]_{modN}=n-N \lfloor \frac{n}{N} \rfloor$
      sin(\frac{2\cdot\pi\cdot f_{sin}\cdot k}{f_{A}}) = \frac{1}{2j}\cdot (e^{\frac{j\cdot 2\cdot\pi\cdot f_{sin}\cdot k}{f_{A}}}-e^{\frac{j\cdot 2\cdot\pi\cdot f_{sin}\cdot k}{f_{A}}})
     \end{align}
 \end{mdframed}
-\newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Rechteck als Fensterfunktion%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 \subsection{Rechteck als Fensterfunktion}
@@ -1333,7 +1382,6 @@ $[n]_{modN}=n-N \lfloor \frac{n}{N} \rfloor$
 \begin{center}
       \includegraphics[width=0.4\textwidth]{./img/si_funktion.png}
  \end{center}
- \newpage
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Hinweise Diagramme %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{minipage}{0.5\textwidth} 
@@ -1358,30 +1406,5 @@ $x[k] = a\cdot cos(\Omega_{0}\cdot k)$
     \item Periodog.: $max(\hat{\phi}_{Per})= a^{2}\cdot\frac{N}{4}$ 
 \end{itemize}
 \end{minipage}
-\newpage
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Taschenrechner-Tricks %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\section{Taschenrechner-Tricks (fx-991DEX)}
-\begin{itemize}
-    \item \textbf{Polstellen-Bestimmung:}  
-   	 \begin{enumerate}
-    	 \item \grqq{}MENU SETUP\grqq{}
-    	 \item $({X \atop =}{Y \atop 0})$ \grqq{}A:Gleichung/Funkt\grqq{}
-    	 \item \grqq{}=\grqq{}
-    	 \item \grqq{}2:Polynom-Gleichung\grqq{}
-    	 \end{enumerate}
-	 \textbf{ACHTUNG:} Grad muss $\leq 4$ UND $\geq 1$ sein!
-     \item \textbf{Leckeffekt-Erkennung \& Behebung:}
-     	 \begin{enumerate}
-     	 \item $\frac{f_{Abtast}}{f_{Signal}}(=N_{Signal})$ in Taschenrechner eingeben\\
-     	 $N_{Signal}$: Anzahl der Abtastwerte in einzelner Periode des Signales
-     	 \item Ergebnis \textbf{ganzzahlig} -> kein Leckeffekt
-     	 \item Ergebnis in \textbf{Bruch-Form} -> Leckeffekt
-     	 \item WENN Bruch: $\frac{N_{Abtast}}{n_{Ganzzahl}}=N_{Signal}$\\
-     	 \textbf{$N_{Abtast}$: } kleinste Anzahl an Abtastwerten ohne Leckeffekt\\
-     	 \textbf{$n_{Ganzzahl}$: } Ganzzahliges Vielfaches
-         \end{enumerate}	 	 
-\end{itemize}
-
 \end{document}
+
