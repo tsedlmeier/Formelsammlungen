@@ -210,8 +210,8 @@ void iir()
 $f_0$ = Kerbfrequenz, $f_s$ = Abtastfrequenz $B_{3dB}$ = Kerbbreite 
   \begin{mdframed}[style=exercise]
     \begin{align}
-      k = \frac{1-2r\cos(\omega_0)+r^2}{1-2\cos(\omega_0)+1}\\
-      \omega_0 = 2\pi \frac{f_0}{f_s}\\
+      k = \frac{1-2r\cos(\Omega_0)+r^2}{1-2\cos(\Omega_0)+1}\\
+      \Omega_0 = 2\pi \frac{f_0}{f_s}\\
       r=1-(\frac{B_{3dB}}{f_s})\pi
     \end{align}
   \end{mdframed}
@@ -270,8 +270,8 @@ $f_0$ = Kerbfrequenz, $f_s$ = Abtastfrequenz $B_{3dB}$ = Kerbbreite
 
   \begin{mdframed}[style=exercise]
     \begin{align}
-    sin(\omega_0 k) \leftrightarrow \frac{sin(\omega_0)z^{-1}}{1-2\cos(\omega_0)z^{-1}+z^{-2}}\\
-    y(n) = sin(\omega_0)x(n-1)+2cos(\omega_0)y(n-1)-y(n-2)
+    sin(\Omega_0 k) \leftrightarrow \frac{sin(\Omega_0)z^{-1}}{1-2\cos(\Omega_0)z^{-1}+z^{-2}}\\
+    y(n) = sin(\Omega_0)x(n-1)+2cos(\Omega_0)y(n-1)-y(n-2)
     \end{align}
   \end{mdframed}
 
@@ -731,50 +731,74 @@ $\rightarrow$ Variable Abtastfrequenz mit gegebenen Samples
   \begin{center}
       \includegraphics[width=.35\textwidth]{./img/firfpga.png}
   \end{center}
+Pro Takt müssen 1 Multiplizierer und N Addierer durchlaufen werden.\\
+Die max. Taktfrequenz $f_{clk}$ ist
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        f_{clk} = \frac{1}{T_{mul}+NT_{add}}
+    \end{align}
+  \end{mdframed}
 
 \subsection{FIR - Pipelined} 
-\textbf{Vorteil: } Massive Erhöhung der Taktfrequenz
+Jede Operationsstufe wird mit einem Pipelineregister gebuffert.\\
+\textbf{Vorteil: } Massive Erhöhung der Taktfrequenz\\
+\textbf{Nachteil: } zusätzliche Register, Latenz (Zeitl. Versatz (hier 4))
   \begin{center}
       \includegraphics[width=.35\textwidth]{./img/firpipeline.png}
   \end{center}
-\subsection{FIR - transposed (DF1)}
+Die max. Taktfrequenz $f_{clk}$ annähernd durch $T_{mul}$ definiert:
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        f_{clk} = \frac{1}{max(T_{mul},T_{add})} = \frac{1}{T_{mul}} 
+    \end{align}
+  \end{mdframed}
 
+\subsection{FIR - transposed (DF1)}
+Bevorzugte Implementierungsvariante
   \begin{center}
       \includegraphics[width=.35\textwidth]{./img/firtransposed.png}
   \end{center}
-\textbf{Max. Sample-Frequenz:} $f_{sampling}$\\
-\\\textbf{Vorteil: } Pipeline-Register für Addierer werden eingspart
+\textbf{Vorteil: } Pipeline-Register für Addierer werden eingspart, keine Latenz
   \begin{mdframed}[style=exercise]
     \begin{align}
-        f_{sampling}=\frac{1}{T_{mult}+4\cdot T_{add}}
+        f_{clk}=\frac{1}{T_{mult}+T_{add}}
     \end{align}
   \end{mdframed}
 
 \subsection{FIR - lineare Phase}
 \textbf{Voraussetzung: } NST \grqq{}gespiegelt\grqq{} am Einheitskreis\\
 \\\textbf{Vorteil: } Koeffizienten sind symmetrisch\\ $\rightarrow$ Anzahl an Multiplizierer kann halbiert werden
-
   \begin{center}
       \includegraphics[width=.35\textwidth]{./img/firlinear.png}
   \end{center}
 
 \subsection{FIR - seriell}
-\textbf{Anmerkung: } Takt für rote Leitung ist mindestens M=N+1 mal höher
+Addierer und Multiplizierer sind teuere Ressourcen im FPGA.\\
+Ein Controller Steuert einen MUX(Inputwerte) und RAM(Koeffs) und AKKU an.
   \begin{center}
       \includegraphics[width=.35\textwidth]{./img/firseriell.png}
   \end{center}
+Die Maximale Taktfrequenz des FPGA $f_{clk}$ hängt von der Filterordnung $N$ 
+und der Abtastfrequenz $f_A$ ab und muss min.
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        f_{clk}= M \cdot f_A = (N-1)\cdot f_A
+    \end{align}
+  \end{mdframed}
 
 \subsection{FIR - semi-parallel}
-\textbf{Taktberechnung: } $\frac{CLK_{FPGA}}{CLK_{DATA}} = \frac{M}{K}$\\
- \textbf{K:} Sektionen \textbf{M:} Multiplizierer \\
-
+Bei der Seriellen Architektur ist die max. Filterordnung stark begrenzt. ($f_{max,FPGA}$ im 3st. MHz-Bereich )
+Für höhere Filterordnung kann die semi-parallele Architektur verwendet werden.
   \begin{center}
       \includegraphics[width=.35\textwidth]{./img/firsemi.png}
   \end{center}
-
-
-
-
+ \textbf{K:} Sektionen \textbf{M:} Multiplizierer \\
+Die max. Taktfrequenz des FPGA muss jetzt nur noch ein K-tel so hoch sein:
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        f_{clk}= \frac{M}{K}\cdot f_A = \frac{N-1}{K} \cdot f_A
+    \end{align}
+  \end{mdframed}
 
 \section{NCO}
 \begin{itemize}
@@ -799,6 +823,101 @@ $\rightarrow$ Variable Abtastfrequenz mit gegebenen Samples
   \end{mdframed}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Nützliche Code-Stückchen %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Quantisierung}
+Ein ADC gibt Ganzzahlwerte von 0 bis N zurück. Wir müssen diese Ganzzahl auf die Referenzspannung $U_{Ref}$ beziehen.
+Der exakte Spannungswert $U(k) = U_{Ref}\cdot \frac{k}{N}$. \\
+Dieses Ergebnis wird in gewisser Weise durch eines der Verfahren quantisiert:
+\begin{itemize}
+    \item Runden (Bevorzugte Variante)
+    \item Abschneiden (Wert fällt auf nächstiefere)
+    \item Betragsabschneiden (Wert fällt Richtung 0)
+\end{itemize}
+
+\subsection{Quantisierung mit Runden}
+\begin{center}
+    \includegraphics[width=.45\textwidth]{./img/rundung.png}
+\end{center}
+Es ensteht ein Fehler beim Quantisieren $e(n)$ 
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        e(n) &= Q\{ x(n) \} - x(n)\\
+        -\frac{\Delta}{2} & < e(n) \leq \frac{\Delta}{2}
+    \end{align}
+  \end{mdframed}
+
+\begin{center}
+    \includegraphics[width=.45\textwidth]{./img/rangefullscale.png}
+\end{center}
+Der Volle Eingangsbereich $R_{FS}$ teilt sich auf $2^B-1$ Teile der Länge $\Delta$ auf.
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        R_{FS} = \Delta \cdot 2^{B}
+    \end{align}
+  \end{mdframed}
+
+\subsection{Modelierung des Quantisierungsfehlers}
+Versuch den Quantisierungsfehlers zahlenmäßig zu erfassen.
+$e(n)$ kann durch unkorreliertes, mittelwertfreies, gleichverteiltes, weißes Rauschen modeliert werden.
+Dieses Modell ist zulässig wenn
+\begin{itemize}
+    \item Quantisierungsstufe $\Delta$ klein in Vergleich zur Signalamplitude
+    \item Das Signal soll einige Q-Stufen zwischen zwei Abtastwerten überqueren
+    \item Kein Überlauf und keine Saturation
+    \item x(n) nicht periodisch mit Vielfaches von $f_A$
+    \item Rauschen muss vom Signal kommen
+\end{itemize}
+
+\subsection{Quantisierungsrauschleistung}
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        E_e = \sigma_e^2 = \frac{\Delta^2}{12} = \frac{R_{FS}^2}{12\cdot 2^{2B}} \\
+    \end{align}
+  \end{mdframed}
+Bsp:
+\begin{center}
+    \includegraphics[width=.4\textwidth]{./img/sqnr_eq.png}
+\end{center}
+
+\subsection{Signal-to-Quantization Noise Ratio SQNR}
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        S_{max} = \frac{A_{max}^2}{2} \approx \frac{R_{FS}}{8} = 2^{2B-3}\cdot \Delta^2
+    \end{align}
+  \end{mdframed}
+mit Quantisierungsrauschleistung $\sigma_e^2$ ergiebt sich
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        SQNR_{max} = \frac{S_{max}}{\sigma^2_e} = \frac{2^{2B-3}\cdot \Delta^2}{ \frac{\Delta^2}{12} } = (6,02B+1,76)dB
+    \end{align}
+  \end{mdframed}
+Es ergiebt sich eine Verschlechterung von $\frac{6dB}{Bit}$
+
+\subsection{Addieren}
+Pro Addition verlängert sich das Ergebnis um 1 Bit
+\begin{enumerate}
+    \item im FPGA die Wortbreite nach jedem Addierer erhöhen
+    \item auf dem DSP wählt man die Wortlänge (16 / 32 Bits)
+    \item Wenn zu lang, herunter skalieren (LSBs abschneiden)
+    \item Bedingt herunter skalieren und die Anzahl der Skalierungen merken („block floating point“)
+    \item Nichts tun, wenn die Signale klein genug sind
+\end{enumerate}
+
+\subsection{Multiplizieren}
+Beim Multiplizieren ist die Ergebnislänge die Summe der Längen
+der Faktoren.\\
+Konsequenzen:
+\begin{enumerate}
+    \item Nach jeder Multiplikation ist eine Skalierung wegen der schnell wachsender Länge denkbar
+    \item In FPGA ist es ratsam, die Längen der fest implementierten Multiplizierer auszunutzen (z.B. 18x18)
+    \item Wenn sinnvoll, Multiplikation mit Konstanten als CSD implementieren (dann nur Additionen)
+\end{enumerate}
+
+\subsection{Grenzzyklus}
+Schwingungen die sich durch die Quantisierung einstellen.
+\begin{center}
+    \includegraphics[width=.4\textwidth]{./img/grenzzyklus.png}
+\end{center}
+
 \section{Nützliche Code-Ausschnitte:}
 \textbf{Maximalwert-Ermittlung z.B. für Sepktralauswertung:}
 \begin{minted}[fontsize=\scriptsize]{c}
@@ -811,5 +930,6 @@ for(int i = 2; i<(N-1); i++){
   }
 }
 \end{minted}
+
 
 \end{document}
