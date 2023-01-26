@@ -111,6 +111,8 @@ void fir()
   \includegraphics[width=.5\textwidth]{./img/ring.png}  
 \end{center}  
 
+
+\textbf{Realisierung des FIR-Ringpuffers in C: }
 \begin{minted}[fontsize=\scriptsize]{c}
  void firRing()
  {
@@ -207,7 +209,8 @@ void iir()
        = k \frac{1-2\cos(\omega_0)z^{-1}+z^{-2}}{1-2r\cos(\omega_0)z^{-1}+r^2 z^{-2}}
     \end{align}
   \end{mdframed}
-$f_0$ = Kerbfrequenz, $f_s$ = Abtastfrequenz $B_{3dB}$ = Kerbbreite 
+$f_0$ = Kerbfrequenz, $f_s$ = Abtastfrequenz \\
+$B_{3dB}$ = Kerbbreite 
   \begin{mdframed}[style=exercise]
     \begin{align}
       k = \frac{1-2r\cos(\Omega_0)+r^2}{1-2\cos(\Omega_0)+1}\\
@@ -429,8 +432,8 @@ void ProcessBuffer()
 
 interrupt void Codec_ISR()
 {                    
-    static Uint8 fill_index = INITIAL_FILL_INDEX; // index of buffer to fill
-    static Uint8 dump_index = INITIAL_DUMP_INDEX; // index of buffer to dump
+    static Uint8 fill_index = INITIAL_FILL_INDEX; // index to fill
+    static Uint8 dump_index = INITIAL_DUMP_INDEX; // index to dump
     static Uint32 sample_count = 0; // current sample count in buffer
 
     // get input data samples
@@ -450,7 +453,7 @@ interrupt void Codec_ISR()
             fill_index = 0;
         if(++dump_index >= NUM_BUFFERS)
             dump_index = 0;
-        if(buffer_ready == 1) // set a flag if buffer isn't processed in time 
+        if(buffer_ready == 1) // sover_run-Flag
             over_run = 1;
         buffer_ready = 1;
     }
@@ -488,7 +491,7 @@ Bsp. Ordnung Filter N = 4, Framesize = 8\\
   \end{center}
 \textbf{Problem:} Die Start und Endzustände müssen jeweils berücksichtigt werden, um den FIR korrekt zu implementieren.\\ 
 $\rightarrow$ Bei Frame-Übergängen müssen die N-1 letzten Werte des letzten Frames berücksichtigt werden.\\
-$\rightarrow$ Audiotechnisch würde dies ein \grqq{}Knacken-\grqq{} und \grqq{}Klicken\grqq{} hervorrufen
+$\rightarrow$ Audiotechnisch würde dies ein \grqq{}Knacken-\grqq{} und \grqq{}Klicken\grqq{} hervorrufen\\
 \textbf{Lösung:} Der Puffer muss groß genug sein, um sowohl die Frame-Werte als auch die nötigen Randwerte speichern zu können (Framesize += N).
 \\
 \textbf{Latenz}: $\frac{2N}{f_clk}$ 2N: Eingangs-und Verarbeitungsbuffer
@@ -501,6 +504,7 @@ $\rightarrow$ Audiotechnisch würde dies ein \grqq{}Knacken-\grqq{} und \grqq{}K
 \end{itemize}
 
 \subsubsection{Realisierung eines FIR mit Blocksignalverar. in C:}
+\begin{minipage}{0.5\textwidth}
 \begin{minted}[fontsize=\scriptsize]{c}
 void ProcessBuffer()
 {
@@ -512,7 +516,7 @@ void ProcessBuffer()
     float yLeft, yRight;
     int i, j, k;
     // offset pointers to start filling after N elements
-\\
+    
     pR += N;
     pL += N;
 
@@ -551,6 +555,7 @@ void ProcessBuffer()
     buffer_ready = 0; // signal we are done
 }
 \end{minted}
+\end{minipage}
 \newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  Ping-Pong %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Allgemein:}
