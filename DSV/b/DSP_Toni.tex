@@ -410,12 +410,25 @@ Es gibt 2 $log_2(N)$ Splitting-Steps mit je $O(n)$
   \begin{center}
       \includegraphics[width=.35\textwidth]{./img/firfpga.png}
   \end{center}
+Max. Sampling Frequency determiniert von Filterordnung N
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        f_{sampling}=\frac{1}{T_{mult}+NT_{add}}
+    \end{align}
+  \end{mdframed}
 
 \subsection{FIR - Pipelined} 
-Massive Erhöhung der Taktfrequenz
+Massive Erhöhung der Taktfrequenz durch einfügen von Pipelineregistern.
   \begin{center}
       \includegraphics[width=.35\textwidth]{./img/firpipeline.png}
   \end{center}
+Max. Sampling Frequency $f_{sampling}$ abh. von N und Anzahl der Pipelineregistern $N_{pipe}$
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        f_{sampling}=\frac{1}{T_{mult}+ \frac{N}{N_{pipe}} T_{add}}
+    \end{align}
+  \end{mdframed}
+
 \subsection{FIR - transposed (DF1)}
   \begin{center}
       \includegraphics[width=.35\textwidth]{./img/firtransposed.png}
@@ -423,14 +436,16 @@ Massive Erhöhung der Taktfrequenz
 Max. Sampling Frequency $f_{sampling}$
   \begin{mdframed}[style=exercise]
     \begin{align}
-        f_{sampling}=\frac{1}{T_{mult}+4T_{add}}
+        f_{sampling}=\frac{1}{T_{mult}+T_{add}}
     \end{align}
   \end{mdframed}
 
 \subsection{FIR - lineare Phase}
+Hier Variante mit N gerade.
   \begin{center}
       \includegraphics[width=.35\textwidth]{./img/firlinear.png}
   \end{center}
+Filter Koeffizienten und Impulsantwort $h(k)$ symmetrisch. $\rightarrow$ Hälfte der Multiplizierer
 
 \subsection{FIR - seriell}
   \begin{center}
@@ -456,6 +471,24 @@ Die LUT ist mit $N = 2^n$ 12-bit breiten Werten gefüllt
   \begin{mdframed}[style=exercise]
     \begin{align}
         \mu = N \frac{f_d}{f_s}  
+    \end{align}
+  \end{mdframed}
+
+\section{Multirate Signalprocessing}
+
+\subsection{CIC Cascaded Integrator Comb}
+  \begin{center}
+      \includegraphics[width=.35\textwidth]{./img/cic.png}
+  \end{center}
+CIC-Filter = FIR-Filter zur Abtastratenkonvertierung\\
+Eigenschaften:
+\begin{itemize}
+    \item Alle Koeffizienten sind 1 $\rightarrow$ kein Multiplizierer 
+\end{itemize}
+
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        H(z)=\frac{1-z^{-6}}{1-z^{-1}}
     \end{align}
   \end{mdframed}
 
