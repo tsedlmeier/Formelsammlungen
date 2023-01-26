@@ -38,6 +38,9 @@
 \lhead{DSP Formelsammlung, \today}
 \rhead{Sedlmeier, Toni}
 \section{Zahlenformate}
+\begin{center}
+  \includegraphics[width=.5\textwidth]{./img/dynamic.png}
+\end{center}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Zahlenformate %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   \subsection{Zweierkomplement}
   Umwandlung: Bsp. 8-Bit $(-4)_{10}$ (Funktioniert in beide Richtungen)
@@ -70,14 +73,21 @@ Bsp. Q3.3 $(100.001)_2$
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Filter in c %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  FIR %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Filter in c}
+\section{Filter in C}
 \subsection{FIR}
+\subsubsection{Blockschaltbild und math. Zusammenhänge:}
+\begin{center}
+  \includegraphics[width=.3\textwidth]{./img/FIR_Blockschaltbild.png}  
+\end{center}
+
   \begin{mdframed}[style=exercise]
     \begin{align}
         A(0)y(k)=\sum_{i=0}^{N} B(i) x(k-i) 
     \end{align}
   \end{mdframed}
 \subsubsection{FIR Brute-Force}
+
+ \subsubsection{Realisierung des FIR in C:} 
 \begin{minted}[fontsize=\scriptsize]{c}
 void fir()
 {
@@ -121,11 +131,36 @@ void fir()
 % \end{minted}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  IIR %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{IIR}
+\subsubsection{Blockschaltbild und math. Zusammenhänge:}
+
+\textbf{Direktform I:}
+\begin{center}    
+  \includegraphics[width=.5\textwidth]{./img/Direktform_1_IIR.png}  
+\end{center}  
+
+\textbf{Direktform II:}
+\begin{center}
+  \includegraphics[width=.5\textwidth]{./img/Direktform_2_IIR.png}
+\end{center}
+
+\textbf{3. Kanonische Form:}
+\begin{center}
+  \includegraphics[width=.5\textwidth]{./img/Kanonische_Form_3_IIR.png}
+\end{center}
+
+\textbf{4. Kanonische Form:}
+\begin{center}
+  \includegraphics[width=.5\textwidth]{./img/Kanonische_Form_4_IIR.png}
+\end{center}
+
   \begin{mdframed}[style=exercise]
     \begin{align}
         A(0)y(k)=\sum_{i=0}^{N} B(i) x(k-i) - \sum_{i=0}^{N} A(i) y(k-i)
     \end{align}
   \end{mdframed}
+
+\subsubsection{Realisierung des IIR in C:}
+
 \begin{minted}[fontsize=\scriptsize]{c}
 void iir()
 {
@@ -158,6 +193,12 @@ void iir()
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  Notch %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Notch-IIR-Filter}
+\subsubsection{Allgemeines:}
+\textbf{SOS-IIR-Notch-Filter (Beispiel):}
+\begin{center}
+  \includegraphics[width=.5\textwidth]{./img/Notch_Filter_SOS.png}
+\end{center}
+
   \begin{mdframed}[style=exercise]
     \begin{align}
   H(z) = k \frac{(z-\beta_1)(z-\beta_2)}{(z-\alpha_1)(z-\alpha_2)} 
@@ -172,15 +213,115 @@ $f_0$ = Kerbfrequenz, $f_s$ = Abtastfrequenz $B_{3dB}$ = Kerbbreite
       r=1-(\frac{B_{3dB}}{f_s})\pi
     \end{align}
   \end{mdframed}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  Notch %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{IIR-Oszillator}
+
+\subsubsection{Anwendungsbeispiel:}
+\begin{enumerate}
+  \item Ermitteln des spektralen Maximum in durch die FFT generierten Daten
+  \item Ermitteln der entsprechenden Störfrequenzen
+  \item Errechnen der Koeffizienten des Notch-Filters mit der Störfrequenz als Kerb-Frequenz
+  \item Filtern des diskretisierten Signales mit errechnetem Filter
+  \item Ausgabe der bearbeiteten Audio-Sequenz
+\end{enumerate}
+
+\section{Oszillatoren / Signalgeneratoren}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  IIR-Oszillator %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{IIR-Oszillator (Digital Resonator)}
+\subsubsection{Allgemeines:}
+\begin{itemize}
+  \item Oszillator auf Basis einer z-Transformation
+  \item Anregung des Systems mit Impuls bei $k=0$
+  \item System mit Polen auf Einheitskreis\\
+  $\rightarrow$ Grenzstabiles System\\
+  $\rightarrow$ System schwingt mit konst. Frequenz
+\end{itemize}
+
+\textbf{Vorgehen:}
+\begin{enumerate}
+  \item z-Transformation des kontinuierlichen Systems
+  \item Ausmultiplizieren von $H(z)$ mit $Y(z)$ bzw. $X(z)$
+  \item Anwenden von \\
+  $Y(z)\cdot z^{-1}=y[n-1]$ bzw. $x(z)\cdot z^{-1}=x[k-1]$
+  \item Auflösen nach y(k)
+  \item Impuls als Eingangssignal $x[k] = [1, 0, 0, ...]$
+\end{enumerate}
+
+\textbf{Vorteil:}
+\begin{itemize}
+  \item Minimaler Verbrauch von Speicher und Rechenleistung
+  \item Anpassbarkeit an beliebige Funktionen
+  \item Hohe Auflösung und Flexibilität
+\end{itemize}  
+
+\textbf{Nachteil:}
+\begin{itemize}
+  \item Frequenz muss vor Start festgelegt werden
+  \item durch Quantisierung kann Pol aus dem Einheitskreis rutschen und instabil werden
+  \item Oszillator muss einschwingen
+\end{itemize}  
+
   \begin{mdframed}[style=exercise]
     \begin{align}
     sin(\omega_0 k) \leftrightarrow \frac{sin(\omega_0)z^{-1}}{1-2\cos(\omega_0)z^{-1}+z^{-2}}\\
     y(n) = sin(\omega_0)x(n-1)+2cos(\omega_0)y(n-1)-y(n-2)
     \end{align}
   \end{mdframed}
+
+\subsubsection{Realisierung des IIR-Oszillators in C:}
+  \begin{minted}[fontsize=\scriptsize]{c}
+    enum lrtype {LEFT, RIGHT};
+    volatile union {unsigned UINT; short Channel[2];}
+    CodecDataIn, CodecDataOut;
+    float fDesired = 1000; // your desired signal frequency
+    float A = 32000; // your desired signal amplitude
+    float pi = 3.1415927; // value of pi
+    float theta;// digital frequency (omega0 in textbook)
+    float y[3] = {0, 1, 0}; // the last 3 output values.
+    unsigned fs = 48000; // sample frequency
+
+    void isr_resonator(){
+      CodecDataIn.UINT = ReadCodecData(); // get input data samples
+      theta = 2 * pi * fDesired / fs; // calc. the digital frequency
+      y[0] = 2 * cosf(theta) * y[1] - y[2]; // calculate the output
+      y[2] = y[1]; // prepare for the next ISR
+      y[1] = y[0]; // prepare for the next ISR
+      CodecDataOut.Channel[ LEFT] = A * sinf(theta) * y[0]; // just scale
+      CodecDataOut.Channel[RIGHT] = CodecDataOut.Channel[LEFT];
+    }
+
+    WriteCodecData(CodecDataOut.UINT);  
+  \end{minted}
+
 \subsection{DDS-Oszillator}
+\subsubsection{Allgemeines:}
+\begin{itemize}
+  \item Direct Digital Synthesizer
+  \item Errechnen des Funktionsverlaufs
+  \item Verwendung von Accumulator und Modulo-Operator
+  \item sin() kann berechnet oder mittels Lookup-Table realisiert werden
+\end{itemize}
+
+\textbf{Vorteil:}
+\begin{itemize}
+  \item Kann einfach bei FPGA verwendet werden
+  \item Robuster Phasen- oder Frequenzwechsel mit sofortiger Wirkung
+  \item kontinuierliche Signalform
+  \item keine Einschwingzeit
+\end{itemize}  
+
+\textbf{Nachteil:}
+\begin{itemize}
+  \item Höherer Speicher- und Rechenleistungs-Bedarf
+  \item Frequenzauflösung abhängig im Wesentlichen von Auflösung der Lookup ab
+\end{itemize}  
+
+\begin{center}
+  \includegraphics[width=.5\textwidth]{./img/DDS_sin().png}
+\end{center} 
+
+\begin{center}
+  \includegraphics[width=.5\textwidth]{./img/sin_phaseincrement.png}
+\end{center} 
+
 z.B NCO
 \begin{itemize}
     \item Frequenzauflösung abhängig von Wortbreite des Phasenakkumulators $\frac{f_{clk}}{2^{N_{Bits}}}$
@@ -192,27 +333,79 @@ z.B NCO
     \begin{align}
         \varphi_{inc} = 2\pi\frac{f_0}{f_s}\\
         \varphi = \varphi + \varphi_{inc}\\
+        \varphi_{inc} < \pi (sonst Aliasing)\\
         x(n)= Asin(n\varphi)
     \end{align}
   \end{mdframed}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  Blocksignalverarbeitung %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Blocksignalverarbeitung}
-  \begin{center}
-      \includegraphics[width=.35\textwidth]{./img/frame.png}
-  \end{center}
-ISR schreibt N samples nach buffer[fill\_index] und setzt ready\_index = fill\_index (buffer[fill\_index] ist jetzt dran mit ProcessBuffer).
-Jeder Sample generiert einen Interrupt
-  \begin{center}
-      \includegraphics[width=.35\textwidth]{./img/buffers.png}
-  \end{center}
+\subsubsection{Realisierung des DDR-Oszillators in C:}
+\begin{minted}[fontsize=\scriptsize]{c}
+float A = 32000; //signal's amplitude 
+float fDesired = 1000; // signal's frequency 
+float phase = 0; // signal's initial phase 
+float pi = 3.1415927; // value of pi 
+float phaseIncrement; // incremental phase 
+int fs = 48000; // sample frequency 
 
+void sineGen_ISR(){
+CodecDataIn.UINT = ReadCodecData();
+// algorithm begins here 
+phaseIncrement = 2*pi*fDesired/fs;
+phase += phaseIncrement;
+if (phase >= 2*pi) phase -= 2*pi;
+// get input data samples
+// calculate the phase increment 
+// calculate the next phase 
+// modulus 2*pi operation 
+CodecDataOut.Channel[ LEFT] = A*sinf(phase); // scaled L output 
+CodecDataOut.Channel[RIGHT] = A*cosf(phase); // scaled R output 
+// algorithm ends here 
+}
+
+WriteCodecData(CodecDataOut.UINT);
+\end{minted}
+
+
+\subsubsection{Spezialfälle:}
+\begin{enumerate}
+  \item \textbf{Niquist-Frequenz: }$f=\frac{f_s}{2} \rightarrow \varphi_{inc} = \pi$\\
+  $\rightarrow sin(n\cdot\pi) = 0$ bzw. $cos(n\cdot\pi) = [1, -1, 1, -1, ...]$
+  \item $f=\frac{f_s}{4} \rightarrow \varphi_{inc} = \frac{\pi}{2}$\\
+  $\rightarrow sin(n\cdot\pi) = [0, -1, 0, -1, ...]$\\ 
+  $\rightarrow cos(n\cdot\pi) = [1, 0, -1, 0, ...]$
+  \item \textbf{$f_s= N \cdot f$ (Ganzzahliges Vielfaches):} \\
+  $\rightarrow$ nur N Werte müssen berechnet werden\\
+  $\rightarrow$ $cos(\varphi_{inc}\cdot n)$ für n = 0, 1, ..., N
+ 
+\end{enumerate}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  Blocksignalverarbeitung %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Blocksignalverarbeitung:}
+\subsection{Dreifach-Puffer:}
+\textbf{Allgemein:}
+\begin{itemize}
+  \item Kein Kopieren notwendig
+  \item 3 unabhängige Buffer nötig
+  \item 3 Pointer zeigen welcher Buffer befüllt, verarbeit bzw. entleert wird  
+\end{itemize}
+
+  \begin{center}
+      \includegraphics[width=.5\textwidth]{./img/frame.png}
+  \end{center}
+ISR schreibt N samples nach buffer[fill\_index] und setzt ready\_index = fill\_index.\\ 
+buffer[fill\_index] ist jetzt dran mit ProcessBuffer.
+Jeder Frame generiert einen Interrupt.
+  \begin{center}
+      \includegraphics[width=.5\textwidth]{./img/buffers.png}
+  \end{center}
+  Block
 \begin{itemize}
     \item fill\_index wird von ADC gefüllt
     \item dump\_index wird an DAC geschrieben
     \item ready\_index Buffer für Blocksignalverarbeitung
 \end{itemize}
 
+\subsubsection{Realisierung eines Dreifach-Puffers in C:}
 \begin{minted}[fontsize=\scriptsize]{c}
 #define BUFFER_LENGTH   	1024	// buffer length in samples 
 #define NUM_BUFFERS         3
@@ -258,12 +451,17 @@ interrupt void Codec_ISR()
 	WriteCodecData(CodecDataOut.UINT);// send output data to  port
 }
 \end{minted}
-\subsection{Blocksignalverarbeitung mit DMA}
+
+\subsubsection{Blocksignalverarbeitung mit DMA}
+\textbf{Vorteil: } Prozessor muss sich nicht mit Befüllen beschäftigen sondern kann verarbeiten\\
+$\rightarrow$ Geschwindigkeitsvorteil
+
 \begin{itemize}
     \item DMA kopiert Sample von ADC nach Eingangsbuffer
     \item DMA kopiert Processed von Ausgangsbuffer nach DAC
     \item DMA generiert Interrupt, wenn N Samples transfert wurden $\rightarrow$ Buffer-Swap
 \end{itemize}
+
 \begin{minted}[fontsize=\scriptsize]{c}
 interrupt void EDMA_ISR()
 {
@@ -276,13 +474,17 @@ interrupt void EDMA_ISR()
 \end{minted}
 
 \subsection{FIR mit Blocksignalverarbeitung}
+\subsubsection{Allgemeines:}
 Bsp. Ordnung Filter N = 4, Framesize = 8\\
   \begin{center}
       \includegraphics[width=.25\textwidth]{./img/firframe1.png}
       \includegraphics[width=.25\textwidth]{./img/firframe2.png}
   \end{center}
-\textbf{Problem}: Bei Frame-Übergängen müssen die N-1 letzten Werte des letzten Frames berücksichtigt werden.\\
-\textbf{Lösung}: Framesize += N\\
+\textbf{Problem:} Die Start und Endzustände müssen jeweils berücksichtigt werden, um den FIR korrekt zu implementieren.\\ 
+$\rightarrow$ Bei Frame-Übergängen müssen die N-1 letzten Werte des letzten Frames berücksichtigt werden.\\
+$\rightarrow$ Audiotechnisch würde dies ein \grqq{}Knacken-\grqq{} und \grqq{}Klicken\grqq{} hervorrufen
+\textbf{Lösung:} Der Puffer muss groß genug sein, um sowohl die Frame-Werte als auch die nötigen Randwerte speichern zu können (Framesize += N).
+\\
 \textbf{Latenz}: $\frac{2N}{f_clk}$ 2N: Eingangs-und Verarbeitungsbuffer
 
 \begin{itemize}
@@ -291,6 +493,8 @@ Bsp. Ordnung Filter N = 4, Framesize = 8\\
     \item buffer[0:FRAMESIZE] = Left * B (B wird \\drüber FRAMESIZE-mal drüber geschoben s.o)
     \item Left[0:N] = Left[FRAMESIZE:FRAMESIZE+N]
 \end{itemize}
+
+\subsubsection{Realisierung eines FIR mit Blocksignalverar. in C:}
 \begin{minted}[fontsize=\scriptsize]{c}
 void ProcessBuffer()
 {
@@ -343,7 +547,15 @@ void ProcessBuffer()
 \end{minted}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  Ping-Pong %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Ping-Pong}
+\subsubsection{Allgemein:}
+\textbf{Vorteile:}
+\begin{itemize}
+  \item Kein Kopieren zu Float-Arrays
+  \item Robuste Buffer-Identifizierung, die Breakpoints unterstützt
+\end{itemize}
+
+\textbf{Nachteile:} Aufwendiges Schieben in dem Filterspeicher
+
   \begin{center}
       \includegraphics[width=.35\textwidth]{./img/pingpong.png}
   \end{center}
@@ -351,6 +563,7 @@ void ProcessBuffer()
     \item gleiche Latenz (=Durchlaufzeit 2 Buffer)
     \item Ping-Pong einfacher zu verwalten mit DMA
   \end{itemize}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  FFT %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{FFT}
 Die FFT basiert auf dem \textbf{Devide-and-Conquer} Prinzip,
@@ -410,25 +623,12 @@ Es gibt 2 $log_2(N)$ Splitting-Steps mit je $O(n)$
   \begin{center}
       \includegraphics[width=.35\textwidth]{./img/firfpga.png}
   \end{center}
-Max. Sampling Frequency determiniert von Filterordnung N
-  \begin{mdframed}[style=exercise]
-    \begin{align}
-        f_{sampling}=\frac{1}{T_{mult}+NT_{add}}
-    \end{align}
-  \end{mdframed}
 
 \subsection{FIR - Pipelined} 
-Massive Erhöhung der Taktfrequenz durch einfügen von Pipelineregistern.
+Massive Erhöhung der Taktfrequenz
   \begin{center}
       \includegraphics[width=.35\textwidth]{./img/firpipeline.png}
   \end{center}
-Max. Sampling Frequency $f_{sampling}$ abh. von N und Anzahl der Pipelineregistern $N_{pipe}$
-  \begin{mdframed}[style=exercise]
-    \begin{align}
-        f_{sampling}=\frac{1}{T_{mult}+ \frac{N}{N_{pipe}} T_{add}}
-    \end{align}
-  \end{mdframed}
-
 \subsection{FIR - transposed (DF1)}
   \begin{center}
       \includegraphics[width=.35\textwidth]{./img/firtransposed.png}
@@ -436,16 +636,14 @@ Max. Sampling Frequency $f_{sampling}$ abh. von N und Anzahl der Pipelineregiste
 Max. Sampling Frequency $f_{sampling}$
   \begin{mdframed}[style=exercise]
     \begin{align}
-        f_{sampling}=\frac{1}{T_{mult}+T_{add}}
+        f_{sampling}=\frac{1}{T_{mult}+4T_{add}}
     \end{align}
   \end{mdframed}
 
 \subsection{FIR - lineare Phase}
-Hier Variante mit N gerade.
   \begin{center}
       \includegraphics[width=.35\textwidth]{./img/firlinear.png}
   \end{center}
-Filter Koeffizienten und Impulsantwort $h(k)$ symmetrisch. $\rightarrow$ Hälfte der Multiplizierer
 
 \subsection{FIR - seriell}
   \begin{center}
@@ -474,23 +672,18 @@ Die LUT ist mit $N = 2^n$ 12-bit breiten Werten gefüllt
     \end{align}
   \end{mdframed}
 
-\section{Multirate Signalprocessing}
-
-\subsection{CIC Cascaded Integrator Comb}
-  \begin{center}
-      \includegraphics[width=.35\textwidth]{./img/cic.png}
-  \end{center}
-CIC-Filter = FIR-Filter zur Abtastratenkonvertierung\\
-Eigenschaften:
-\begin{itemize}
-    \item Alle Koeffizienten sind 1 $\rightarrow$ kein Multiplizierer 
-\end{itemize}
-
-  \begin{mdframed}[style=exercise]
-    \begin{align}
-        H(z)=\frac{1-z^{-6}}{1-z^{-1}}
-    \end{align}
-  \end{mdframed}
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Nützliche Code-Stückchen %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Nützliche Code-Ausschitte:}
+\textbf{Maximalwert-Ermittlung z.B. für Sepktralauswertung:}
+\begin{minted}[fontsize=\scriptsize]{c}
+max_value = 0 ; //Startwert des Vergleichs
+max_idx = 2 ; //Startindex des Vergleichs
+for(int i = 2; i<(N-1); i++){ 
+  if( y[i] > max_value){
+    max_value = y[i];
+    max_idx = i;
+  }
+}
+\end{minted}
 
 \end{document}
