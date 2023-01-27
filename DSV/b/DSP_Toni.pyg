@@ -1,0 +1,48 @@
+void ProcessBuffer()
+{
+    short *pBuf = buffer[ready_index];
+    // extra buffer room for convolution "edge effects"
+    // N is filter order from coeff.h
+    static float Left[BUFFER_COUNT+N]={0}, Right[BUFFER_COUNT+N]={0};
+    float *pL = Left, *pR = Right;
+    float yLeft, yRight;
+    int i, j, k;
+    // offset pointers to start filling after N elements
+\\
+    pR += N;
+    pL += N;
+
+    // extract data to float buffers
+    for(i = 0; i < BUFFER_COUNT; i++)
+    {
+        *pR++ = *pBuf++;
+        *pL++ = *pBuf++;
+    }
+    // reinitialize pointer before FOR loop
+    pBuf = buffer[ready_index];
+
+    // Implement FIR filter
+    for(i=0; i < BUFFER_COUNT; i++)
+    {
+        yLeft = 0; // initialize the LEFT output value
+        yRight = 0; // initialize the RIGHT output value
+
+        for(j=0,k=i+N; j <= N; j++,k--)
+        {
+            yLeft += Left[k] * B[j]; // perform the LEFT dot-product
+            yRight += Right[k] * B[j]; // perform the RIGHT dot-product
+        }
+        // pack into buffer after bounding (must be right then left)
+        *pBuf++ = _spint(yRight * 65536) >> 16;
+        *pBuf++ = _spint(yLeft * 65536) >> 16;
+    }
+
+    // save end values at end of buffer array for next pass
+    // by placing at beginning of buffer array
+    for(i=BUFFER_COUNT,j=0; i < BUFFER_COUNT+N; i++,j++)
+    {
+        Left[j] = Left[i];
+        Right[j] = Right[i];
+    }
+    buffer_ready = 0; // signal we are done
+}

@@ -1,0 +1,45 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+cp}{\PYGZsh{}define BUFFER\PYGZus{}LENGTH   	1024	}\PYG{c+c1}{// buffer length in samples}
+\PYG{c+cp}{\PYGZsh{}define NUM\PYGZus{}BUFFERS         3}
+\PYG{k}{volatile}\PYG{+w}{ }\PYG{k+kt}{float}\PYG{+w}{ }\PYG{n}{buffer}\PYG{p}{[}\PYG{n}{NUM\PYGZus{}BUFFERS}\PYG{p}{][}\PYG{l+m+mi}{2}\PYG{p}{][}\PYG{n}{BUFFER\PYGZus{}LENGTH}\PYG{p}{];}
+
+\PYG{k+kt}{void}\PYG{+w}{ }\PYG{n+nf}{ProcessBuffer}\PYG{p}{()}
+\PYG{c+c1}{// Processes the data in buffer[ready\PYGZus{}index]}
+\PYG{p}{\PYGZob{}}
+\PYG{+w}{    }\PYG{k}{volatile}\PYG{+w}{ }\PYG{k+kt}{float}\PYG{+w}{ }\PYG{o}{*}\PYG{n}{pL}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{buffer}\PYG{p}{[}\PYG{n}{ready\PYGZus{}index}\PYG{p}{][}\PYG{n}{LEFT}\PYG{p}{];}
+\PYG{+w}{    }\PYG{k}{volatile}\PYG{+w}{ }\PYG{k+kt}{float}\PYG{+w}{ }\PYG{o}{*}\PYG{n}{pR}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{buffer}\PYG{p}{[}\PYG{n}{ready\PYGZus{}index}\PYG{p}{][}\PYG{n}{RIGHT}\PYG{p}{];}
+\PYG{+w}{    }\PYG{c+c1}{// Do the Process}
+\PYG{+w}{    }\PYG{c+c1}{// ...}
+\PYG{+w}{    }\PYG{n}{buffer\PYGZus{}ready}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{p}{;}\PYG{+w}{   }\PYG{c+c1}{// means were done here}
+\PYG{p}{\PYGZcb{}}
+
+\PYG{n}{interrupt}\PYG{+w}{ }\PYG{k+kt}{void}\PYG{+w}{ }\PYG{n}{Codec\PYGZus{}ISR}\PYG{p}{()}
+\PYG{p}{\PYGZob{}}
+\PYG{+w}{    }\PYG{k}{static}\PYG{+w}{ }\PYG{n}{Uint8}\PYG{+w}{ }\PYG{n}{fill\PYGZus{}index}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{INITIAL\PYGZus{}FILL\PYGZus{}INDEX}\PYG{p}{;}\PYG{+w}{ }\PYG{c+c1}{// index of buffer to fill}
+\PYG{+w}{    }\PYG{k}{static}\PYG{+w}{ }\PYG{n}{Uint8}\PYG{+w}{ }\PYG{n}{dump\PYGZus{}index}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{INITIAL\PYGZus{}DUMP\PYGZus{}INDEX}\PYG{p}{;}\PYG{+w}{ }\PYG{c+c1}{// index of buffer to dump}
+\PYG{+w}{    }\PYG{k}{static}\PYG{+w}{ }\PYG{n}{Uint32}\PYG{+w}{ }\PYG{n}{sample\PYGZus{}count}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{p}{;}\PYG{+w}{ }\PYG{c+c1}{// current sample count in buffer}
+
+\PYG{+w}{    }\PYG{c+c1}{// get input data samples}
+\PYG{+w}{  	}\PYG{n}{CodecDataIn}\PYG{p}{.}\PYG{n}{UINT}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{ReadCodecData}\PYG{p}{();}\PYG{+w}{		}
+\PYG{+w}{  	}\PYG{c+c1}{// IN}
+\PYG{+w}{    }\PYG{n}{buffer}\PYG{p}{[}\PYG{n}{fill\PYGZus{}index}\PYG{p}{][}\PYG{+w}{ }\PYG{n}{LEFT}\PYG{p}{][}\PYG{n}{sample\PYGZus{}count}\PYG{p}{]}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{LEFT}\PYG{+w}{ }\PYG{o}{+}\PYG{+w}{ }\PYG{n}{RIGHT}\PYG{p}{;}\PYG{+w}{ }\PYG{c+c1}{// cropped}
+\PYG{+w}{    }\PYG{n}{buffer}\PYG{p}{[}\PYG{n}{fill\PYGZus{}index}\PYG{p}{][}\PYG{n}{RIGHT}\PYG{p}{][}\PYG{n}{sample\PYGZus{}count}\PYG{p}{]}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{RIGHT}\PYG{+w}{ }\PYG{o}{+}\PYG{+w}{ }\PYG{n}{LEFT}\PYG{p}{;}\PYG{+w}{ }\PYG{c+c1}{// cropped}
+\PYG{+w}{    }\PYG{c+c1}{// OUT}
+\PYG{+w}{    }\PYG{n}{CodecDataOut}\PYG{p}{.}\PYG{n}{channel}\PYG{p}{[}\PYG{+w}{ }\PYG{n}{LEFT}\PYG{p}{]}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{buffer}\PYG{p}{[}\PYG{n}{dump\PYGZus{}index}\PYG{p}{][}\PYG{n}{LEFT}\PYG{p}{][}\PYG{n}{sample\PYGZus{}count}\PYG{p}{];}
+\PYG{+w}{    }\PYG{n}{CodecDataOut}\PYG{p}{.}\PYG{n}{channel}\PYG{p}{[}\PYG{n}{RIGHT}\PYG{p}{]}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{buffer}\PYG{p}{[}\PYG{n}{dump\PYGZus{}index}\PYG{p}{][}\PYG{n}{RIGHT}\PYG{p}{][}\PYG{n}{sample\PYGZus{}count}\PYG{p}{];}
+
+\PYG{+w}{    }\PYG{c+c1}{// update sample count and swap buffers when filled}
+\PYG{+w}{    }\PYG{k}{if}\PYG{p}{(}\PYG{o}{++}\PYG{n}{sample\PYGZus{}count}\PYG{+w}{ }\PYG{o}{\PYGZgt{}=}\PYG{+w}{ }\PYG{n}{BUFFER\PYGZus{}LENGTH}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{        }\PYG{n}{sample\PYGZus{}count}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{p}{;}
+\PYG{+w}{        }\PYG{n}{ready\PYGZus{}index}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{fill\PYGZus{}index}\PYG{p}{;}
+\PYG{+w}{        }\PYG{k}{if}\PYG{p}{(}\PYG{o}{++}\PYG{n}{fill\PYGZus{}index}\PYG{+w}{ }\PYG{o}{\PYGZgt{}=}\PYG{+w}{ }\PYG{n}{NUM\PYGZus{}BUFFERS}\PYG{p}{)}
+\PYG{+w}{            }\PYG{n}{fill\PYGZus{}index}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{p}{;}
+\PYG{+w}{        }\PYG{k}{if}\PYG{p}{(}\PYG{o}{++}\PYG{n}{dump\PYGZus{}index}\PYG{+w}{ }\PYG{o}{\PYGZgt{}=}\PYG{+w}{ }\PYG{n}{NUM\PYGZus{}BUFFERS}\PYG{p}{)}
+\PYG{+w}{            }\PYG{n}{dump\PYGZus{}index}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{p}{;}
+\PYG{+w}{        }\PYG{k}{if}\PYG{p}{(}\PYG{n}{buffer\PYGZus{}ready}\PYG{+w}{ }\PYG{o}{==}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{p}{)}\PYG{+w}{ }\PYG{c+c1}{// set a flag if buffer isn\PYGZsq{}t processed in time}
+\PYG{+w}{            }\PYG{n}{over\PYGZus{}run}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{p}{;}
+\PYG{+w}{        }\PYG{n}{buffer\PYGZus{}ready}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{p}{;}
+\PYG{+w}{    }\PYG{p}{\PYGZcb{}}
+\PYG{+w}{	}\PYG{n}{WriteCodecData}\PYG{p}{(}\PYG{n}{CodecDataOut}\PYG{p}{.}\PYG{n}{UINT}\PYG{p}{);}\PYG{c+c1}{// send output data to  port}
+\PYG{p}{\PYGZcb{}}
+\end{Verbatim}

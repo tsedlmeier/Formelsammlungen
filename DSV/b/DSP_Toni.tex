@@ -16,7 +16,7 @@
 \usepackage{mathtools}
 \usepackage{graphicx}
 \usepackage{float}
-\usepackage{xcolor}
+\usepackage[table]{xcolor}
 \usepackage{mdframed}
 \usepackage{csquotes}
 \usepackage{trfsigns}
@@ -67,10 +67,6 @@ Bsp. Q3.3 $(100.001)_2$
       \item $1\cdot 2^{-k}$ Addieren $(011\ 110)_2 + (000\ 001)_2 = (011\ 111)_2 = -3.875$
   \end{itemize} 
 
-  \begin{center}
-      \includegraphics[width=.45\textwidth]{./img/dynamic.png}
-  \end{center}
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Filter in c %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  FIR %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Filter in C}
@@ -85,9 +81,8 @@ Bsp. Q3.3 $(100.001)_2$
         A(0)y(k)=\sum_{i=0}^{N} B(i) x(k-i) 
     \end{align}
   \end{mdframed}
-\subsubsection{FIR Brute-Force}
 
- \subsubsection{Realisierung des FIR in C:} 
+\subsubsection{Realisierung des FIR in C (Brute-Force):} 
 \begin{minted}[fontsize=\scriptsize]{c}
 void fir()
 {
@@ -104,31 +99,40 @@ void fir()
     CodecDataOut.Channel[LEFT] = yLeft;     // output the value
 }
 \end{minted}
+
 \begin{itemize}
     \item nach jedem dot-product ineffizientes Shiften von xLeft
     \item Problem kann mit Ringbuffer behoben werden
 \end{itemize}
 
 \subsubsection{FIR Ringbuffer}
+\textbf{Vorteil: } Kein Kopieren nötig
+\begin{center}    
+  \includegraphics[width=.5\textwidth]{./img/ring.png}  
+\end{center}  
 
-% \begin{minted}[fontsize=\scriptsize]{c}
-% void firRing()
-% {
-%     float xLeft[N+1];
-%     float pLeft = xLeft;
-%     *pLeft = CodecDataIn.Channel[LEFT]; // store input value
-%     output = 0 ;                        // set up for channel
-%     p = pLeft ;                         // save current sample pointer
-%     if(++pLeft > &xLeft[N])             // update pointer
-%     pLeft = xLeft;                      // and store
-%     for(i = 0 ; i <= N ; i++) {         // do LEFT channel FIR
-%         output+=(*p−−) * B[i];          // multiply and accumulate
-%         if(p < &xLeft[0])               // check for pointer wrap around
-%         p = &xLeft[N];
-%     }
-%     CodecDataOut.Channel[LEFT]=output; // store filtered value
-% }
-% \end{minted}
+
+\textbf{Realisierung des FIR-Ringpuffers in C: }
+\begin{minted}[fontsize=\scriptsize]{c}
+ void firRing()
+ {
+     float xLeft[N+1];
+     float pLeft = xLeft;
+     *pLeft = CodecDataIn.Channel[LEFT]; // store input value
+     output = 0 ;                        // set up for channel
+     p = pLeft ;                         // save current sample pointer
+     if(++pLeft > &xLeft[N])             // update pointer
+     pLeft = xLeft;                      // and store
+     for(i = 0 ; i <= N ; i++) {         // do LEFT channel FIR
+         output+=(*p--) * B[i];          // multiply and accumulate
+         if(p < &xLeft[0])               // check for pointer wrap around
+         p = &xLeft[N];
+     }
+     CodecDataOut.Channel[LEFT]=output; // store filtered value
+ }
+ \end{minted}
+
+\newpage 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  IIR %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{IIR}
 \subsubsection{Blockschaltbild und math. Zusammenhänge:}
@@ -205,11 +209,12 @@ void iir()
        = k \frac{1-2\cos(\omega_0)z^{-1}+z^{-2}}{1-2r\cos(\omega_0)z^{-1}+r^2 z^{-2}}
     \end{align}
   \end{mdframed}
-$f_0$ = Kerbfrequenz, $f_s$ = Abtastfrequenz $B_{3dB}$ = Kerbbreite 
+$f_0$ = Kerbfrequenz, $f_s$ = Abtastfrequenz \\
+$B_{3dB}$ = Kerbbreite 
   \begin{mdframed}[style=exercise]
     \begin{align}
-      k = \frac{1-2r\cos(\omega_0)+r^2}{1-2\cos(\omega_0)+1}\\
-      \omega_0 = 2\pi \frac{f_0}{f_s}\\
+      k = \frac{1-2r\cos(\Omega_0)+r^2}{1-2\cos(\Omega_0)+1}\\
+      \Omega_0 = 2\pi \frac{f_0}{f_s}\\
       r=1-(\frac{B_{3dB}}{f_s})\pi
     \end{align}
   \end{mdframed}
@@ -222,6 +227,13 @@ $f_0$ = Kerbfrequenz, $f_s$ = Abtastfrequenz $B_{3dB}$ = Kerbbreite
   \item Filtern des diskretisierten Signales mit errechnetem Filter
   \item Ausgabe der bearbeiteten Audio-Sequenz
 \end{enumerate}
+
+\section{Spektralschätzung}
+\subsection{Fensterfunktionen}
+
+\begin{center}
+  \includegraphics[width=.5\textwidth]{./img/Fensterfunktionen_Vergleich.png}
+\end{center}
 
 \section{Oszillatoren / Signalgeneratoren}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  IIR-Oszillator %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -261,8 +273,8 @@ $f_0$ = Kerbfrequenz, $f_s$ = Abtastfrequenz $B_{3dB}$ = Kerbbreite
 
   \begin{mdframed}[style=exercise]
     \begin{align}
-    sin(\omega_0 k) \leftrightarrow \frac{sin(\omega_0)z^{-1}}{1-2\cos(\omega_0)z^{-1}+z^{-2}}\\
-    y(n) = sin(\omega_0)x(n-1)+2cos(\omega_0)y(n-1)-y(n-2)
+    sin(\Omega_0 k) \leftrightarrow \frac{sin(\Omega_0)z^{-1}}{1-2\cos(\Omega_0)z^{-1}+z^{-2}}\\
+    y(n) = sin(\Omega_0)x(n-1)+2cos(\Omega_0)y(n-1)-y(n-2)
     \end{align}
   \end{mdframed}
 
@@ -324,11 +336,35 @@ $f_0$ = Kerbfrequenz, $f_s$ = Abtastfrequenz $B_{3dB}$ = Kerbbreite
 
 z.B NCO
 \begin{itemize}
-    \item Frequenzauflösung abhängig von Wortbreite des Phasenakkumulators $\frac{f_{clk}}{2^{N_{Bits}}}$
-    \item keine Einschwingzeit $\rightarrow$ stabil
-    \item hoher Speicherbedarf (LUT)
-    \item robuster Phasen/Frequenzwechsel mit sofortiger Wirkung 
+  \item Direct Digital Synthesizer
+  \item Errechnen des Funktionsverlaufs
+  \item Verwendung von Accumulator und Modulo-Operator
+  \item sin() kann berechnet oder mittels Lookup-Table realisiert werden
+  \item Frequenzauflösung abhängig von Wortbreite des Phasenakkumulators $\frac{f_{clk}}{2^{N_{Bits}}}$
 \end{itemize}
+
+\textbf{Vorteil:}
+\begin{itemize}
+  \item Kann einfach bei FPGA verwendet werden
+  \item Robuster Phasen- oder Frequenzwechsel mit sofortiger Wirkung
+  \item kontinuierliche Signalform
+  \item keine Einschwingzeit
+\end{itemize}  
+
+\textbf{Nachteil:}
+\begin{itemize}
+  \item Höherer Speicher- und Rechenleistungs-Bedarf
+  \item Frequenzauflösung abhängig im Wesentlichen von Auflösung der Lookup ab
+\end{itemize}  
+
+\begin{center}
+  \includegraphics[width=.5\textwidth]{./img/DDS_sin().png}
+\end{center} 
+
+\begin{center}
+  \includegraphics[width=.5\textwidth]{./img/sin_phaseincrement.png}
+\end{center} 
+
   \begin{mdframed}[style=exercise]
     \begin{align}
         \varphi_{inc} = 2\pi\frac{f_0}{f_s}\\
@@ -423,8 +459,8 @@ void ProcessBuffer()
 
 interrupt void Codec_ISR()
 {                    
-    static Uint8 fill_index = INITIAL_FILL_INDEX; // index of buffer to fill
-    static Uint8 dump_index = INITIAL_DUMP_INDEX; // index of buffer to dump
+    static Uint8 fill_index = INITIAL_FILL_INDEX; // index to fill
+    static Uint8 dump_index = INITIAL_DUMP_INDEX; // index to dump
     static Uint32 sample_count = 0; // current sample count in buffer
 
     // get input data samples
@@ -444,7 +480,7 @@ interrupt void Codec_ISR()
             fill_index = 0;
         if(++dump_index >= NUM_BUFFERS)
             dump_index = 0;
-        if(buffer_ready == 1) // set a flag if buffer isn't processed in time 
+        if(buffer_ready == 1) // sover_run-Flag
             over_run = 1;
         buffer_ready = 1;
     }
@@ -482,7 +518,8 @@ Bsp. Ordnung Filter N = 4, Framesize = 8\\
   \end{center}
 \textbf{Problem:} Die Start und Endzustände müssen jeweils berücksichtigt werden, um den FIR korrekt zu implementieren.\\ 
 $\rightarrow$ Bei Frame-Übergängen müssen die N-1 letzten Werte des letzten Frames berücksichtigt werden.\\
-$\rightarrow$ Audiotechnisch würde dies ein \grqq{}Knacken-\grqq{} und \grqq{}Klicken\grqq{} hervorrufen
+$\rightarrow$ Audiotechnisch würde dies ein \grqq{}Knacken-\grqq{} und \grqq{}Klicken\grqq{} hervorrufen\\
+>>>>>>> christoph
 \textbf{Lösung:} Der Puffer muss groß genug sein, um sowohl die Frame-Werte als auch die nötigen Randwerte speichern zu können (Framesize += N).
 \\
 \textbf{Latenz}: $\frac{2N}{f_clk}$ 2N: Eingangs-und Verarbeitungsbuffer
@@ -495,6 +532,8 @@ $\rightarrow$ Audiotechnisch würde dies ein \grqq{}Knacken-\grqq{} und \grqq{}K
 \end{itemize}
 
 \subsubsection{Realisierung eines FIR mit Blocksignalverar. in C:}
+\begin{minipage}{0.5\textwidth}
+>>>>>>> christoph
 \begin{minted}[fontsize=\scriptsize]{c}
 void ProcessBuffer()
 {
@@ -506,7 +545,7 @@ void ProcessBuffer()
     float yLeft, yRight;
     int i, j, k;
     // offset pointers to start filling after N elements
-\\
+    
     pR += N;
     pL += N;
 
@@ -545,7 +584,8 @@ void ProcessBuffer()
     buffer_ready = 0; // signal we are done
 }
 \end{minted}
-
+\end{minipage}
+\newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  Ping-Pong %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Allgemein:}
 \textbf{Vorteile:}
@@ -557,8 +597,9 @@ void ProcessBuffer()
 \textbf{Nachteile:} Aufwendiges Schieben in dem Filterspeicher
 
   \begin{center}
-      \includegraphics[width=.35\textwidth]{./img/pingpong.png}
+      \includegraphics[width=.5\textwidth]{./img/pingpong.png}
   \end{center}
+
   \begin{itemize}
     \item gleiche Latenz (=Durchlaufzeit 2 Buffer)
     \item Ping-Pong einfacher zu verwalten mit DMA
@@ -566,21 +607,33 @@ void ProcessBuffer()
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  FFT %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{FFT}
-Die FFT basiert auf dem \textbf{Devide-and-Conquer} Prinzip,
-sodass schon berechnete Zwischenergebnisse wiederverwendet werden.
+\subsection{Allgemein: }
+\begin{itemize}
+  \item basiert auf dem \textbf{Devide-and-Conquer} Prinzip,
+  \item Zwischenergebnisse werden wiederverwendet
+  \item wesentliche Beschleunigung im Vergleich zur DFT
+  \item \textbf{Ordnung DFT:} $N^2 \rightarrow$ \textbf{Ordnung FFT:} $N\cdot log_{2}(N)$
+\end{itemize}
 Mögliche Realisierungsformen:
 \begin{itemize}
     \item Decimation in Frequency
     \item Decimation in Time 
 \end{itemize}
-  \begin{mdframed}[style=exercise]
-    \begin{align}
-        w_N^{nk}&=e^{-j\frac{2\pi nk}{N}}\\
-        w_N^{2nk}&=e^{-j\frac{4\pi nk}{N}}=w_{\frac{N}{2}}^{nk}
-    \end{align}
-  \end{mdframed}
+
 \subsection{Decimation in Time (DIT)}
-1. Aufteilung in $Y(n) = Y_{even}(n)+Y_{odd}(n)$
+\textbf{Butterfly-Diagramm DIT-FFT radix-2 (N=8):}
+\begin{center}
+  \includegraphics[width=.3\textwidth]{./img/Decimation_in_Time.png}
+\end{center} 
+
+\textbf{1. Aufteilung in $Y(n) = Y_{even}(n)+Y_{odd}(n)$}
+\begin{mdframed}[style=exercise]
+  \begin{align}
+      \textbf{Twiddle-Faktor: } w_N^{nk}&=e^{-j\frac{2\pi nk}{N}}\\
+      w_N^{2nk}&=e^{-j\frac{4\pi nk}{N}}=w_{\frac{N}{2}}^{nk}
+  \end{align}
+\end{mdframed}
+
   \begin{mdframed}[style=exercise,font=\scriptsize]
     \begin{align}
         Y(n)&=\sum_{k=0}^{N/2-1} y(2k)w_N^{2nk}+\sum_{k=0}^{N/2-1} y(2k+1)w_N^{(2k+1)n}\\
@@ -588,7 +641,7 @@ Mögliche Realisierungsformen:
         Y(n)&=\sum_{k=0}^{N/2-1} y(2k)w_{\frac{N}{2}}^{nk}+w_N^{n}\sum_{k=0}^{N/2-1} y(2k+1)w_{\frac{N}{2}}^{nk}\\
     \end{align}
   \end{mdframed}
-2. Aufteilung in $Y(n) = Y_{left}(n)+Y_{right}(n)$
+\textbf{2. Aufteilung in $Y(n) = Y_{left}(n)+Y_{right}(n)$}
   \begin{mdframed}[style=exercise,font=\scriptsize]
     \begin{align}
         Y(n)&=\sum_{k=0}^{N/2-1} y(2k)w_{\frac{N}{2}}^{nk}+w_N^{n}\sum_{k=0}^{N/2-1} y(2k+1)w_{\frac{N}{2}}^{nk}\\
@@ -598,7 +651,7 @@ Mögliche Realisierungsformen:
 mit 
   \begin{mdframed}[style=exercise]
     \begin{align}
-        w_{\frac{N}{2}}^{(n+\frac{N}{2})k} &= w_{\frac{N}{2}}^{nk} \cdot \underbrace{w_{\frac{N}{2}}^{k\frac{N}{2}}}_{=1} = w_{\frac{N}{2}}^{nk}\\
+      \textbf{Twiddle-Faktor: } w_{\frac{N}{2}}^{(n+\frac{N}{2})k} &= w_{\frac{N}{2}}^{nk} \cdot \underbrace{w_{\frac{N}{2}}^{k\frac{N}{2}}}_{=1} = w_{\frac{N}{2}}^{nk}\\
         w_N^{n+\frac{N}{2}} &= w_N^n \cdot \underbrace{w^{\frac{N}{2}}_N}_{=-1} = -w_N^n
     \end{align}
   \end{mdframed}
@@ -617,55 +670,186 @@ folgt
   \end{mdframed}
 Die Komplexität ist $O(N\log_2(N))$:\\ 
 Es gibt 2 $log_2(N)$ Splitting-Steps mit je $O(n)$
+\newpage
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  NCO %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  Multirate %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Multirate:}
+
+\subsection{Änderung der Abtastfrequenz:}
+\textbf{Wunsch: } Annpassung der Sample-Rate an das abzutastende Signal  
+$\rightarrow$ Variable Abtastfrequenz mit gegebenen Samples
+\subsubsection{Dezimieren:}
+\textbf{Vorteile einer Reduzierten Taktzahl: }
+\begin{itemize}
+  \item geringerer Energieverbrauch 
+  \item Reduzieren des Frequenzbandes (\grqq{}nur was interessiert\grqq{})
+\end{itemize}
+
+\textbf{ACHTUNG: } Anti-Aliasing-Filter sollte vorgeschalten werden
+\begin{center}
+  \includegraphics[width=.4\textwidth]{./img/Multirate_Dezimator.png}
+\end{center} 
+\begin{center}
+  \includegraphics[width=.5\textwidth]{./img/Dezimator_Spektrum.png}
+\end{center} 
+
+\subsubsection{Interpolation:}
+
+\begin{center}
+  \includegraphics[width=.5\textwidth]{./img/Multirate_Interpolator.png}
+\end{center} 
+
+\begin{center}
+  \includegraphics[width=.5\textwidth]{./img/Interpolator_Spektrum.png}
+\end{center} 
+
+\textbf{Filterung nach Interpolation: }\\
+
+\begin{center}
+  \includegraphics[width=.5\textwidth]{./img/Multirate_Interpolator_Filter.png}
+\end{center}
+\begin{center}
+  \includegraphics[width=.5\textwidth]{./img/Multirate_Interpolator_Spektrum.png}
+\end{center}
+
+\subsubsection{Problem bei Interpolation oder Dezimierung: } 
+\textbf{Problem:}
+\begin{itemize}
+  \item eingesetzten Filter haben harte Anforderungen
+  \item Phasenlinearität verlangt nach komplexen FIR-Filtern
+\end{itemize}
+
+\textbf{Lösung:}
+\begin{itemize}
+  \item Dezimieren / Interpolieren in mehreren Stufen (einfachere Filter)
+  \item Verwendung von Alternativlösungen für Filterung $\rightarrow$ z.B.: CIC-Filter
+\end{itemize}
+
+\subsection{Cascaded Integrator Comb (CIC):}
+\subsubsection{Allgemeines :}
+\begin{itemize}
+  \item effiziente Architektur zum Filtern bei hohen Dezimations- / Interpolations-Raten
+  \item \textbf{Verhalten: } Moving-Average-Filter
+  \item benötigt keine Koeffizienten-Speicher
+  \item vergleichbarer nichtrekursiver FIR-Filter würde 5 \\ ($z^{-6} \rightarrow D-1=6-1=5$) Addierer benötigen  
+\end{itemize}
+
+\begin{center}
+  \includegraphics[width=.5\textwidth]{./img/Multirate_CIC.png}
+\end{center}
+
+\begin{center}
+  \includegraphics[width=.5\textwidth]{./img/Multirate_CIC_Frequenzgang.png}
+\end{center} 
+
+\subsubsection{Verbesserungen: }
+\begin{itemize}
+  \item Kaskadierung von CIC-Filtern \\
+  (Verbesserung der Filterwirkung)
+  \item Anwendung der Noble-Äquivalenzen\\
+   (Reduziert Speicherzellen-Anzahl)
+\end{itemize}
+
+\textbf{CIC-Dezimator (Noble): }
+\begin{center}
+  \includegraphics[width=.4\textwidth]{./img/CIC_Dezimator.png}
+\end{center} 
+
+\textbf{CIC-Interpolator (Noble): }
+\begin{center}
+  \includegraphics[width=.4\textwidth]{./img/CIC_Interpolator.png}
+\end{center} 
+ 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  FIR in FPGA %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{FIR in FPGA}
   \begin{center}
       \includegraphics[width=.35\textwidth]{./img/firfpga.png}
   \end{center}
+Pro Takt müssen 1 Multiplizierer und N Addierer durchlaufen werden.\\
+Die max. Taktfrequenz $f_{clk}$ ist
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        f_{clk} = \frac{1}{T_{mul}+NT_{add}}
+    \end{align}
+  \end{mdframed}
 
 \subsection{FIR - Pipelined} 
-Massive Erhöhung der Taktfrequenz
+Jede Operationsstufe wird mit einem Pipelineregister gebuffert.\\
+\textbf{Vorteil: } Massive Erhöhung der Taktfrequenz\\
+\textbf{Nachteil: } zusätzliche Register, Latenz (Zeitl. Versatz (hier 4))
   \begin{center}
       \includegraphics[width=.35\textwidth]{./img/firpipeline.png}
   \end{center}
+Die max. Taktfrequenz $f_{clk}$ annähernd durch $T_{mul}$ definiert:
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        f_{clk} = \frac{1}{max(T_{mul},T_{add})} = \frac{1}{T_{mul}} 
+    \end{align}
+  \end{mdframed}
+
 \subsection{FIR - transposed (DF1)}
+Bevorzugte Implementierungsvariante
   \begin{center}
       \includegraphics[width=.35\textwidth]{./img/firtransposed.png}
   \end{center}
-Max. Sampling Frequency $f_{sampling}$
+\textbf{Vorteil: } Pipeline-Register für Addierer werden eingspart, keine Latenz
   \begin{mdframed}[style=exercise]
     \begin{align}
-        f_{sampling}=\frac{1}{T_{mult}+4T_{add}}
+        f_{clk}=\frac{1}{T_{mult}+T_{add}}
     \end{align}
   \end{mdframed}
 
 \subsection{FIR - lineare Phase}
+\textbf{Voraussetzung: } NST \grqq{}gespiegelt\grqq{} am Einheitskreis\\
+\\\textbf{Vorteil: } Koeffizienten sind symmetrisch\\ $\rightarrow$ Anzahl an Multiplizierer kann halbiert werden
   \begin{center}
       \includegraphics[width=.35\textwidth]{./img/firlinear.png}
   \end{center}
 
 \subsection{FIR - seriell}
+Addierer und Multiplizierer sind teuere Ressourcen im FPGA.\\
+Ein Controller Steuert einen MUX(Inputwerte) und RAM(Koeffs) und AKKU an.
   \begin{center}
       \includegraphics[width=.35\textwidth]{./img/firseriell.png}
   \end{center}
+Die Maximale Taktfrequenz des FPGA $f_{clk}$ hängt von der Filterordnung $N$ 
+und der Abtastfrequenz $f_A$ ab und muss min.
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        f_{clk}= M \cdot f_A = (N-1)\cdot f_A
+    \end{align}
+  \end{mdframed}
 
 \subsection{FIR - semi-parallel}
+Bei der Seriellen Architektur ist die max. Filterordnung stark begrenzt. ($f_{max,FPGA}$ im 3st. MHz-Bereich )
+Für höhere Filterordnung kann die semi-parallele Architektur verwendet werden.
   \begin{center}
       \includegraphics[width=.35\textwidth]{./img/firsemi.png}
   \end{center}
-
-
-
-
+ \textbf{K:} Sektionen \textbf{M:} Multiplizierer \\
+Die max. Taktfrequenz des FPGA muss jetzt nur noch ein K-tel so hoch sein:
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        f_{clk}= \frac{M}{K}\cdot f_A = \frac{N-1}{K} \cdot f_A
+    \end{align}
+  \end{mdframed}
 
 \section{NCO}
-NCO = Counter, der Jeden Takt um ein Phaseninkrement $\mu$ (hier 32) erhöht wird.
-Der Ausgang des Counters wird mit LUT in Signalform (sin,cos,sägezahn) umgewandelt. 
-Die LUT ist mit $N = 2^n$ 12-bit breiten Werten gefüllt 
-  \begin{center}
-      \includegraphics[width=.35\textwidth]{./img/nco.png}
-  \end{center}
+\begin{itemize}
+  \item NCO = \grqq{}Numerically Controlled Oscillator\grqq{}
+  \item Phasenakkumolator, der Jeden Takt um ein Phaseninkrement $\mu$ erhöht wird
+  \item Ausgang des Counters wird mit Look-Up-Table (LUT) in Signalform (sin,cos,sägezahn) umgewandelt \\(\textbf{PAC:} Phase Amplitude Converter)
+  \item LUT ist mit $N = 2^n$ 12-bit breiten Werten gefüllt 
+\end{itemize}
+
+\begin{center}
+  \includegraphics[width=.5\textwidth]{./img/NCO_schema.png}
+\end{center}
+
+\begin{center}
+    \includegraphics[width=.5\textwidth]{./img/nco.png}
+\end{center}
+
   \begin{mdframed}[style=exercise]
     \begin{align}
         \mu = N \frac{f_d}{f_s}  
@@ -673,7 +857,131 @@ Die LUT ist mit $N = 2^n$ 12-bit breiten Werten gefüllt
   \end{mdframed}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Nützliche Code-Stückchen %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Nützliche Code-Ausschitte:}
+\section{Quantisierung}
+Ein ADC gibt Ganzzahlwerte von 0 bis N zurück. Wir müssen diese Ganzzahl auf die Referenzspannung $U_{Ref}$ beziehen.
+Der exakte Spannungswert $U(k) = U_{Ref}\cdot \frac{k}{N}$. \\
+Dieses Ergebnis wird in gewisser Weise durch eines der Verfahren quantisiert:
+\begin{itemize}
+    \item Runden (Bevorzugte Variante)
+    \item Abschneiden (Wert fällt auf nächstiefere)
+    \item Betragsabschneiden (Wert fällt Richtung 0)
+\end{itemize}
+
+\subsection{Quantisierung mit Runden}
+\begin{center}
+    \includegraphics[width=.45\textwidth]{./img/rundung.png}
+\end{center}
+Es ensteht ein Fehler beim Quantisieren $e(n)$ 
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        e(n) &= Q\{ x(n) \} - x(n)\\
+        -\frac{\Delta}{2} & < e(n) \leq \frac{\Delta}{2}
+    \end{align}
+  \end{mdframed}
+
+\begin{center}
+    \includegraphics[width=.45\textwidth]{./img/rangefullscale.png}
+\end{center}
+Der Volle Eingangsbereich $R_{FS}$ teilt sich auf $2^B-1$ Teile der Länge $\Delta$ auf.
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        R_{FS} = \Delta \cdot 2^{B}
+    \end{align}
+  \end{mdframed}
+
+\subsection{Modelierung des Quantisierungsfehlers}
+Versuch den Quantisierungsfehlers zahlenmäßig zu erfassen.
+$e(n)$ kann durch unkorreliertes, mittelwertfreies, gleichverteiltes, weißes Rauschen modeliert werden.
+Dieses Modell ist zulässig wenn
+\begin{itemize}
+    \item Quantisierungsstufe $\Delta$ klein in Vergleich zur Signalamplitude
+    \item Das Signal soll einige Q-Stufen zwischen zwei Abtastwerten überqueren
+    \item Kein Überlauf und keine Saturation
+    \item x(n) nicht periodisch mit Vielfaches von $f_A$
+    \item Rauschen muss vom Signal kommen
+\end{itemize}
+
+\subsection{Quantisierungsrauschleistung}
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        E_e = \sigma_e^2 = \frac{\Delta^2}{12} = \frac{R_{FS}^2}{12\cdot 2^{2B}} \\
+    \end{align}
+  \end{mdframed}
+Bsp:
+\begin{center}
+    \includegraphics[width=.4\textwidth]{./img/sqnr_eq.png}
+\end{center}
+
+\subsection{Signal-to-Quantization Noise Ratio SQNR}
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        S_{max} = \frac{A_{max}^2}{2} \approx \frac{R_{FS}}{8} = 2^{2B-3}\cdot \Delta^2
+    \end{align}
+  \end{mdframed}
+mit Quantisierungsrauschleistung $\sigma_e^2$ ergiebt sich
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        SQNR_{max} = \frac{S_{max}}{\sigma^2_e} = \frac{2^{2B-3}\cdot \Delta^2}{ \frac{\Delta^2}{12} } = (6,02B+1,76)dB
+    \end{align}
+  \end{mdframed}
+Es ergiebt sich eine Verschlechterung von $\frac{6dB}{Bit}$
+
+\subsection{Addieren}
+Pro Addition verlängert sich das Ergebnis um 1 Bit
+\begin{enumerate}
+    \item im FPGA die Wortbreite nach jedem Addierer erhöhen
+    \item auf dem DSP wählt man die Wortlänge (16 / 32 Bits)
+    \item Wenn zu lang, herunter skalieren (LSBs abschneiden)
+    \item Bedingt herunter skalieren und die Anzahl der Skalierungen merken („block floating point“)
+    \item Nichts tun, wenn die Signale klein genug sind
+\end{enumerate}
+
+\subsection{Multiplizieren}
+Beim Multiplizieren ist die Ergebnislänge die Summe der Längen
+der Faktoren.\\
+Konsequenzen:
+\begin{enumerate}
+    \item Nach jeder Multiplikation ist eine Skalierung wegen der schnell wachsender Länge denkbar
+    \item In FPGA ist es ratsam, die Längen der fest implementierten Multiplizierer auszunutzen (z.B. 18x18)
+    \item Wenn sinnvoll, Multiplikation mit Konstanten als CSD implementieren (dann nur Additionen)
+\end{enumerate}
+
+\subsection{Overflow}
+Wie viele Bits brauchen wir für den max. Ausgang $y(n)$
+
+\textbf{Pessimistisch:}\\
+Wenn der Betrag des Eingangssignals $\leq$ 1, dann kann schlimmsten Falls
+bei der Faltung die komplette Impulsantwort $h(k)$ unter dem Eingangssignal sein. 
+Daraus folgt:
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        \abs{x(n)} \leq 1 \rightarrow \abs{y(n)} \leq \sum_{k=0}^N \abs{h(k)}
+    \end{align}
+  \end{mdframed}
+
+Für ein Schmalbandiges Signal (~Sinus) ist das Ausgangssignal höchstens der größte Spektralwert der Impulsantwort.
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        \abs{x(n)} \leq 1 \rightarrow \abs{y(n)} \leq max\{\abs{H(e^{j\Omega)})}\}
+    \end{align}
+  \end{mdframed}
+  
+Durch die Quantisierung überlagert sich der Fehler mit der Übertragungsfunktion $H(e^{j\Omega})$
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        \abs{\DeltaH(e^{-j\Omega}} \leq  \sum_{k=0}^N \abs{ \Delta h(k) } \abs{ e^{-jk\Omega} }
+    \end{align}
+  \end{mdframed}
+
+
+
+\subsection{Grenzzyklus}
+Schwingungen die sich durch die Quantisierung einstellen.
+\begin{center}
+    \includegraphics[width=.4\textwidth]{./img/grenzzyklus.png}
+\end{center}
+
+\section{Nützliche Code-Ausschnitte:}
 \textbf{Maximalwert-Ermittlung z.B. für Sepktralauswertung:}
 \begin{minted}[fontsize=\scriptsize]{c}
 max_value = 0 ; //Startwert des Vergleichs
@@ -685,5 +993,6 @@ for(int i = 2; i<(N-1); i++){
   }
 }
 \end{minted}
+
 
 \end{document}
