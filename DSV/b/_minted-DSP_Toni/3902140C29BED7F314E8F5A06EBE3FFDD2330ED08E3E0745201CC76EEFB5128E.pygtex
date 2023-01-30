@@ -1,0 +1,24 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k+kt}{float}\PYG{+w}{ }\PYG{n}{A}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{32000}\PYG{p}{;}\PYG{+w}{ }\PYG{c+c1}{//signal\PYGZsq{}s amplitude}
+\PYG{k+kt}{float}\PYG{+w}{ }\PYG{n}{fDesired}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{1000}\PYG{p}{;}\PYG{+w}{ }\PYG{c+c1}{// signal\PYGZsq{}s frequency}
+\PYG{k+kt}{float}\PYG{+w}{ }\PYG{n}{phase}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{p}{;}\PYG{+w}{ }\PYG{c+c1}{// signal\PYGZsq{}s initial phase}
+\PYG{k+kt}{float}\PYG{+w}{ }\PYG{n}{pi}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mf}{3.1415927}\PYG{p}{;}\PYG{+w}{ }\PYG{c+c1}{// value of pi}
+\PYG{k+kt}{float}\PYG{+w}{ }\PYG{n}{phaseIncrement}\PYG{p}{;}\PYG{+w}{ }\PYG{c+c1}{// incremental phase}
+\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{fs}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{48000}\PYG{p}{;}\PYG{+w}{ }\PYG{c+c1}{// sample frequency}
+\PYG{k+kt}{void}\PYG{+w}{ }\PYG{n+nf}{sineGen\PYGZus{}ISR}\PYG{p}{()}
+\PYG{p}{\PYGZob{}}
+\PYG{n}{CodecDataIn}\PYG{p}{.}\PYG{n}{UINT}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{ReadCodecData}\PYG{p}{();}
+\PYG{c+c1}{// algorithm begins here}
+\PYG{n}{phaseIncrement}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{2}\PYG{o}{*}\PYG{n}{pi}\PYG{o}{*}\PYG{n}{fDesired}\PYG{o}{/}\PYG{n}{fs}\PYG{p}{;}
+\PYG{n}{phase}\PYG{+w}{ }\PYG{o}{+=}\PYG{+w}{ }\PYG{n}{phaseIncrement}\PYG{p}{;}
+\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{phase}\PYG{+w}{ }\PYG{o}{\PYGZgt{}=}\PYG{+w}{ }\PYG{l+m+mi}{2}\PYG{o}{*}\PYG{n}{pi}\PYG{p}{)}\PYG{+w}{ }\PYG{n}{phase}\PYG{+w}{ }\PYG{o}{\PYGZhy{}=}\PYG{+w}{ }\PYG{l+m+mi}{2}\PYG{o}{*}\PYG{n}{pi}\PYG{p}{;}
+\PYG{c+c1}{// get input data samples}
+\PYG{c+c1}{// calculate the phase increment}
+\PYG{c+c1}{// calculate the next phase}
+\PYG{c+c1}{// modulus 2*pi operation}
+\PYG{n}{CodecDataOut}\PYG{p}{.}\PYG{n}{Channel}\PYG{p}{[}\PYG{+w}{ }\PYG{n}{LEFT}\PYG{p}{]}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{A}\PYG{o}{*}\PYG{n}{sinf}\PYG{p}{(}\PYG{n}{phase}\PYG{p}{);}\PYG{+w}{ }\PYG{c+c1}{// scaled L output}
+\PYG{n}{CodecDataOut}\PYG{p}{.}\PYG{n}{Channel}\PYG{p}{[}\PYG{n}{RIGHT}\PYG{p}{]}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{A}\PYG{o}{*}\PYG{n}{cosf}\PYG{p}{(}\PYG{n}{phase}\PYG{p}{);}\PYG{+w}{ }\PYG{c+c1}{// scaled R output}
+\PYG{c+c1}{// algorithm ends here}
+\PYG{p}{\PYGZcb{}}
+\PYG{n}{WriteCodecData}\PYG{p}{(}\PYG{n}{CodecDataOut}\PYG{p}{.}\PYG{n}{UINT}\PYG{p}{);}
+\end{Verbatim}

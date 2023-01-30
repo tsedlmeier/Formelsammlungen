@@ -1,0 +1,10 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{interrupt}\PYG{+w}{ }\PYG{k+kt}{void}\PYG{+w}{ }\PYG{n}{EDMA\PYGZus{}ISR}\PYG{p}{()}
+\PYG{p}{\PYGZob{}}
+\PYG{+w}{    }\PYG{k}{if}\PYG{p}{(}\PYG{o}{++}\PYG{n}{ready\PYGZus{}index}\PYG{+w}{ }\PYG{o}{\PYGZgt{}=}\PYG{+w}{ }\PYG{n}{NUM\PYGZus{}BUFFERS}\PYG{p}{)}
+\PYG{+w}{        }\PYG{n}{ready\PYGZus{}index}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{p}{;}
+\PYG{+w}{    }\PYG{k}{if}\PYG{p}{(}\PYG{n}{buffer\PYGZus{}ready}\PYG{+w}{ }\PYG{o}{==}\PYG{l+m+mi}{1}\PYG{p}{)}\PYG{+w}{ }\PYG{c+c1}{//buffer isnt processed in time}
+\PYG{+w}{        }\PYG{n}{over\PYGZus{}run}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{p}{;}
+\PYG{+w}{    }\PYG{n}{buffer\PYGZus{}ready}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{p}{;}\PYG{+w}{ }\PYG{c+c1}{//buffer is now ready for processing}
+\PYG{p}{\PYGZcb{}}
+\end{Verbatim}
