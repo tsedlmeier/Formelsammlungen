@@ -737,7 +737,7 @@ $\rightarrow$ Variable Abtastfrequenz mit gegebenen Samples
       \includegraphics[width=.35\textwidth]{./img/firfpga.png}
   \end{center}
 Pro Takt müssen 1 Multiplizierer und N Addierer durchlaufen werden.\\
-Die max. Taktfrequenz $f_{clk}$ ist
+Max. Taktfrequenz $f_{clk}$ ist
   \begin{mdframed}[style=exercise]
     \begin{align}
         f_{clk} = \frac{1}{T_{mul}+NT_{add}}
@@ -745,9 +745,12 @@ Die max. Taktfrequenz $f_{clk}$ ist
   \end{mdframed}
 
 \subsection{FIR - Pipelined} 
-Jede Operationsstufe wird mit einem Pipelineregister gebuffert.\\
+Operationsstufen werden mit Pipelineregister gebuffert\\
 \textbf{Vorteil: } Massive Erhöhung der Taktfrequenz\\
-\textbf{Nachteil: } zusätzliche Register, Latenz (Zeitl. Versatz (hier 4))
+\textbf{Nachteil: } Zusätzliche Register $\rightarrow$\\
+\textbf{Mittlere Gruppenlaufzeit: } $\tau_{Gruppe}=(\lfloor{}\frac{p}{2}\rfloor{} + n)\cdot\frac{1}{f_{clk}}$\\
+\textbf{Pipeline-Reg.-Anzahl (n): } In jedem Strang gleich\\ 
+\textbf{}
   \begin{center}
       \includegraphics[width=.35\textwidth]{./img/firpipeline.png}
   \end{center}
@@ -759,7 +762,9 @@ Die max. Taktfrequenz $f_{clk}$ annähernd durch $T_{mul}$ definiert:
   \end{mdframed}
 
 \subsection{FIR - transposed (DF1)}
-Bevorzugte Implementierungsvariante
+Bevorzugte Implementierungsvariante\\
+\textbf{ACHTUNG: } Pipeline-Regs. bei Bedarf nach Multiplizierer
+
   \begin{center}
       \includegraphics[width=.35\textwidth]{./img/firtransposed.png}
   \end{center}
