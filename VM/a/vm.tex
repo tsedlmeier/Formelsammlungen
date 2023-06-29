@@ -1,0 +1,773 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{lmodern}
+\usepackage{physics}
+\usepackage[left=1cm,right=1cm,top=1.5cm,bottom=1.2cm]{geometry}
+\usepackage{siunitx}
+\usepackage{fancyhdr}
+\usepackage{enumerate}
+\usepackage{mhchem}
+\usepackage{mathtools}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage[table]{xcolor}
+\usepackage{mdframed}
+\usepackage{csquotes}
+\usepackage{trfsigns}
+\usepackage{capt-of}
+\usepackage{adjustbox}
+\usepackage{verbatim}
+
+\sisetup{locale=DE}
+\sisetup{per-mode = symbol-or-fraction}
+\sisetup{separate-uncertainty=true}
+\DeclareSIUnit\year{a}
+\DeclareSIUnit\clight{c}
+\mdfdefinestyle{exercise}{
+	backgroundcolor=black!10,roundcorner=8pt,hidealllines=true,nobreak
+}
+
+\begin{document}
+\twocolumn
+\pagestyle{fancy}
+% \lhead{DSV Formelsammlung, Stand {\input{\string"| date + " %Y-%d-%m" \string"}}}
+\lhead{Formelsammlung Mathe, \today}
+\rhead{Sedlmeier, Toni}
+\section{Begriffe - Linearität und Zeitinvarianz}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Elementare System-Eigenschaften %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  \subsection{Linear/Nichtlinear}
+  Definition \textbf{Lineares} System:
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        u = \alpha_1 u_1(t)+ \alpha_2 u_2(t)\rightarrow y = \alpha_1 y_1(t)+ \alpha_2 y_2(t) \\  
+    \end{align}
+  \end{mdframed}
+  Nichtlinearitäten: 
+  \begin{itemize}
+    \item u(t) ist in nichtlin. Funktion $f$ (z.B $sin$, $sqrt$, $e$) versteckt
+    \item Addition mit Konstante $k$
+    \item Kennlinien (Begrenzer, Vorzeichenwechsel, Quantisierung)
+  \end{itemize}
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        u(t)\rightarrow y(t) &= f\{u(t)\} \\
+        u(t)\rightarrow y(t) &= u(t) + k
+    \end{align}
+  \end{mdframed}
+
+  \subsection{Zeitvariant/Zeitinvariant}
+  Definition \textbf{Zeitinvariantes} System:
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        u(t-\tau) \rightarrow y(t-\tau)
+    \end{align}
+  \end{mdframed}
+  Zeitvarianz: 
+  \begin{itemize}
+    \item Multiplikation mit $f(t)$
+    \item Zeitverschiebung von \textbf{nur} $u(t)$ bzw. $y(t)$
+  \end{itemize}
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        u(t) &\rightarrow y(t) = f(t)u(t)\\
+        u(t) &\rightarrow y(t) = u(t-t_0)\\
+        u(t) &\rightarrow y(t-t_0) = u(t)
+    \end{align}
+  \end{mdframed}
+
+\subsection{$DGL^n$ $\rightarrow$ $DGL-System^1$}
+Eine DGL n-ter Ordnung kann in ein DGL-System n-ter Ordnung umgewandelt werden:
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        a_n y^{(n)}(t) + ... + a_2 y^{''} + a_1 y^{'} = b_0u(t)
+    \end{align}
+  \end{mdframed}
+Lösungsansatz für n=4: 
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        x_1(t) &= y(t) & \indent      x_1^{'}(t) &= x_2(t)\\
+        x_2(t) &= y^{'}(t) &\indent   x_2^{'}(t) &= x_3(t)\\
+        x_3(t) &= y^{''}(t) &\indent  x_3^{'}(t) &= x_4(t)\\
+        x_4(t) &= y^{(3)}(t) &\indent 
+    \end{align}
+  \end{mdframed}
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        x_4^{'}(t) &= \frac{1}{a_4}[u(t)-a_3x_3(t)-a_2x_2(t)-a_1x_1(t)]
+    \end{align}
+  \end{mdframed}
+Zustandsraumdarstellung:
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        \begin{pmatrix}
+        x_1^{'}(t) \\
+        x_2^{'}(t) \\
+        x_3^{'}(t) \\
+        x_4^{'}(t) \\
+        \end{pmatrix} 
+        =
+        \begin{pmatrix}
+            0 & 1 & 0 & 0 \\
+            0 & 0 & 1 & 0 \\
+            0 & 0 & 0 & 1 \\
+            -\frac{a_1}{a_4} & -\frac{a_2}{a_4} & -\frac{a_2}{a_4} &  -1 \\
+        \end{pmatrix}
+        \begin{pmatrix}
+        x_1(t) \\
+        x_2(t) \\
+        x_3(t) \\
+        x_4(t) \\
+        \end{pmatrix} 
+        +
+        \begin{pmatrix}
+        0 \\
+        0 \\
+        0 \\
+        \frac{b_0}{a_4}u(t) \\
+        \end{pmatrix} 
+    \end{align}
+  \end{mdframed}
+
+
+\section{Matrizenrechnung}
+\subsection{Eigenwerte und Eigenvektoren}
+Eine Zahl $\lambda \in \mathbb{C}$ heißt Eigenwert von Matrix $A$($n$x$n$),
+falls die Multiplikation von $A$ mit Vektor $v$ $\in \mathbb{C}^n$ in eine Skalarmultiplikation
+mit $\lambda$ zusammenfällt. Dieser Vektor $v$ wird dann Eigenvektor genannt.
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        Av = \lambda v
+    \end{align}
+  \end{mdframed}
+
+\subsection{Eigenwertprobleme}
+EW = Nullstellen des char. Polynoms $p_A(\lambda)$.\\
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        det(A-\lambda E) \Longleftrightarrow 
+        \begin{vmatrix}
+             a_{11}-\lambda & a_{12} & ...  & a_{1n} \\
+             a_{21}& a_{22}-\lambda & ... & a_{2n} \\
+              ... & ...  & ...  & a_{3n} \\
+             a_{n1} & a_{n2} & ... &  a_{nn}-\lambda\\
+        \end{vmatrix} = 0
+    \end{align}
+  \end{mdframed}
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        p_A(\lambda) &= a_n \lambda^n +...+ a_1 \lambda + a_0\\
+        p_A(\lambda) &= (\lambda - \lambda_1)(\lambda - \lambda_2)...(\lambda - \lambda_n)
+    \end{align}
+  \end{mdframed}
+
+  \begin{itemize}
+    \item $p_A(\lambda)$ hat $n$ Nulltellen
+    \item VFH der NS $\lambda_i$ = \textbf{algebraische} VFH des EW $a(\lambda_i)$ 
+    \item $\sum_i a(\lambda_i) = n$ 
+    \item falls A \textbf{symmetrisch} $\rightarrow$ alle EW sind \textbf{reel}
+  \end{itemize}
+Für Eigenvektoren einfach die EW auf der Hauptdiagonalen abziehen
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        (A-\lambda E)v = 0
+    \end{align}
+  \end{mdframed}
+Bestimmung des i-ten EV $v_i$ mit zugehörigem EW $\lambda_i$ \\
+Bsp für n = 2: (v bestimmen durch Hinschauen)
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        \lambda_i : 
+        \begin{pmatrix}
+            a_{11}-\lambda_i & a_{12} \\
+            a_{21} & a_{22}-\lambda_i \\
+        \end{pmatrix} v = 0
+    \end{align}
+  \end{mdframed}
+
+  \begin{itemize}
+    \item \textbf{geometrische} VFH $g(\lambda_i)$ = Anzahl lin. unabh. EV $v$
+  \end{itemize}
+
+  \subsection{Geometrische Lage von EW}
+  EW-Bestimmung teilweise aufwendig. Aussage über Stabilität von DGL-Systemen anhand der Lage der EW der Systemmatrix A 
+  (z.B alle EW links in komplexer Halbebene).\\
+  Kriterien:
+  \begin{itemize}
+    \item Gerschgorin-Kreise 
+    \item Routh-Hurwitz-Kriterium
+  \end{itemize}
+
+  \subsubsection{Gerschgorin-Kreise}
+Aussage über geometrische Lage der EW einer Matrix.
+Ablesen von Systemeigenschaften ohne tatsächliche Berechnung der EW.\\
+Vorgehen:
+  \begin{itemize}
+    \item Für jede Zeile ein Kreis
+    \item Diagonalelement ist der Mittelpunkt
+    \item Summe der Beträge der Restelemente der Radius
+  \end{itemize}
+Bsp für n = 3
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        \begin{pmatrix}
+             a_{11} & a_{12} & a_{13} \\
+             a_{21} & a_{22} & a_{23} \\
+             a_{31} & a_{32} & a_{33} 
+        \end{pmatrix}
+    \end{align}
+  \end{mdframed}
+  dann
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        K1: MP=(a_{11}/0), R=|a_{12}+a_{13}|\\
+        K1: MP=(a_{22}/0), R=|a_{21}+a_{23}|\\
+        K1: MP=(a_{33}/0), R=|a_{31}+a_{32}|
+    \end{align}
+  \end{mdframed}
+  \begin{itemize}
+    \item Disjunkte Kreise enthalten genau einen EW
+    \item Vereinigung von $m$ disjunkten Kreisen enthält $m$ EW
+  \end{itemize}
+
+  \subsection{Routh-Hurwitz-Kriterium}
+  Aussage EW in \textbf{linker Halbebene} (negativer Realteil)
+  über Koeffizienten des charakteristischen Polynoms $p_A(\lambda)$
+
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        p_A(\lambda) &= a_n \lambda^n +...+ a_1 \lambda + a_0\\
+        p_A(\lambda) &= (\lambda - \lambda_1)(\lambda - \lambda_2)...(\lambda - \lambda_n)
+    \end{align}
+  \end{mdframed}
+\textbf{Aussagen}: (gilt in beide Richtungen)
+\begin{enumerate}[{(1)}]
+    \item Alle Nulltellen $\lambda_n$ besitzen \textbf{negativen Realteil}
+    \begin{center} $\Updownarrow$\end{center}
+    \item Alle Koeffizienten $a_n$ sind \textbf{positiv} und alle \textbf{HUD} der folgenden Matrix $H$ sind \textbf{positiv}
+\end{enumerate}
+
+  \begin{mdframed}[style=exercise]
+    \begin{align} H =
+        \begin{pmatrix}
+            a_{n-1} & a_{n-3} & a_{n-5} & ...   & a_{n-(2n-1)} \\
+             a_{n}  & a_{n-2} & a_{n-4} & ...   & a_{n-(2n-2)}\\
+              0     & a_{n-1} & a_{n-3} & ...   & a_{n-(2n-2)}\\
+             ...    &  ...    &  ...    & ...   &  ... \\
+              0     &    0    &    0    & ...   &  a_{0}
+        \end{pmatrix}
+    \end{align}
+  \end{mdframed}
+
+  \subsection{Diagonalisierbarkeit und Jordan-\\Normalform}
+  Eine Matrix von Typ ($n$x$n$) heißt \textbf{diagonalisierbar}, 
+  wenn es eine reguläre Matrix $T$ gibt, sodass 
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        T^{-1} \cdot A \cdot T = D 
+    \end{align}
+  \end{mdframed}
+  die Diagonalmatrix $D$ liefert.
+
+\subsubsection{1. Fall: A Diagonalisierbar}
+\begin{enumerate}[{(1)}]
+    \item geometrische VF = algebraische VF für alle EW
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        g(\lambda_i) = a(\lambda_i) \ \ i \in [1..n]
+    \end{align}
+  \end{mdframed}
+    \item Es existieren $n$ linear unabhängige EW, die die Spalten der
+        der Diagonalisierungsmatrix $V$ liefern
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        V^{-1} \cdot A \cdot V &= D \\
+        V =
+        \begin{pmatrix}
+            v_1 & v_2 & v_3 & ... & v_n
+        \end{pmatrix}\ ;\ 
+        D &=
+        \begin{pmatrix}
+            \lambda_1& 0    & 0  & 0 \\
+             0  & \lambda_2  & 0 & 0 \\
+             0 & 0 &\lambda_3& ... \\
+             0 & 0& ... & \lambda_n 
+        \end{pmatrix}
+    \end{align}
+  \end{mdframed}
+\end{enumerate}
+
+\subsubsection{2. Fall: A Nicht-Diagonalisierbar}
+\begin{enumerate}[{(1)}]
+    \item geometrische VF < algebraische VF für min. 1 EW
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        g(\lambda_i) < a(\lambda_i) \ \ i \in [1..n]
+    \end{align}
+  \end{mdframed}
+    \item Es können fehlende linear unabhängige EW, durch HV $\textcolor{red}{v_k}$ ersetzt werden
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        V^{-1} \cdot A \cdot V &= J \\
+        V =
+        \begin{pmatrix}
+            v_1 & v_2 & \textcolor{red}{v_k} &... & v_n
+        \end{pmatrix}\ ;\ 
+        D &=
+        \begin{pmatrix}
+             \lambda_1& 0  & 0& 0 \\
+             0 & \lambda_2 & 1 & 0 \\
+             0 & ...       & \textcolor{red}{v_k} & ... \\
+             0 & 0 & ... & \lambda_n \\
+        \end{pmatrix} 
+    \end{align}
+  \end{mdframed}
+\end{enumerate}
+
+\subsubsection{Darstellungsformen der Jordan-Normalform}
+Jede Matrix vom Typ ($n$x$n$) kann in eine Jordan-Normalform $J$ gebracht werden.
+\\Es gilt: 
+\begin{itemize}
+    \item i-ter Jordan-Block $J_i$ besteht aus EV/HV 
+    \item geo. VFH (= Anzahl EV) bestimmt größe des Jordan-Blocks 
+\end{itemize}
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        J &=
+        \begin{pmatrix}
+             J_1 & 0  & 0 & 0 \\
+             0 & J_2  & 0 & 0 \\
+             0 & 0  & ... & ... \\
+             0 & 0    & ... & J_n \\
+        \end{pmatrix} 
+    \end{align}
+  \end{mdframed}
+Jordan-Normalform kann durch Diagonalmatrix D und Nilpotente Matrix N.
+N kann durch Potenzieren zur Nullmatrix zerfallen ($N^m = 0$)
+
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+\underbrace{ 
+        \begin{pmatrix}
+             \lambda_i& 1  & 0& 0 \\
+             0 & \lambda_i & 1 & 0 \\
+             0 & 0 & \lambda_i & ... \\
+             0 & 0 & ... & \lambda_i \\
+        \end{pmatrix} 
+        }_{J_i} = 
+\underbrace{ 
+        \begin{pmatrix}
+             \lambda_i& 0  & 0& 0 \\
+             0 & \lambda_i & 0 & 0 \\
+             0 & 0 & \lambda_i & ... \\
+             0 & 0 & ... & \lambda_i \\
+        \end{pmatrix} 
+        }_{D_i} +
+\underbrace{ 
+        \begin{pmatrix}
+             0 & 1  & 0& 0 \\
+             0 & 0 & 1 & 0 \\
+             0 & 0 & 0 & ... \\
+             0 & 0 & ... & 0 \\
+        \end{pmatrix} 
+        }_{N_i}
+    \end{align}
+  \end{mdframed}
+Mit $J_i$ = i-ter Jordan-Block. \\
+\begin{itemize}
+    \item Anzahl der Jordan-Blöcke = geometrische VFH
+\end{itemize}
+
+Bsp für n = 3:
+\begin{enumerate}[(1)]
+    \item \textbf{1.Fall: geometrische VHF = 3}\\
+        $\rightarrow J = (v_1 \ v_2 \ v_3) = D$
+
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+    J = \begin{pmatrix}
+        \textcolor{red}{\lambda_1}  & | & 0  & | & 0 \\
+            --          & | &--              & | & -- \\
+             0          & | & \textcolor{blue}{\lambda_2} & | & 0 \\
+            --          & | & --             & | &  --\\
+             0          & | & 0              & | & \textcolor{green}{\lambda_3}
+        \end{pmatrix} = 
+        \begin{pmatrix}
+            \textcolor{red}{J_1} & 0 & 0\\
+            0 & \textcolor{blue}{J_1} & 0\\
+            0 & 0 & \textcolor{green}{J_3}
+        \end{pmatrix}
+    \end{align}
+  \end{mdframed}
+Jordan-Blöcke $J_i$ sind jeweil (1x1)
+    \item \textbf{2.Fall: geometrische VHF = 2}\\
+        $\rightarrow J = (v_1 \ t_1 \ v_2)$
+
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+    J = \begin{pmatrix}
+        \textcolor{red}{\lambda_1}  & 1  & | & 0 \\
+             0            & \textcolor{red}{\lambda_2} & | & 0 \\
+            --            & --             & | &  --\\
+             0            & 0              & | & \textcolor{blue}{\lambda_3}
+        \end{pmatrix} = 
+        \begin{pmatrix}
+            \textcolor{red}{J_1} & 0 \\
+            0 & \textcolor{blue}{J_2}\\
+        \end{pmatrix}
+    \end{align}
+  \end{mdframed}
+    Jordan-Block $J_1$ ist (2x2), $J_2$ ist (1x1)
+
+    \item \textbf{3.Fall: geometrische VHF = 1}\\
+        $\rightarrow J = (v_1 \ t_1 \ t_2)$
+
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+    J = \begin{pmatrix}
+        \textcolor{red}{\lambda_1}  & 1  &  0 \\
+             0            & \textcolor{red}{\lambda_2} & 1 \\
+             0            & 0              & \textcolor{red}{\lambda_3}
+        \end{pmatrix} = 
+        \begin{pmatrix}
+            \textcolor{red}{J_1} \\
+        \end{pmatrix}
+    \end{align}
+  \end{mdframed}
+\end{enumerate}
+Jordan-Block ist gesammte Matrix (3x3)
+
+\subsubsection{Hauptvektoren}
+Ein Hauptvektoren $t \in \mathbb{C}^n$ ist ein Vektor mit der Eigenschaft 
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        &(A-\lambda E)^j \cdot t = 0 \\ 
+        &(A-\lambda E)^{j-1} \cdot t \neq 0
+    \end{align}
+  \end{mdframed}
+
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        &(A-\lambda E)\cdot t^{(1)} = 0  \ \ \ \ \ (HV0 = EV)\\
+        &(A-\lambda E)\cdot t^{(2)} = t^{(1)} \neq 0\ \ \ \ \ (HV1)\\
+        &(A-\lambda E)\cdot t^{(3)} = t^{(2)}\neq 0\ \ \ \ \ (HV2) 
+    \end{align}
+  \end{mdframed}
+
+  \subsection{Matrix-Exponentialfunktion}
+  Lösungsansatz für lin. homog. DGL-Systeme
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        x(t) = c \cdot e^{At}
+    \end{align}
+  \end{mdframed}
+  Mit Potenzreihe:
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        e^{At} = E + t\ A+ \frac{t^2}{2!}A^2+ \frac{t^3}{3!}A^3 ...
+    \end{align}
+  \end{mdframed}
+\textbf{Rechenregeln:}
+\begin{enumerate}
+    \item Assoziativität
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        e^{(A+B)t} &= e^{tA} \cdot e^{tB}\\
+        e^{A(t+s)} &= e^{tA} \cdot e^{sA}
+    \end{align}
+  \end{mdframed}
+
+    \item Inverse
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        (e^{tA})^{-1} = e^{-tA}
+    \end{align}
+  \end{mdframed}
+
+    \item Ableitung
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        \frac{d(e^{tA})}{dt} = A \cdot e^{tA} =e^{tA} \cdot A
+    \end{align}
+  \end{mdframed}
+
+    \item Eigenvektor $v$ zum Eigenwert $\lambda$
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        e^{At} \cdot v = e^{\lambda t} \cdot v
+    \end{align}
+  \end{mdframed}
+
+    \item Hauptvektor $v$ zum Eigenwert $\lambda$
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        e^{At} \cdot v = e^{\lambda t} (v+\frac{t}{1!}(A-\lambda E )+\frac{t^2}{2!}(A-\lambda E )^2 + ... )
+    \end{align}
+  \end{mdframed}
+
+    \item Blockdiagonalmatrix $A$ 
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+     A=   \begin{pmatrix}
+             A_1& 0  & 0\\
+             0 & A_2 & ... \\
+             0 & ... & A_n \\
+        \end{pmatrix} \rightarrow 
+        e^{tA} =   \begin{pmatrix}
+            e^{tA_1}& 0  & 0\\
+             0 & e^{tA_2} & ... \\
+             0 & ... & e^{tA_n} \\
+        \end{pmatrix}
+    \end{align}
+  \end{mdframed}
+
+\end{enumerate}
+
+\subsubsection{Berechnung $e^{tA}$}
+\textbf{1.Fall:} A Diagonalisierbar
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        e^{tA} = V \cdot e^{tD} \cdot V^{-1} \\
+        V =
+        \begin{pmatrix}
+            v_1 & v_2 & v_3 & ... & v_n
+        \end{pmatrix}; 
+        e^{tD} &=
+        \begin{pmatrix}
+            e^{t\lambda_1}& 0    & 0  & 0 \\
+             0  & e^{t\lambda_2}  & 0 & 0 \\
+             0 & 0 & e^{t\lambda_3}& ... \\
+             0 & 0& ... & e^{t\lambda_n} 
+        \end{pmatrix}
+    \end{align}
+  \end{mdframed}
+\textbf{2.Fall:} A Nicht-Diagonalisierbar
+\begin{enumerate}[(1)]
+    \item Berechnung des i-ten Jordan-Block\\
+        Bsp für n = 3
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        e^{tJ_i} = e^{\lambda_i t N} \ \ \ \ ; \ mit \ \ 
+        N = \begin{pmatrix}
+            1 & t & \frac{t^2}{2!} \\
+            0 & 1 &  t \\
+            0 & 0 &  1 \\
+        \end{pmatrix}
+    \end{align}
+  \end{mdframed}
+
+    \item Jordan-Block zusammenfügen\\
+        Bsp für n = 3
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        e^{tJ} =
+        \begin{pmatrix}
+            e^{tJ_1} & 0 & 0 & 0 \\
+            0 & e^{tJ_2} & ... & 0 \\
+            0 &  ...  & ... &  ... \\
+            0 & 0 & ... & e^{tJ_n} \\
+        \end{pmatrix}
+    \end{align}
+  \end{mdframed}
+
+    \item Ähnlichkeitstrafo ausführen\\
+        Bsp für n = 3
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        e^{tA} = T \cdot e^{tJ} \cdot T^{-1} \\
+    \end{align}
+  \end{mdframed}
+\end{enumerate}
+
+
+\section{Lösung DGL-Systeme}
+\subsection{Lineare zeitvariable DGL-Systeme}
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        \frac{dx(t)}{dt} = A(t)x(t) + B(t)u(t)
+    \end{align}
+  \end{mdframed}
+Lösungsansatz der homogenen Lösung $x_H$
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        x_H(t) = \Phi(t;t_0)x_0
+    \end{align}
+  \end{mdframed}
+$\Phi(t;t_0)$ = Transitionsmatrix.\\
+Berechnung von $\Phi(t;t_0)$ über Fundamentalmatrix $X(t)$
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        \Phi(t;t_0) &= X(t) \cdot (X(t_0))^{-1} \\
+        X(t) &= (x_1(t)\  x_2(t)\ ... \ x_n(t)) 
+    \end{align}
+  \end{mdframed}
+Spezielle Lösung $x_S$ mittels Variation der Konstanten
+
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        x_s(t) = \Phi(t;t_0)k(t)
+    \end{align}
+  \end{mdframed}
+
+\subsection{Lineare zeitinvariante DGL-Systeme}
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        \frac{dx(t)}{dt} = Ax(t) + Bu(t)
+    \end{align}
+  \end{mdframed}
+Für LTI-DGL-Systeme gibt es 2 Lösungsvarianten.
+\begin{enumerate}
+    \item Matrix-Exponentialfunktion (geht immer)
+    \item Lsg mittels EW/EV (nur falls A Diagonalisierbar)
+\end{enumerate}
+\subsubsection{Lsg mit Matrix-Exponentialfunktion}
+
+\begin{enumerate}[(1)]
+    \item Homogene Lsg $x_H$ mit Anfangsbed. $t_0$
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        x_H(t) &= e^{tA} \cdot C
+    \end{align}
+  \end{mdframed}
+  mit
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        e^{tA} &= V \cdot e^{tD} \cdot V^{-1} \rightarrow A \ diagonalisierbar \\
+        e^{tA} &= T \cdot e^{tJ} \cdot T^{-1} \rightarrow A \ nicht\ diagonalisierbar
+    \end{align}
+  \end{mdframed}
+
+    \item Spezielle Lsg $x_S$ mittels V.d.K 
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        x_S(t) = \displaystyle\int_{0}^{t} e^{(t-\tau)A} \cdot B u(t) d\tau
+    \end{align}
+  \end{mdframed}
+    Alternativ: A.v.T.d.r.S (s. Papula)
+
+\item Superlösung $x$ mit Anfangsbed. $x_0$
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        x(t) = x_H(t) + x_S(t)
+    \end{align}
+  \end{mdframed}
+  \begin{itemize}
+      \item $x_0 = 
+        \begin{pmatrix}
+            x_{0,1} \\
+            x_{0,2} \\
+        \end{pmatrix}$ 
+          in $x(t)$ einsetzen und nach $C = 
+        \begin{pmatrix}
+            C_1 \\
+            C_2
+        \end{pmatrix}$ 
+          auflösen
+  \end{itemize}
+\end{enumerate}
+
+\subsubsection{Lsg mit EW/EV (nur falls A Diagonalisierbar)}
+\begin{enumerate}[(1)]
+    \item Homogene Lsg $x_H$ mit Anfangsbed. $t_0$
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        x_H(t) &= C_1\cdot e^{\lambda_1 t}v_1 + C_2 \cdot e^{\lambda_2 t}v_2 +... \\ \\
+        x_H(t) &= V\cdot e^{tD}c = V
+        \begin{pmatrix}
+            e^{\lambda_1 t_1} & 0 & 0 & 0 \\
+            0 & e^{\lambda_2 t_2}& ... & 0 \\
+            0 &  ...  & ... &  ... \\
+            0 & 0 & ... & e^{\lambda_n t_n}\\
+        \end{pmatrix} c
+    \end{align}
+  \end{mdframed}
+
+    \item Spezielle Lsg $x_S$ mittels V.d.K 
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        x_S(t) = \displaystyle\int_{0}^{t} e^{(t-\tau)A} \cdot B u(t) d\tau
+    \end{align}
+  \end{mdframed}
+    Alternativ: A.v.T.d.r.S (s. Papula)
+
+\item Superlösung $x$ mit Anfangsbed. $x_0$
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        x(t) = x_H(t) + x_S(t)
+    \end{align}
+  \end{mdframed}
+  \begin{itemize}
+      \item $x_0 = 
+        \begin{pmatrix}
+            x_{0,1} \\
+            x_{0,2} \\
+        \end{pmatrix}$ 
+          in $x(t)$ einsetzen und nach $C = 
+        \begin{pmatrix}
+            C_1 \\
+            C_2
+        \end{pmatrix}$ 
+          auflösen
+  \end{itemize}
+\end{enumerate}
+
+\subsection{Ruhelagen Linearisierung und Stabilität}
+
+\subsubsection{Ruhelagen}
+Bestimmung Ruhelagen:
+\begin{enumerate}
+    \item Setzte $u(t) = u_R (const.)$
+    \item Setzte $\frac{dx(t)}{dt} = 0$
+\end{enumerate}
+
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        f(x_R, u_R) = 0
+    \end{align}
+  \end{mdframed}
+
+\subsubsection{Linearisierung um Ruhelage}
+Wurden Ruhelagen gefunden so kann das DGL-System in der
+Nähe linearisiert werden.
+Bsp für n = 2
+\begin{enumerate}
+    \item 1. Gleichung nach $x_1$, $x_2$, $u$ ableiten
+    \item 2. Gleichung nach $x_1$, $x_2$, $u$ ableiten
+    \item Jacobi-Matrix $J_f$ aufstellen 
+    \item Ruhelagen $x_R$ einsetzen
+\end{enumerate}
+Jacobi-Matrix $J_f$ mit $f_n$ n-te Gleichung und $x_n$ n-ter Zustand:
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        J_f = 
+        \begin{pmatrix}
+            \frac{\partial f_1}{\partial x_1} & \frac{\partial f_1}{\partial x_2} \\ \\
+            \frac{\partial f_2}{\partial x_1} & \frac{\partial f_2}{\partial x_2} 
+        \end{pmatrix} 
+    \end{align}
+  \end{mdframed}
+Alternativ: \\
+Gleichungen einzeln Linearisieren
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        \delta \dot{x_1} = \frac{\partial f_1}{\partial x_1} \big|_{x_{1R}} \cdot \delta x_1
+        &+ \frac{\partial f_1}{\partial x_2} \big|_{x_{2R}} + \delta u_1 \\
+        &...
+    \end{align}
+  \end{mdframed}
+
+\subsubsection{Stabilität}
+System stabil wenn
+\begin{enumerate}
+    \item alle EW $\lambda_k$ neg. Realteil $\rightarrow$ \textbf{asymptotisch stabil}
+    \item $Re(\lambda_k)=0$ $\rightarrow$ stabil falls \textbf{alg VFH = geo VFH}
+\end{enumerate}
+Analyse der Jacobi-Matrix mit Routh-Hurwitz-Kriterium
+
+
+\end{document}
