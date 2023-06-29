@@ -1,0 +1,280 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{lmodern}
+\usepackage{physics}
+\usepackage[left=1cm,right=1cm,top=1.5cm,bottom=1.2cm]{geometry}
+\usepackage{siunitx}
+\usepackage{fancyhdr}
+\usepackage{enumerate}
+\usepackage{mhchem}
+\usepackage{mathtools}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage[table]{xcolor}
+\usepackage{mdframed}
+\usepackage{csquotes}
+\usepackage{trfsigns}
+\usepackage{capt-of}
+\usepackage{adjustbox}
+\usepackage{verbatim}
+
+\sisetup{locale=DE}
+\sisetup{per-mode = symbol-or-fraction}
+\sisetup{separate-uncertainty=true}
+\DeclareSIUnit\year{a}
+\DeclareSIUnit\clight{c}
+\mdfdefinestyle{exercise}{
+	backgroundcolor=black!10,roundcorner=8pt,hidealllines=true,nobreak
+}
+
+\begin{document}
+\twocolumn
+\pagestyle{fancy}
+% \lhead{DSV Formelsammlung, Stand {\input{\string"| date + " %Y-%d-%m" \string"}}}
+\lhead{Zusammenfassung System-Eigenschaften, \today}
+\rhead{Sedlmeier, Toni}
+\section{Elementare System-Eigenschaften}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Elementare System-Eigenschaften %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  \subsection{Statisch/Dynamisch}
+  Definition \textbf{Statisches} System: (z.B ohmscher Spannungsteiler)
+  \begin{mdframed}[style=exercise]
+      Jedes Ausgangssignal $y(t)$ hängt zu jedem Zeitpunkt $t$ nur von den Eingangssignalen $x(t)$ zum aktuellen Zeitpunkt ab
+  \end{mdframed}
+  Definition \textbf{Dynamisches} System: (z.B kapazitiver Spannungsteiler)
+  \begin{mdframed}[style=exercise]
+      Jedes Ausgangssignal $y(t)$ hängt zu jedem Zeitpunkt $t$ von den Eingangssignalen $x(t)$ zum aktuellen und vergangenen Zeitpunkten ab
+  \end{mdframed}
+  %
+  \subsection{Zeitkontinuierlich/Zeitdiskret}
+  Definition \textbf{Zeitkontinuierliches} System:
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+      y(t)=h(t)*u(t) \ \ mit \ t \in \mathbb{R}
+    \end{align}
+  \end{mdframed}
+  %
+  Definition \textbf{Zeitdiskretes} System:
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        y(k) &=h(k)*u(k) \\  
+        k &= t\cdot T_a  \ \ k \in \mathbb{N}
+    \end{align}
+  \end{mdframed}
+
+
+  \subsection{Linear/Nichtlinear}
+  Definition \textbf{Lineares} System:
+  \begin{itemize}
+      \item Das Eingangssignal $u_1(t)$ verursacht das Ausgangssignal $y_1(t)$
+      \item Das Eingangssignal $u_2(t)$ verursacht das Ausgangssignal $y_2(t)$
+      \item Das Eingangssignal $a\cdot u_1(t) + b\cdot u_2(t)$ verursacht das Ausgangssignal $a\cdot y_1(t) + b\cdot y_2(t)$
+  \end{itemize}
+  Bsp für \textbf{Nicht-Linearitäten:}
+  \begin{itemize}
+      \item $u(t)$ in Funktion $f()$ versteckt (z.b $sin, sqrt, exp$)
+      \item Addition mit Konstante $k$
+  \end{itemize}
+  
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        u(t)\rightarrow y(t) &= f\{u(t)\} \\
+        u(t)\rightarrow y(t) &= u(t) + k
+    \end{align}
+  \end{mdframed}
+
+  \subsection{Zeitvariant/Zeitinvariant}
+  Definition \textbf{Zeitinvariantes} System:
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        u(t-\tau) * h(t) = y(t-\tau)
+    \end{align}
+  \end{mdframed}
+  Bsp für \textbf{Nicht-Zeitinvariant:}
+  \begin{itemize}
+    \item Multiplikation mit $f(t)$
+    \item Zeitverschiebung von \textbf{nur} $u(t)$ bzw. $y(t)$
+  \end{itemize}
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        u(t) &\rightarrow y(t) = f(t)u(t)\\
+        u(t) &\rightarrow y(t) = u(t-t_0)\\
+        u(t) &\rightarrow y(t-t_0) = u(t)
+    \end{align}
+  \end{mdframed}
+
+  \subsection{Stabil/Instabil}
+  Definition \textbf{BIBO-Stabiles} System:
+  \begin{mdframed}[style=exercise]
+      Für ein beschränktes Eingangssignal $u(t)$ mit $\abs{u(t)} < M_1 < \infty$ 
+      ist das resultierende Ausgangssignal $y(t)$ für jedes $u(t)$ ebenfalls beschränkt mit $\abs{y(t)} < M_2 < \infty$.
+  \end{mdframed}
+  Definition \textbf{Stabiles LTI} System:
+  \begin{mdframed}[style=exercise]
+      Liegen die Pole $s_\infty$ der Übertragungsfunktion $G(s)$ in der linken s-Halbebene ($Re(s_\infty) < 0$), 
+      dann ist das System stabil
+  \end{mdframed}
+  Definition \textbf{Stabilität nach Lyaponov}:
+  
+
+  \subsection{Kausal/Akausal}
+  Definition \textbf{Kausales} System:
+  \begin{mdframed}[style=exercise]
+      Ein System ist kausal, wenn die Ausgangssignale $y(t)$ zu einem beliebigen Zeitpunkt $t_0$ nicht abhängen vom 
+      Verlauf der Eingangssignale für $t>t_0$
+  \end{mdframed}
+  Die Auswirkung eines Eingangssignal kann erst nach dessen Wirkung eintreten.
+
+
+\section{Darstellung von LTI-Systemen}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  Darstellung von LTI-Systemen %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+  \subsection{DGL im Zeitbereich}
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        a_0y(t)+ ... + a_n \frac{d^n y(t)}{dt^n} = b_0y(t)+ ... + b_n\frac{d^n u(t)}{dt^n}
+    \end{align}
+  \end{mdframed}
+  Bei Nichtlinearen Systemen sind $a_n$ und $b_n$ zeitabhängig $\rightarrow a_n(t) bzw. b_n(t) $
+
+
+  \subsection{Zustandsraumdarstellung}
+  Überführung von Eingangs-und Ausgansgrößen in Zustandsgrößen \\
+\textbf{Systemgleichung:}
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        \dot{x}(t) &= Ax(t) + bu(t)
+    \end{align}
+  \end{mdframed}
+\textbf{Ausgangsgleichung:}
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        y(t) &= c^T x(t) + du(t)
+    \end{align}
+  \end{mdframed}
+  \begin{itemize}
+    \item A = Systemmatrix
+    \item b = Eingangsvektor
+    \item c = Ausgangsvektor
+    \item d = Durchgriff
+  \end{itemize}
+  Bei Nichtlinearen Systemen sind $A,b,c,d$ von Zustandsvariablen abhängig
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        \dot{x}(t) &= f(x(t),u(t)) \\
+        y(t) &= g(x(t),u(t))
+    \end{align}
+  \end{mdframed}
+
+  \subsection{s-Übertragungsfunktion}
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        G(s)=\frac{Y(s)}{U(s)}= \frac{b_n s^{n}+...+b_1s+b_0 } {s^{n}+...+a_1s+a_0 }
+    \end{align}
+  \end{mdframed}
+  Laplace-Transformation ist nur für lineare, zeitinvariante Systeme definiert. (Superpositionsprinzip!)
+
+  \section{Integraltransformation}
+  Fourier-und Laplace-Transformation sind Integraltransformationen. 
+  Eine Transformation ist ein Operator $T$, der eine Funktion $f$ aus einem Funktionsraum $F$ 
+  auf eine Funktion aus anderen Funktionsraum $G$ abbildet
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        T:\left\{\begin{array}{ll} F \rightarrow G, \\
+         f	\mapsto Tf. & \end{array}\right. 
+    \end{align}
+  \end{mdframed}
+  Eine Integraltransformation ist lediglich eine Transformation, in die ein Integral verwickelt ist.
+  Wir definieren eine neue Laufvariable $\eta$. Der $K(\eta,t)$ ist der Kern der Integraltransformation. 
+  Dieser beschreibt die Beziehung zwischen der ursprünglichen Funktion $f(t)$ und der transformierten Funktion $Tf(\eta)$.
+  Bspw. ist der Kern der Fouriertransformation $K(f,t) = e^{-j2\pi ft}$. \\
+  \textbf{Allgemeine Definition}
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        Tf(\eta) = \displaystyle\int K(\eta,x) f(x) dx
+    \end{align}
+  \end{mdframed}
+  
+  \subsection{Eigenfunktion}
+  Eine Funktion $x(t)$ ist zu einem Operator $T$ eine Eigenfunktion, falls die Anwedung von T auf x folgende Form hat:
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        Tx(t) = \lambda x(t) \ \ mit \ \ \lambda \in \mathbb{C}
+    \end{align}
+  \end{mdframed}
+  Bsp: Exponentialfunktion ist Eigenfunktion bzgl. Ableitungsoperator D:
+    \begin{align*}
+        D\{e^{\textcolor{red}\lambda t}\} = \frac{d}{dt}\{e^{\textcolor{red}\lambda t}\} = \textcolor{red} \lambda e^{\lambda t}
+    \end{align*}
+  Da sinusförmige Eingangssignale der Form 
+    \begin{align*}
+        s_e(t) = e^{j2\pi ft} = cos(2\pi ft) + j sin (2\pi ft)
+    \end{align*}
+  LTI-Systeme ohne Formänderung passieren sind diese Eigenfunktionen von LTI-Systemen.\\
+  \textbf{Beispiel:}\\
+  Ein sinusförmiges Eingangssignal $x(t)$ wird auf ein System $S$ gegeben und ruft das Ausgangssignal $y(t)$ hervor.
+  \begin{mdframed}[style=exercise]
+    \begin{align*}
+        x(t) &= e^{j\omega t} = cos(\omega t) + j sin (\omega t) \ \ mit \ \ \omega = 2\pi f\\
+        y(t) &= S\{x(t)\} = S\{e^{j\omega t}\} 
+    \end{align*}
+  \end{mdframed}
+  Da es sich um ein LTI-System handelt ist dessen Operator $S$ linear und zeitinvariant.\\ 
+  Es gilt Zeitinvarianz:
+  \begin{mdframed}[style=exercise]
+    \begin{align*}
+        x(t-\tau) &= e^{j\omega (t-\tau)}\\
+        y(t-\tau) &= S\{x(t-\tau)\} = S\{e^{j\omega (t-\tau)}\} = S\{e^{-j\omega\tau} e^{j\omega t}\}
+    \end{align*}
+  \end{mdframed}
+  Weiterhin folgt aus Linearit das Superpositionsprinzip:
+  \begin{mdframed}[style=exercise]
+    \begin{align*}
+        y(t-\tau) &= S\{e^{-j\omega\tau} e^{j\omega t}\} = S\{ \underbrace{e^{-j\omega\tau}}_{ \ne f(t) }  \} \cdot S\{e^{j\omega t}\} \\
+        y(t-\tau) &= e^{-j\omega\tau} \cdot S\{e^{j\omega t}\} = \underbrace{e^{-j\omega\tau}}_{ = \lambda } \cdot S\{x(t) \} = \lambda \cdot y(t)
+    \end{align*}
+  \end{mdframed}
+  Es gilt also 
+  \begin{mdframed}[style=exercise]
+    \begin{align*}
+        y(t) = S\{x(t)\} = \lambda y(t) 
+    \end{align*}
+  \end{mdframed}
+  
+
+  \subsection{Verallgemeinerung der Eigenfunktionen}
+  Wir haben gesehen, dass komplexe Exponentialfunktionen der Form $e^{-j2\pi ft}$ Eigenfunktionenen von LTI-Systemen sind.
+  Leider sind reale Signale im Allgemeinen keine Eigenfunktionen von LTI-Systemen.
+  Wir können aber beliebige Signale $x(t)$ als eine Überlagerung von Eigenfunktionen $e^{-j2\pi ft}$ mit unterschiedlichen
+  Frequenzen $\omega = 2\pi f$ darstellen.
+  Wir bilden eine Integraltransformation, bei der der Kern $K(j2\pi f,t)$ eine Funktion der Form $e^{-j2\pi ft}$ hat.\\
+  mit $\omega = 2\pi f$ ergiebt sich:
+  \begin{mdframed}[style=exercise]
+    \begin{align*}
+        F(j\omega) &= \mathbb{F}f(j\omega) = \displaystyle\int K(j\omega,t) f(t) dt\\
+        F(j\omega) &= \displaystyle\int  e^{-j\omega t} f(t) dt
+    \end{align*}
+  \end{mdframed}
+  Wir erhalten die also die Fouriertransformation.
+  Der Term $e^{-j \omega t}$ bewirkt eine Drehung, die nicht gegen 0 geht. Die Fouriertransformation ist über das uneigentliche Integral definiert.
+  Damit das Integral konvergiert und die Fouriertransformation existiert muss $\lim_{t\rightarrow\infty} f(t)=0$ gelten.
+  Daher wollen wir die Fouriertransformation verallgemeinern, indem der Kern der Fouriertransformation um 
+  eine abklingede Exponentialfunktion $e^{-\sigma} $ mit $ \sigma \in \mathbf{R}$ erweitert wird.
+  \begin{mdframed}[style=exercise]
+    \begin{align*}
+        s = \sigma + j \omega \rightarrow e^{-st} = e^{-t(\sigma + j \omega) } = e^{-\sigma t} \cdot e^{-j \omega t}
+    \end{align*}
+  \end{mdframed}
+  Wir erhalten die Laplace-Transformation
+  \begin{mdframed}[style=exercise]
+    \begin{align*}
+        F(j\omega) &= \displaystyle\int  e^{-\sigma t} \cdot e^{-j\omega t} f(t) dt = \displaystyle\int  e^{-st} f(t) dt
+    \end{align*}
+  \end{mdframed}
+
+\end{document}
