@@ -1,5 +1,5 @@
 SHELL=/bin/bash
-DOK=vm
+DOK=VM_B_Toni
 
 .SUFFIXES:
 .SUFFIXES: .bib .pdf .tex
