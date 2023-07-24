@@ -176,13 +176,20 @@
         G(s)=\frac{Y(s)}{U(s)}= \frac{b_n s^{n}+...+b_1s+b_0 } {s^{n}+...+a_1s+a_0 }
     \end{align}
   \end{mdframed}
+
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        G(s)= c^T (sE-A)^{-1} B + d
+    \end{align}
+  \end{mdframed}
   Laplace-Transformation ist nur für lineare, zeitinvariante Systeme definiert. (Superpositionsprinzip!)
 
-  \subsection{G(s) Stabilität}
+  \subsection{G(s) BIBO-Stabilität}
   Grad <= 2:
   \begin{mdframed}[style=exercise]
       Alle Koeffizienten selbes VZ $\rightarrow$ Alle NS neg. Realteil
   \end{mdframed}
+  Grad > 2:
   \textbf{Routh-Schema}
   \begin{mdframed}[style=exercise]
     \begin{align}
@@ -302,19 +309,16 @@ Zustandsraumdarstellung:
   \newpage
   \subsection{Stabilität nach Lyapunov}
  System in Ruhelage $x_R \rightarrow$ kleine Auslenkung $\rightarrow$ Zustand wieder in $x_R$
-  \subsection{Transformation in Delta-Koordinaten}
+  \subsection{Transformation in Ruhelage}
+  Delta-Koordinaten in DGL einsetzen
   \begin{mdframed}[style=exercise]
     \begin{align}
         \Delta u(t) = u(t) - u_B \\
         \Delta x(t) = x(t) - x_B
     \end{align}
   \end{mdframed}
-  \begin{mdframed}[style=exercise]
-    \begin{align}
-        \Delta \dot{x}(t) = A_B \Delta x(t) + B_B \Delta u_e(t) \\
-        \Delta \dot{y}(t) = C_B \Delta x(t) + D_B \Delta u_e(t) \\
-    \end{align}
-  \end{mdframed}
+
+  \subsection{Linearisierung in der Ruhelage}
 Jacobi-Matrix $A_B$ mit $f_n$ n-te Gleichung und $x_n$ n-ter Zustand:
   \begin{mdframed}[style=exercise]
     \begin{align}
@@ -338,6 +342,15 @@ Jacobi-Matrix $A_B$ mit $f_n$ n-te Gleichung und $x_n$ n-ter Zustand:
         \end{pmatrix}|_{B/RL} 
     \end{align}
   \end{mdframed}
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        \Delta \dot{x}(t) = A_B \Delta x(t) + B_B \Delta u_e(t) \\
+        \Delta \dot{y}(t) = C_B \Delta x(t) + D_B \Delta u_e(t)
+    \end{align}
+  \end{mdframed}
+
+  \subsection{Einzugsgebiet}
+  Menge alle Punkte, von denen aus der Zustand wieder in die Ruhelage strebt.
 
   \subsection{Definitheit}
   \textbf{positiv definit:}
@@ -371,7 +384,12 @@ Jacobi-Matrix $A_B$ mit $f_n$ n-te Gleichung und $x_n$ n-ter Zustand:
         \dot{V}(\Delta x(t)) = \frac{d}{dt}V(x(t)) =\frac{\partial V}{\partial x} \cdot \frac{\partial x(t)}{\partial t}  
     \end{align}
   \end{mdframed}
-
+  Bsp für A = (2x2)
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        \dot{V}(\Delta x) =\frac{\partial V}{\partial x_1} \cdot \dot{x_1} + \frac{\partial V}{\partial x_2} \cdot \dot{x_2}
+    \end{align}
+  \end{mdframed}
 
   \subsection{Direkte Methode von Lyapunov}
   \begin{enumerate}
@@ -390,6 +408,29 @@ Jacobi-Matrix $A_B$ mit $f_n$ n-te Gleichung und $x_n$ n-ter Zustand:
             \item $\dot{V}(\Delta x)$ \textbf{negativ definit} $\rightarrow$ global asymp. stabil 
         \end{itemize}
   \end{enumerate}
+
+  \subsubsection{V(x) auf Definitheit prüfen}
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        V(x) &= (x_1 x_2)
+        \begin{pmatrix}
+            q_1 & q_2 \\
+            q_2 & q_3
+        \end{pmatrix} 
+        \begin{pmatrix}
+            x_1 \\
+            x_2
+        \end{pmatrix} \\
+        &= q_1 x_1^2 + 2q_2 x_1 x_2 + q_3 x_2^2 \\
+        Q &= 
+        \begin{pmatrix}
+            q_1 & q_2 \\
+            q_2 & q_3
+        \end{pmatrix} \rightarrow HUD\{Q\}
+    \end{align}
+  \end{mdframed}
+
+
 
   \newpage
   \subsection{Die Harmonische Balance}
@@ -434,9 +475,15 @@ Jacobi-Matrix $A_B$ mit $f_n$ n-te Gleichung und $x_n$ n-ter Zustand:
         K_N(v_0) = \frac{a}{v_0}
     \end{align}
   \end{mdframed}
+Falls Nichtlinearität Schalter mit Höhe h
+  \begin{mdframed}[style=exercise]
+    \begin{align}
+        \hat{a}= \frac{h4}{\pi}
+    \end{align}
+  \end{mdframed}
 
   \clearpage
   \begin{center}
-      \includegraphics[width=.8\textwidth]{./img/K_N.png}
+      \includegraphics[width=1.\textwidth]{./img/K_N.png}
   \end{center}
 \end{document}
